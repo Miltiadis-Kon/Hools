@@ -18,58 +18,191 @@
         class="d-flex flex-column flex-shrink-0 p-3 bg-light"
         style="width: flex; height:100vh;">
         <a
-          href="/"
+          href="index.html"
           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
         >
           <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="#bootstrap"></use>
+            <use xlink:href="index.html"></use>
           </svg>
           <span class="fs-4">Hools</span>
         </a>
         <hr />
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#home"></use>
+            <a href="index.html" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"  >
+                <use xlink:href="index.html"></use>
               </svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#speedometer2"></use>
-              </svg>
+              <img src="./images/kick-off.png" alt="Home" width="30" height="30" />
               Matches
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="matches.html" class="nav-link link-dark">
               <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table"></use>
+                <use xlink:href="matches.html"></use>
               </svg>
+              <img src="./images/world-cup.png" alt="Home" width="30" height="30" />
+              Standings
+            </a>
+          </li>
+          <li>
+            <a href="clubs.html" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="clubs.html"></use>
+              </svg>
+              <img src="./images/football-club.png" alt="Home" width="30" height="30" />
               My clubs
             </a>
           </li>
         </ul>
         <hr />
       </div>
-      <!--render component from another file-->
+      <!-- Top Menu-->
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"
+      style="width: 100%; height:10%;">
+        <div class="d-flex align-items-start justify-content-end">
+            <button class="btn" >
+            <img src="./images/bell.png" alt="Notifications" width="30" height="30" />
+          </button>
+            <button class="btn">
+              <img src="./images/night.png" alt="DarkLight" width="30" height="30" />
+            </button>
+            <button class="btn">
+              <img src="./images/user.png" alt="Avatar" width="40" height="40"/>
+            </button>
+        </div>
+        
+        <!-- Football Matches -->
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"
+        style="width: 100%; height:100%;">
+          <h1>Football Matches</h1>
+            <!-- hover button -->
+            <link rel="stylesheet" href="./styles/footballmatches-radio.css">
+            <div class="input">
+              <button class="value">
+                Recent Matches
+              </button>
+              <button class="value">
+                Upcoming Matches
+              </button>
+            </div>   
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Home Team</th>
+                <th scope="col">Away Team</th>
+                <th scope="col">Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01/01/2022</td>
+                <td>12:00</td>
+                <td>Team 1</td>
+                <td>Team 2</td>
+                <td>Location 1</td>
+              </tr>
+              <tr>
+                <td>01/01/2022</td>
+                <td>12:00</td>
+                <td>Team 1</td>
+                <td>Team 2</td>
+                <td>Location 1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+          <!-- Standings-->
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"
+        style="width: 100%; height:100%;">
+          <h1>Standings</h1>
+            <!-- hover button -->
+            <link rel="stylesheet" href="./styles/footballmatches-radio.css">
+            <div class="input">
+              <button class="value">
+                <img src="./images/Greek_Football_Cup_logo.png" alt="Super League" width="30" height="30" />
+
+                Greek Cup Bastion
+              </button>
+              <button class="value">
+                <img src="./images/Super_League_Greece_logo.svg.png" alt="Super League" width="30" height="30" />
+                Super League
+              </button>
+            </div>   
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Home Team</th>
+                <th scope="col">Away Team</th>
+                <th scope="col">Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01/01/2022</td>
+                <td>12:00</td>
+                <td>Team 1</td>
+                <td>Team 2</td>
+                <td>Location 1</td>
+              </tr>
+              <tr>
+                <td>01/01/2022</td>
+                <td>12:00</td>
+                <td>Team 1</td>
+                <td>Team 2</td>
+                <td>Location 1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- My clubs-->
+        <link rel="stylesheet" href="./styles/club.css">
+        <h1>Clubs</h1>
+        <div class="d-flex">
+          
+        <div class="card"> <!-- Here I create a New Div with class name card -->
+          <div class="card_img"> <!-- Here I create a New Div for image with class name card_img -->
+              <img src="./images/download.png" alt="user-image">
+          </div>
+          <div class="card_info"> <!-- Here I create a New Div for user info with class name card_info -->
+              <h2>Panathinaikos</h2>
+          </div>
+      </div>
+      <div class="card"> <!-- Here I create a New Div with class name card -->
+        <div class="card_img"> <!-- Here I create a New Div for image with class name card_img -->
+            <img src="./images/AEK_Athens_FC_(logo).svg.png" alt="user-image">
+        </div>
+        <div class="card_info"> <!-- Here I create a New Div for user info with class name card_info -->
+            <h2>Aek</h2>
+        </div>
+    </div>
+
+    <div class="card"> <!-- Here I create a New Div with class name card -->
+      <div class="card_img"> <!-- Here I create a New Div for image with class name card_img -->
+          <img src="./images/Olympiacos_FC_logo.svg.png" alt="user-image">
+      </div>
+      <div class="card_info"> <!-- Here I create a New Div for user info with class name card_info -->
+          <h2>Olympiakos</h2>
+      </div>
+  </div>
+    
+        </div>
+      </div>
+      
+        <!--render component from another file-->
       <div id="login"></div>
-      <!--render component directly-->
-      <div id="test"></div>
+         </div>
+      
+
     </div>
   </body>
 </html>
 
 <!--referance component log in-->
 <script src="./components/login.js"></script>
-
-<!--referance component test-->
-<script>
-  const test = document.getElementById("test");
-  test.innerHTML = `
-        <h1>HELLO</h1>`;
-  document.body.appendChild(test);
-</script>
