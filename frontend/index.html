@@ -2,200 +2,69 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Hooligans</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
+    <link href="index.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
-  <body>
-    <div style="display: flex">
-      <!--Side Menu-->
-      <div
-        class="d-flex flex-column flex-shrink-0 p-3 bg-light"
-        style="width: flex; height:100vh;">
-        <a
-          href="index.html"
-          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-        >
-          <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="index.html"></use>
-          </svg>
-          <span class="fs-4">Hools</span>
-        </a>
-        <hr />
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"  >
-                <use xlink:href="index.html"></use>
-              </svg>
-              <img src="./images/kick-off.png" alt="Home" width="30" height="30" />
-              Matches
-            </a>
-          </li>
-          <li>
-            <a href="matches.html" class="nav-link link-dark">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="matches.html"></use>
-              </svg>
-              <img src="./images/world-cup.png" alt="Home" width="30" height="30" />
-              Standings
-            </a>
-          </li>
-          <li>
-            <a href="clubs.html" class="nav-link link-dark">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="clubs.html"></use>
-              </svg>
-              <img src="./images/football-club.png" alt="Home" width="30" height="30" />
-              My clubs
-            </a>
-          </li>
-        </ul>
-        <hr />
-      </div>
-      <!-- Top Menu-->
-      <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"
-      style="width: 100%; height:10%;">
-        <div class="d-flex align-items-start justify-content-end">
-            <button class="btn" >
-            <img src="./images/bell.png" alt="Notifications" width="30" height="30" />
-          </button>
-            <button class="btn">
-              <img src="./images/night.png" alt="DarkLight" width="30" height="30" />
-            </button>
-            <button class="btn">
-              <img src="./images/user.png" alt="Avatar" width="40" height="40"/>
-            </button>
+  <body class="body">
+    <div class="sidebar">
+      <div class="top">
+        <div class="logo">
+          <img src="./images/socerballFull - Copy.png"  alt="logo"/>
+          <span class="menu-icon">Hooligans</span>
         </div>
-        
-        <!-- Football Matches -->
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"
-        style="width: 100%; height:100%;">
-          <h1>Football Matches</h1>
-            <!-- hover button -->
-            <link rel="stylesheet" href="./styles/footballmatches-radio.css">
-            <div class="input">
-              <button class="value">
-                Recent Matches
-              </button>
-              <button class="value">
-                Upcoming Matches
-              </button>
-            </div>   
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Time</th>
-                <th scope="col">Home Team</th>
-                <th scope="col">Away Team</th>
-                <th scope="col">Location</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>01/01/2022</td>
-                <td>12:00</td>
-                <td>Team 1</td>
-                <td>Team 2</td>
-                <td>Location 1</td>
-              </tr>
-              <tr>
-                <td>01/01/2022</td>
-                <td>12:00</td>
-                <td>Team 1</td>
-                <td>Team 2</td>
-                <td>Location 1</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-          <!-- Standings-->
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"
-        style="width: 100%; height:100%;">
-          <h1>Standings</h1>
-            <!-- hover button -->
-            <link rel="stylesheet" href="./styles/footballmatches-radio.css">
-            <div class="input">
-              <button class="value">
-                <img src="./images/Greek_Football_Cup_logo.png" alt="Super League" width="30" height="30" />
-
-                Greek Cup Bastion
-              </button>
-              <button class="value">
-                <img src="./images/Super_League_Greece_logo.svg.png" alt="Super League" width="30" height="30" />
-                Super League
-              </button>
-            </div>   
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Time</th>
-                <th scope="col">Home Team</th>
-                <th scope="col">Away Team</th>
-                <th scope="col">Location</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>01/01/2022</td>
-                <td>12:00</td>
-                <td>Team 1</td>
-                <td>Team 2</td>
-                <td>Location 1</td>
-              </tr>
-              <tr>
-                <td>01/01/2022</td>
-                <td>12:00</td>
-                <td>Team 1</td>
-                <td>Team 2</td>
-                <td>Location 1</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- My clubs-->
-        <link rel="stylesheet" href="./styles/club.css">
-        <h1>Clubs</h1>
-        <div class="d-flex">
-          
-        <div class="card"> <!-- Here I create a New Div with class name card -->
-          <div class="card_img"> <!-- Here I create a New Div for image with class name card_img -->
-              <img src="./images/download.png" alt="user-image">
-          </div>
-          <div class="card_info"> <!-- Here I create a New Div for user info with class name card_info -->
-              <h2>Panathinaikos</h2>
+        <!--seperate logo with side menu-->
+          <div style="padding: 30px 0;">
           </div>
       </div>
-      <div class="card"> <!-- Here I create a New Div with class name card -->
-        <div class="card_img"> <!-- Here I create a New Div for image with class name card_img -->
-            <img src="./images/AEK_Athens_FC_(logo).svg.png" alt="user-image">
-        </div>
-        <div class="card_info"> <!-- Here I create a New Div for user info with class name card_info -->
-            <h2>Aek</h2>
-        </div>
+      <!-- sidebar open/close button -->
+      <div id="btn">
+        <img src="./images/menu.png" alt="menu" width="26px" height="26px" />
+      </div>
+      <ul> <!--list of the side bar-->
+        <!-- Matches -->
+          <li> 
+            <a href="#"> <!--assign link -->
+            <img src="./images/football.png" alt="matches" /> <!--image-->
+            <span class="side-text">Matches</span> <!--text-->
+            </a>
+            <span class="tooltip">Matches</span> <!--tooltip-->
+          </li>
+        <!-- Standings -->
+          <li>
+            <a href="#">
+            <img src="./images/award.png" alt="standings" />
+            <span class="side-text">Standings</span>
+            </a>
+            <span class="tooltip">Standings</span>
+          </li>
+        <!-- My clubs -->
+          <li>
+            <a href="#">
+            <img src="./images/football-club.png" alt="myclubs" />
+            <span class="side-text">My Clubs</span>
+            </a>
+            <span class="tooltip">My Clubs</span>
+          </li>
+
+      </ul>
     </div>
-
-    <div class="card"> <!-- Here I create a New Div with class name card -->
-      <div class="card_img"> <!-- Here I create a New Div for image with class name card_img -->
-          <img src="./images/Olympiacos_FC_logo.svg.png" alt="user-image">
-      </div>
-      <div class="card_info"> <!-- Here I create a New Div for user info with class name card_info -->
-          <h2>Olympiakos</h2>
-      </div>
-  </div>
-    
-        </div>
-      </div>
+    <div class="main-content">
+    <div class="container">
+      <h1>HI</h1>
+    </div>
     </div>
   </body>
+  <!-- Script to click sidebar -->
+  <script>
+    let btn = document.querySelector('#btn');
+    let sidebar = document.querySelector('.sidebar');
+    btn.onclick = function(){
+      sidebar.classList.toggle("active");
+    };
+  </script>
 </html>
 
 <!--referance component log in-->
