@@ -1,0 +1,42 @@
+.matchcard
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--bg);
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.matches
+{
+
+    padding-top: 0.5rem;
+    padding-bottom: 2rem;
+}
+
+.matchcard .team
+{
+    padding: 1rem 1rem;
+    display: flex;
+}
+
+.team img
+{
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.score
+{
+    color: var(--text);
+    background-color: var(--secondary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 15%;
+}
