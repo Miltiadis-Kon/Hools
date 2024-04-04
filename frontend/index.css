@@ -42,6 +42,38 @@
         padding: 0 1rem;
     }
 
+    .matches
+    {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
+        background-color: var(--primary);
+        padding: 0 1rem;
+        margin-top: 2rem;
+    }
+
+    .standings
+    {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 25vh;
+        width: 100%;
+        background-color: var(--primary);
+        padding: 0 1rem;
+        margin-top: 2rem;
+    }
+    .clubs
+    {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 1rem;
+        margin-top: 2rem;
+    }
     .avatar
     {
         width: 200px;

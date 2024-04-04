@@ -33,10 +33,11 @@
     transition: all .3s ease-in-out;
 }
 
-.sidebar.active /* when sidebar is inactive */
+.sidebar.active /* when sidebar is active */
 {
     width: 250px;
     align-items: start;
+    margin-right: 4rem;
 }
 .sidebar #btn
 {
