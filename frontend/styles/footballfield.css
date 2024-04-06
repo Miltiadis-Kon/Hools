@@ -1,0 +1,163 @@
+.footballfied {
+    /* football field is 105x68 meters */
+    /* 1 meter = 7px */
+    position: relative;
+    width: 735px;
+    height: 476px;
+    background: var(--field);
+    border: 2px solid var(--text);
+}
+
+.footballfied .goalHome .penaldyspot{
+    /* penaldy circle is 11m from the goal line */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--text);
+    border-radius: 50%;
+    left: 10.47%;
+}
+
+.footballfied .goalHome .penaldyarea {
+    /* goal area is 5.5m from the goal line */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2px solid var(--text);
+    /* width: 18.32m */
+    width: 38.5px;
+    /* height: 5.5m */
+    height: 128.24px;
+}
+
+.footballfied .goalHome .goalarea {
+    /* goal area is 16.5m from the goal line */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2px solid var(--text);
+    /* width: 40.32m */
+    height: 282.24px;
+    /* height: 16.5m */
+    width: 115.5px;
+}
+
+.footballfied .goalHome .arch {
+    /* arch is 11m from the goal line and 9.15m radius */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 84.05px;
+    height: 84.05px;
+    border-radius: 50%;
+    left: 8.5%;
+    background-image: linear-gradient(to left, var(--text) 37%, rgba(0,0,0,0) 20%); 
+}
+.footballfied .goalHome .arch2 {
+    /* arch is 11m from the goal line and 9.15m radius */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 84.05px;
+    height: 80.05px;
+    border-radius: 50%;
+    left: 8.25%;
+    background-image: linear-gradient(to left, var(--field) 37%, rgba(0,0,0,0) 20%); 
+}
+
+.footballfied .goalAway .penaldyspot{
+    /* penaldy circle is 11m from the goal line */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--text);
+    border-radius: 50%;
+    right: 10.47%;
+}
+
+.footballfied .goalAway .penaldyarea {
+    /* goal area is 5.5m from the goal line */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2px solid var(--text);
+    /* width: 18.32m */
+    width: 38.5px;
+    /* height: 5.5m */
+    height: 128.24px;
+    right: 0;
+}
+
+.footballfied .goalAway .goalarea {
+    /* goal area is 16.5m from the goal line */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2px solid var(--text);
+    /* width: 40.32m */
+    height: 282.24px;
+    /* height: 16.5m */
+    width: 115.5px;
+    right: 0;
+}
+
+.footballfied .goalAway .arch {
+    /* arch is 11m from the goal line and 9.15m radius */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 84.05px;
+    height: 84.05px;
+    border-radius: 50%;
+    right: 8.5%;
+    background-image: linear-gradient(to right, var(--text) 37%, rgba(0,0,0,0) 20%); 
+}
+.footballfied .goalAway .arch2 {
+    /* arch is 11m from the goal line and 9.15m radius */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 84.05px;
+    height: 80.05px;
+    border-radius: 50%;
+    right: 8.25%;
+    background-image: linear-gradient(to right, var(--field) 37%, rgba(0,0,0,0) 20%); 
+}
+
+.footballfied .centerspot {
+    /* center circle is 9.15m in radius */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text);
+}
+
+.footballfied .line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--text);
+}
+
+.footballfied .centercirlce
+{
+    /* center circle is 9.15m in radius */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 128.1px;
+    height: 128.1px;
+    border: 2px solid var(--text);
+    border-radius: 50%;
+}
