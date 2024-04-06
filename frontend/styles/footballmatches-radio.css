@@ -35,7 +35,7 @@
   z-index: 0;
   left: 0;
   top: 0;
-  transition: .50s ease;
+  transition: 0.5s ease;
 }
 
 .radio-input label:has(input:checked) {
@@ -48,13 +48,13 @@
 }
 
 .radio-input label:nth-child(1):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 0/3));
+  transform: translateX(calc(var(--container_width) * 0 / 3));
 }
 
 .radio-input label:nth-child(2):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 1/3));
+  transform: translateX(calc(var(--container_width) * 1 / 3));
 }
 
 .radio-input label:nth-child(3):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 2/3));
+  transform: translateX(calc(var(--container_width) * 2 / 3));
 }
