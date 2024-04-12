@@ -16,7 +16,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 37%;
+    width: 30%;
     background-color: var(--primary);
     border-radius: 10px;
 }
@@ -55,9 +55,9 @@
 }
 .bar .line
 {
-    width: 30%;
+    width: 50%;
     height: 5px;
-    margin: 0 5%;
+    margin: 0 7%;
     border-radius: 20px;
     border: 1px solid var(--bg);
 }

@@ -1,0 +1,110 @@
+.standingsInput img
+{
+width: 35px;
+height: 35px;
+}
+
+.standingsInput
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1rem;
+}
+
+.standingsInput h2
+{
+    color: var(--text);
+    font-size: 1.3rem;
+    margin: 1%;
+    text-align: center;
+}
+
+.standingsTable
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.standingsTable .standingsCards:nth-child(1)
+{
+    background-color: var(--tritery);
+}
+
+.standingsTable .standingsCards:nth-child(2)
+{
+    background-color: var(--secondary);
+}
+
+.standingsTable .standingsCards:nth-child(3)
+{
+    background-color: var(--secondary);
+}
+
+.standingsCards
+{
+width: 100%;
+margin: 0 1rem;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+border-radius: 10px;
+align-items: center;
+}
+
+.standingsCards img
+{
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;   
+}
+
+.generalclubinfo img
+{
+    width: 35px;
+    height: 35px;
+    margin-right: 5%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+.standingsCards .generalclubinfo
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 35%;
+}
+
+.standingsCards .position
+{
+    width: 5%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.standingsCards .points
+{
+    width: 40%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.standingsCards .lastfivematches
+{
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
