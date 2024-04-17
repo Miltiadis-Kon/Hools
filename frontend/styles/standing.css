@@ -49,7 +49,6 @@ height: 35px;
 .standingsCards
 {
 width: 100%;
-margin: 0 1rem;
 display: flex;
 flex-direction: row;
 justify-content: space-between;

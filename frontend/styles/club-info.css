@@ -1,0 +1,76 @@
+.club
+{
+display: flex;
+flex-direction: row;
+width: 100%;
+background-color: var(--primary);
+align-items: center;
+border-radius: 20px;
+margin-top: 1rem;
+
+}
+
+.upcomming-match
+{
+    width: 100%;
+    background-color: var(--primary);
+    border-radius: 15px;
+    margin-top: 1rem;
+}
+
+.players
+{
+    width: 100%;
+    background-color: var(--primary);
+    border-radius: 15px;
+    margin-top: 1rem;
+
+}
+
+
+.club-backround
+{
+    width:25% ;
+    height: 100%;
+    object-fit: cover;
+
+}
+.club-backround img
+{
+width: fit-content;
+height: fit-content;
+}
+
+.club-info
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    background-image: inherit;
+    background-color: transparent;
+}
+
+.club-info img
+{
+    width: 100px;
+    height: 100px;
+    border: 1rem 1rem;
+}
+
+.club-info .texts
+{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.club-info .texts img
+{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
