@@ -14,7 +14,7 @@ app.use(cors()); //allow cross-origin requests
 app.use(bodyParser.json()); // parse requests of content-type - application/json
 
 // Assigns specific routes to the app
-app.use("/api/clubs/", clubRouter);
+app.use("/clubs/", clubRouter);
 
 // Middleware to handle errors
 app.use((req, res, next) => {
