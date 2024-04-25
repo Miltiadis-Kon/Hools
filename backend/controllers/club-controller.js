@@ -1,7 +1,6 @@
 ///Imports
 const club = require("../models/club");
 const HttpError = require("../models/http-errors");
-const mongoose = require("mongoose");
 ///Functions
 //Search club by Id.
 const getclubByID = async (req, res, next) => {
