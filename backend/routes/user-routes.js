@@ -16,5 +16,7 @@ Router.patch('/:userID', userController.updateUser); // update a user
 //DELETE
 Router.delete('/:userID', userController.deleteUser); // delete a user
 
+Router.patch('/clubs/', userController.addFavoriteClub); // add a favorite club
+
 //Export module
 module.exports = Router;

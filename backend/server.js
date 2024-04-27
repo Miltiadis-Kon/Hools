@@ -4,10 +4,10 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 // Add required routes
-const clubRouter = require('./routes/club-routes');
-const matchRouter = require('./routes/match-routes');
-const userRouter = require('./routes/user-routes');
-const playerRouter = require('./routes/player-routes');
+const clubRouter = require("./routes/club-routes");
+const matchRouter = require("./routes/match-routes");
+const userRouter = require("./routes/user-routes");
+const playerRouter = require("./routes/player-routes");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -17,17 +17,21 @@ app.use(cors()); //allow cross-origin requests
 app.use(bodyParser.json()); // parse requests of content-type - application/json
 
 // Assigns specific routes to the app
-app.use("/clubs", (req,res,next) => {
-    clubRouter(req,res,next);});
+app.use("/clubs", (req, res, next) => {
+  clubRouter(req, res, next);
+});
 
-app.use("/matches", (req,res,next) => {
-    matchRouter(req,res,next);});
+app.use("/matches", (req, res, next) => {
+  matchRouter(req, res, next);
+});
 
-app.use("/users", (req,res,next) => {
-  userRouter(req,res,next); });
+app.use("/users", (req, res, next) => {
+  userRouter(req, res, next);
+});
 
-app.use("/players", (req,res,next) => {
-  playerRouter(req,res,next);});
+app.use("/players", (req, res, next) => {
+  playerRouter(req, res, next);
+});
 
 // Middleware to handle errors
 app.use((req, res, next) => {

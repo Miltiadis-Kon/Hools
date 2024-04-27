@@ -42,12 +42,12 @@ const getclubs = async (req, res, next) => {
 
 const createclub = async (req, res, next) => {
   // create a new club
-  const { name, logo,field } = req.body; // get the data from the request body
+  const { name, logo, field } = req.body; // get the data from the request body
   const createdclub = new club({
     // create a new club object
     name,
     logo,
-    field
+    field,
   });
   try {
     await createdclub.save(); // save the new club to the database
