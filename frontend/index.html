@@ -15,8 +15,6 @@
     <link href ="styles/footballmatches-radio.css" rel="stylesheet"/>
     <link href="styles/standing.css" rel="stylesheet"/>
     <!--------------------------------------------------------------->
-    <!-- Script Classes-->
-    <script src="./scripts/getTeams.js" defer></script>
   </head>
   <body class="body">
     <div class="sidebar">
@@ -181,6 +179,7 @@
       </div>
       <div class="clubContainer" club-home-container>
       </div>
+      <script src="./scripts/getClubs.js" defer></script>
         <template club-home-template> 
         <div class="card">
           <div class="card-border-top">
@@ -205,18 +204,4 @@
       sidebar.classList.toggle("active");
     };
   </script>
-
-    <!-- Script to favorite club -->
-    <script>
-      let favoriteClub = document.querySelector('#favoriteClub');
-      let clubs = document.querySelector('.myclubs');
-      let imgHeart = document.querySelector('#imgHeart');
-      favoriteClub.onclick = function(){
-        console.log("Favorite Club");
-        imgHeart.classList.toggle("active");
-      };
-    </script>
 </html>
-
-<!--referance component log in-->
-<script src="./components/login.js"></script>

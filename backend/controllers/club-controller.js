@@ -42,11 +42,12 @@ const getclubs = async (req, res, next) => {
 
 const createclub = async (req, res, next) => {
   // create a new club
-  const { name, description } = req.body; // get the data from the request body
+  const { name, logo,field } = req.body; // get the data from the request body
   const createdclub = new club({
     // create a new club object
     name,
-    description,
+    logo,
+    field
   });
   try {
     await createdclub.save(); // save the new club to the database
@@ -55,6 +56,7 @@ const createclub = async (req, res, next) => {
     return next(error);
   }
   res.status(201).json({ club: createdclub }); // return the new club to the client
+  console.log("club created");
 };
 const updateclub = async (req, res, next) => {
   const clubID = req.params.clubID; // get the club id from the request params

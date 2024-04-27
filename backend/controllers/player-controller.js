@@ -1,4 +1,4 @@
-const player = require('../models/player-model');
+const player = require('../models/player');
 const HttpError = require('../models/http-errors');
 const mongoose = require('mongoose');
 

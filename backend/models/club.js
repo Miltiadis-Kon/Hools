@@ -7,9 +7,10 @@ const ClubSchema = new Schema({
   logo : { type: String, required: true },
   field : { type: String, required: false },
   tickets_link : { type: String, required: false },
-  players : { type: Object, required: true },
-  next_match : { type: Object, required: true },
-  leagueStanding : { type: Object, required: true },
+  players : { type: Array, required: false },
+  leagueStanding : { type: Object, required: false },
+  matches : { type: Array, required: false },
+  next_match : { type: String, required: false }
 });
 
 //Create Model from Schema and export
