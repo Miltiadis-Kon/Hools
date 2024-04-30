@@ -101,7 +101,6 @@ const createUser = async (req, res, next) => {
     name,
     email,
     password,
-    clubs,
     isAdmin,
   } = req.body; // get the data from the request body
   const createdUser = new user({
@@ -109,7 +108,6 @@ const createUser = async (req, res, next) => {
     name,
     email,
     password,
-    clubs,
     isAdmin,
   });
   try {
