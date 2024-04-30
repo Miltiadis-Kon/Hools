@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+
 const ClubSchema = new Schema({
   name: { type: String, required: true },
   logo: { type: String, required: true },
@@ -11,6 +12,9 @@ const ClubSchema = new Schema({
   leagueStanding: { type: Object, required: false },
   matches: { type: Array, required: false },
   next_match: { type: String, required: false },
+},
+{
+    collection: 'Hools'
 });
 
 //Create Model from Schema and export

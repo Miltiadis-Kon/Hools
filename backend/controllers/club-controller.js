@@ -17,7 +17,11 @@ const getclubByID = async (req, res, next) => {
     return next(error);
   }
   if (!club) {
-    throw new HttpError("Could not find a club for the provided id.", 404); // if the club does not exist, throw an error
+    const error = new HttpError(
+      "Could not find a club for the provided id.",
+      404
+    );
+    return next(error);
   }
   res.json({ club: club.toObject({ getters: true }) });
 };
@@ -34,8 +38,10 @@ const getclubs = async (req, res, next) => {
     return next(error);
   }
   if (!clubs || clubs.length == 0) {
-    // if the club does not exist, throw an error
-    throw new HttpError("Could not find a club for the provided id.", 404);
+    // if the club does not exist, throw an error\
+    const error = new HttpError("Could not find clubs.", 404);
+    return next(error);
+    
   }
   res.json({ clubs }); // return the club to the client
 };

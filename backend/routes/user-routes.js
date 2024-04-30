@@ -18,5 +18,9 @@ Router.delete('/:userID', userController.deleteUser); // delete a user
 
 Router.patch('/clubs/', userController.addFavoriteClub); // add a favorite club
 
+Router.get('/:username', userController.checkUsername); // check if username exists
+Router.get('/:email', userController.checkEmail); // check if email exists
+
+
 //Export module
 module.exports = Router;

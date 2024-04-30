@@ -1,0 +1,640 @@
+/* Index */
+:root {
+    /* define color codes */
+    --bg: #030C09;
+    --primary: #1C2632;
+    --secondary: #4E8098;
+    --tritery: #922D50;
+    --accent: #DA6B46;
+    --text: #FBFFFE;
+    --inverse: #7C72A0;
+    --second_text: #D9D9D9;
+    --field: #154E05;
+}
+
+* {
+    /* define general settings */
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.body {
+    /* define general settings on body */
+    background-color: var(--bg);
+    color: #FBFFFE;
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    
+    position: relative; 
+    margin: 0;
+}
+
+.container {
+    /* define general settings on container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 0 0;
+    flex: 90%;
+    margin-right:50px;
+    padding-left: 100px;
+}
+
+.sidebar {
+    width: 80px;
+    height: 100vh;
+    background-color: var(--primary);
+    position: absolute;
+    padding: 20px 0;
+    transition: all .3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 0; /* Προσθήκη */
+    top: 0; /* Προσθήκη */
+}
+
+.topside {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    width: 100%;
+    background-color: var(--primary);
+    padding: 0 1rem;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+.matches {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--primary);
+    padding: 0 1rem;
+    margin-top: 2rem;
+}
+
+.standings {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--primary);
+    padding: 0 1rem;
+    margin-top: 2rem;
+}
+
+.clubs {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 1rem;
+    margin-top: 2rem;
+}
+
+.clubContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.avatar {
+    width: 200px;
+    border-radius: 50%;
+    height: 100%;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                Side bar 
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  */
+    .logo img
+    {
+        width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    }
+    .menu-icon
+    {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .sidebar /* when sidebar is inactive */
+    {
+        width: 80px;
+        height: 100vh;
+        background-color: var(--primary);
+        position: absolute;
+        padding: 20px 0;
+        transition: all .3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .sidebar.active ~ .main-content /* move main container left */
+    {
+        left: 250px;
+        width: calc(100% + 250px);
+        transition: all .3s ease-in-out;
+    }
+    
+    .sidebar.active /* when sidebar is active */
+    {
+        width: 250px;
+        align-items: start;
+        margin-right: 4rem;
+    }
+    .sidebar #btn
+    {
+        position: absolute;
+        color: var(--accent);
+        top : .4rem;
+        left: 30%;
+        line-height: 50px;
+        font-size: 1.2rem;
+        transform: translateX(-50%);
+        cursor: pointer;
+    }
+    
+    .sidebar.active #btn{left: 90%;}
+    
+    .sidebar .top .logo
+    {
+        opacity: 0;
+    }
+    .sidebar.active .top .logo
+    {
+        opacity: 1;
+    }
+    
+    .sidebar ul
+    {
+        list-style-position: inside;
+        list-style: none;
+        margin: 0;
+    }
+    
+    .sidebar.active ul
+    {
+        padding: 0;
+        
+    }
+    
+    .sidebar ul li{
+        position:relative;
+        height: 50px;
+        width: 100%;
+        margin: 0.8rem;
+        line-height: 50px;
+        text-align: center;
+        }
+    
+    .sidebar ul li a
+    {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 0.8rem;
+        color: var(--text);
+    }
+    
+    .sidebar ul li img:hover
+    {
+        transform: scale(1.3);       
+    }
+    .sidebar.active ul li img:hover
+    {
+        transform: scale(1.1);       
+    }
+    /*
+    .sidebar.active ul li a:hover
+    {
+        background-color: var(--secondary);
+        transform: scale(1.1); 
+         
+    }
+    */
+    
+    .sidebar.active ul li a:hover {
+        transform: scale(1.1);
+        background-color: var(--secondary);
+      }
+      
+      .sidebar.active ul li:hover .side-text {
+        margin: 0 1.2rem; /* Μπορείς να προσαρμόσεις το περιθώριο όπως θέλεις */
+      }
+      
+      
+    
+    .sidebar ul li a img
+    {
+     min-width: 30px;
+     text-align: center;
+     height: 40px;
+     border-radius: 12px !important;
+     line-height: 50px;
+    }
+    
+    .sidebar .side-text
+    {
+        opacity: 0;
+    }
+    
+    .sidebar.active .side-text
+    {
+        opacity: 1;
+        margin: 0 1rem;
+        
+    }
+    
+    /* Tooltip Region */
+    .sidebar ul li .tooltip
+    {   
+        position: absolute;
+        left: 100px;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        box-shadow: 0 0.5rem 0.8rem rgba(0,0,0,0.2);
+        border-radius: 0.6rem;
+        padding: .4rem 1.2rem;
+        line-height: 1.8rem;
+        z-index: 20;
+        opacity: 0;
+        width: 100px;
+    }
+    
+    .sidebar ul li:hover .tooltip
+    {
+        opacity: 1;
+    }
+    
+    .sidebar.active ul li .tooltip
+    {
+        opacity: 0;
+    }
+    
+
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                Search bar (topside)
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  */
+
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: start;
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: var(--bg);
+    transition: .3s ease;
+}
+
+.input::placeholder {
+    color: #9e9ea7;
+}
+
+.input:focus,
+input:hover {
+    outline: none;
+    border-color: var(--secondary);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(218 107 70 / 20%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                Matches 
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  */
+.matchcard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--bg);
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.matches {
+
+    padding-bottom: 2rem;
+}
+
+.matchcard .team {
+    padding: 1rem 1rem;
+    display: flex;
+}
+
+.team img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.score {
+    color: var(--text);
+    background-color: var(--secondary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 15%;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                Matche-card
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  */
+
+
+.match-card {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 35vh;
+    width: 100%;
+    background-color: var(--primary);
+    padding: 0 1rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    border-radius: 20px;
+}
+
+.match-card h1 {
+    color: var(--text);
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.match-card h2 {
+    color: var(--text);
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.club-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 1rem;
+    background-image: inherit;
+    background-color: transparent;
+}
+
+.club {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+}
+
+.club img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.scorrers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.scorrers p {
+    color: var(--secondary);
+}
+
+.homeScorrer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.awayScorrer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+         Footballmatches-radio-input
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  */
+
+.radio-input input {
+    display: none;
+}
+
+.radio-input {
+    --container_width: 600px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--bg);
+    color: var(--text);
+    width: var(--container_width);
+    overflow: hidden;
+    border: 1px solid rgba(78, 128, 152, 0.226);
+}
+
+.radio-input label {
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    letter-spacing: -1px;
+    font-size: 20px;
+}
+
+.selection {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: calc(var(--container_width) / 3);
+    z-index: 0;
+    left: 0;
+    top: 0;
+    transition: 0.5s ease;
+}
+
+.radio-input label:has(input:checked) {
+    color: #fff;
+}
+
+.radio-input label:has(input:checked)~.selection {
+    background-color: var(--secondary);
+    display: inline-block;
+}
+
+.radio-input label:nth-child(1):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 0 / 3));
+}
+
+.radio-input label:nth-child(2):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 1 / 3));
+}
+
+.radio-input label:nth-child(3):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 2 / 3));
+}
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                standings
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  */
+
+.standingsInput img {
+    width: 35px;
+    height: 35px;
+}
+
+.standingsInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1rem;
+}
+
+.standingsInput h2 {
+    color: var(--text);
+    font-size: 1.3rem;
+    margin: 1%;
+    text-align: center;
+}
+
+.standingsTable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.standingsTable .standingsCards:nth-child(1) {
+    background-color: var(--tritery);
+}
+
+.standingsTable .standingsCards:nth-child(2) {
+    background-color: var(--secondary);
+}
+
+.standingsTable .standingsCards:nth-child(3) {
+    background-color: var(--secondary);
+}
+
+.standingsCards {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.standingsCards img {
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.generalclubinfo img {
+    width: 35px;
+    height: 35px;
+    margin-right: 5%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+.standingsCards .generalclubinfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 35%;
+}
+
+.standingsCards .position {
+    width: 5%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.standingsCards .points {
+    width: 40%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.standingsCards .lastfivematches {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .body {
+    transform: scale(0.58);
+    transform-origin: top left;
+}
+}

@@ -18,7 +18,11 @@ const getPlayerByID = async (req, res, next) => {
     return next(error);
   }
   if (!player) {
-    throw new HttpError("Could not find a player for thXe provided id.", 404); // if the player does not exist, throw an error
+    const error = new HttpError(
+      "Could not find a player for the provided id.",
+      404
+    );
+    return next(error);
   }
   res.json({ player: player.toObject({ getters: true }) });
 };
@@ -36,7 +40,8 @@ const getPlayers = async (req, res, next) => {
   }
   if (!players || players.length == 0) {
     // if the player does not exist, throw an error
-    throw new HttpError("Could not find a player for the provided id.", 404);
+    const error = new HttpError("Could not find players.", 404);
+    return next(error);
   }
   res.json({ players }); // return the player to the client
 };

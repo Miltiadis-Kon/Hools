@@ -18,10 +18,61 @@ const getUserByID = async (req, res, next) => {
     return next(error);
   }
   if (!user) {
-    throw new HttpError("Could not find a user for the provided id.", 404); // if the user does not exist, throw an error
+    const error = new HttpError(
+      "Could not find a user for the provided id.",
+      404
+    );
+    return next(error);
   }
   res.json({ user: user.toObject({ getters: true }) });
 };
+
+const checkUsername = async (req, res, next) => {
+  const username = req.params.username; // get the user id from the request params
+  let user;
+  try {
+    user = await user.findOne({ name: username }); // find the user in the database
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a user.",
+      500
+    );
+    return next(error);
+  }
+  if (!user) {
+    const error = new HttpError(
+      "Could not find a user for the provided name.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ user: user.toObject({ getters: true }) });
+};
+
+const checkEmail = async (req, res, next) => {
+  const email = req.params.email; // get the user id from the request params
+  let user;
+  try {
+    user =
+      await user.findOne({ email: email }); // find the user in the database
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a user.",
+      500
+    );
+    return next(error);
+  }
+  if (!user) {
+    const error = new HttpError(
+      "Could not find a user for the provided email.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ user: user.toObject({ getters: true }) });
+};
+
+
 
 const getUsers = async (req, res, next) => {
   let users;
@@ -35,8 +86,11 @@ const getUsers = async (req, res, next) => {
     return next(error);
   }
   if (!users || users.length == 0) {
-    // if the user does not exist, throw an error
-    throw new HttpError("Could not find a user for the provided id.", 404);
+    const error = new HttpError(
+      "Could not find any users in the database.",
+      404
+    );
+    return next(error);
   }
   res.json({ users }); // return the user to the client
 };
@@ -48,10 +102,6 @@ const createUser = async (req, res, next) => {
     email,
     password,
     clubs,
-    tickets,
-    notifications,
-    settings,
-    preferences,
     isAdmin,
   } = req.body; // get the data from the request body
   const createdUser = new user({
@@ -60,10 +110,6 @@ const createUser = async (req, res, next) => {
     email,
     password,
     clubs,
-    tickets,
-    notifications,
-    settings,
-    preferences,
     isAdmin,
   });
   try {
@@ -139,3 +185,6 @@ exports.createUser = createUser;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.addFavoriteClub = addFavoriteClub;
+exports.checkUsername = checkUsername;
+exports.checkEmail = checkEmail;
+

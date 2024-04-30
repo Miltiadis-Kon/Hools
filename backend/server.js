@@ -72,3 +72,13 @@ mongoose
   .catch(() => {
     console.log("Connection failed");
   });
+
+// Access specific collection in MongoDB
+const db = mongoose.connection;
+db.once("open", () => {
+  const collection = db.collection("Hools");
+  // Perform operations on the collection
+  console.log("Collection opened");
+
+  
+});

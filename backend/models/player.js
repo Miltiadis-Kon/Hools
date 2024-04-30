@@ -8,7 +8,11 @@ const PlayerSchema = new Schema({
   number: { type: Number, required: true },
   goals: { type: Number, required: true },
   club: { type: String, required: true },
-});
+},
+{
+    collection: 'Hools'
+}
+);
 
 //Create Model from Schema and export
 

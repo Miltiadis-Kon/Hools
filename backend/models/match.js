@@ -10,7 +10,11 @@ const MatchSchema = new Schema({
   tickets_link: { type: String, required: false },
   score: { type: String, required: false },
   statistics: { type: Object, required: false },
-});
+},
+{
+    collection: 'Hools'
+}
+);
 
 module.exports = mongoose.model("Match", MatchSchema);
 
