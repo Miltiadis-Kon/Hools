@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 // Add required routes
 const clubRouter = require("./routes/club-routes");
-const matchRouter = require("./routes/match-routes");
+const footballAPIRouter = require("./routes/footballAPI-routes");
 const userRouter = require("./routes/user-routes");
 const playerRouter = require("./routes/player-routes");
 const cors = require("cors");
@@ -21,8 +21,8 @@ app.use("/clubs", (req, res, next) => {
   clubRouter(req, res, next);
 });
 
-app.use("/matches", (req, res, next) => {
-  matchRouter(req, res, next);
+app.use("/footballAPI", (req, res, next) => {
+  footballAPIRouter(req, res, next);
 });
 
 app.use("/users", (req, res, next) => {
@@ -72,13 +72,3 @@ mongoose
   .catch(() => {
     console.log("Connection failed");
   });
-
-// Access specific collection in MongoDB
-const db = mongoose.connection;
-db.once("open", () => {
-  const collection = db.collection("Hools");
-  // Perform operations on the collection
-  console.log("Collection opened");
-
-  
-});

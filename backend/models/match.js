@@ -12,7 +12,7 @@ const MatchSchema = new Schema({
   statistics: { type: Object, required: false },
 },
 {
-    collection: 'Hools'
+    collection: 'hools.matches'
 }
 );
 

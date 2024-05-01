@@ -14,7 +14,7 @@ const ClubSchema = new Schema({
   next_match: { type: String, required: false },
 },
 {
-    collection: 'Hools'
+    collection: 'hools.clubs'
 });
 
 //Create Model from Schema and export
