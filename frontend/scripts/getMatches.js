@@ -1,5 +1,5 @@
-const getStandings = async () => {
-    
+const getUpcomingMatches = async () => {
+  const response = await fetch("http://localhost:5000/upcomingmatches");
   const data = await response.json;
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
@@ -72,4 +72,4 @@ const createMatchcard = (home, scoretxt, away, durationtxt, datetxt) => {
   document.body.appendChild(matchCard);
 };
 
-getStandings();
+getUpcomingMatches();

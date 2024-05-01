@@ -162,7 +162,7 @@ const getClubsfromAPI = async (req,res,next) =>
       }
       const clubs =  club_data.map(club => 
         {
-          clubModel.find({name:club.team.name}, function (err, clubsFromDB) {
+         clubModel.find({name:club.team.name}).then(function(err,docs) {
             if (err) {
              const added_club =  new Club(
                 club.team.id,
@@ -174,7 +174,7 @@ const getClubsfromAPI = async (req,res,next) =>
                 club.venue.image
                 );
                 // Save to database
-                clubModel.insertMany(added_club, function (err, docs) {
+                clubModel.insertMany(added_club).then(function(err,docs) {
                   if (err) {
                     return console.error(err);
                   } else {
@@ -186,7 +186,6 @@ const getClubsfromAPI = async (req,res,next) =>
             }
       }
       );
-    res.json({ clubs }); // return the player to the client
   });
 });
 }
@@ -303,8 +302,8 @@ class League {
   }
 
   class Club {
-    constructor(id, name, logo, founded, field_name, field_capacity, field_img) {
-      this.id = id;
+    constructor(footballAPI_id, name, logo, founded, field_name, field_capacity, field_img) {
+      this.footballAPI_id = footballAPI_id;
       this.name = name;
       this.logo = logo;
       this.founded = founded;

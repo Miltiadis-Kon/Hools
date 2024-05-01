@@ -8,6 +8,7 @@ const clubRouter = require("./routes/club-routes");
 const footballAPIRouter = require("./routes/footballAPI-routes");
 const userRouter = require("./routes/user-routes");
 const playerRouter = require("./routes/player-routes");
+const matchRouter = require("./routes/match-routes");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -32,6 +33,12 @@ app.use("/users", (req, res, next) => {
 app.use("/players", (req, res, next) => {
   playerRouter(req, res, next);
 });
+
+app.use("/matches", (req, res, next) => {
+  matchRouter(req, res, next);
+});
+
+
 
 // Middleware to handle errors
 app.use((req, res, next) => {
