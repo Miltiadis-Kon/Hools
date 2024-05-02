@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const MatchSchema = new Schema({
+  footballAPI_id: { type: Number, required: true },
   home_team: { type: Object, required: true },
   away_team: { type: Object, required: true },
+  score: { type: String, required: false },
   date: { type: Date, required: true },
   time: { type: String, required: true },
-  location: { type: String, required: true },
-  tickets_link: { type: String, required: false },
-  score: { type: String, required: false },
+  venue: { type: Object, required: true },
   statistics: { type: Object, required: false },
 },
 {
