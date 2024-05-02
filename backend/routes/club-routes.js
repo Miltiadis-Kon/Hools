@@ -13,7 +13,9 @@ router.post("/", (req, res, next) => {
   clubController.createclub(req, res, next);
 });
 
-
+router.get("/:clubID", (req, res, next) => {
+  clubController.getclubByID(req, res, next);
+});
 
 //Export module
 module.exports = router;

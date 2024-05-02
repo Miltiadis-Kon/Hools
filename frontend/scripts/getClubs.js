@@ -32,9 +32,11 @@ const getTeams = async () => {
   data.clubs.map((team) => {
     const clubHome = club_home_template.content.cloneNode(true);
     clubHome.querySelector("[club-name]").textContent = team.name;
-    var img = clubHome.querySelector("[club-image]");
+    var img = clubHome.querySelector("[club-image] img");
     img.src = team.logo;
     img.alt = team.name;
+    var alt = clubHome.querySelector("[club-image]  a");
+    alt.href = `team.html?club=${team.footballAPI_id}`;
     clubHome
       .querySelector("#favoriteClub")
       .addEventListener("click", async (e) => {

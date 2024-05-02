@@ -9,7 +9,7 @@ router.get("/clubfromleague/:league_id",matchController.getClubsfromAPI); //get 
 router.get("/setup_clubs/:league_id",matchController.setUpclubs); //get ALL clubs based on league_id and save to database
 //Club info related routes
 router.get("/players/:club_id",matchController.getPlayersandCoachfromAPI); //get ALL players and coach based on club_id
-router.get("/next_match/:club_id",matchController.getNextMatchfromAPI); //get the next match based on club_id
+router.get("/next_match/:league_id/:club_id",matchController.getNextMatchfromAPI); //get the next match based on club_id
 
 //Match related routes
 router.get("/matches/:match_id",matchController.getMatchfromAPI); //get ONE match based on match_id

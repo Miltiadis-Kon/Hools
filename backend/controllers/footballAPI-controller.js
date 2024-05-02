@@ -217,7 +217,7 @@ const getClubsfromAPI = async (req, res, next) => {
 
 const getNextMatchfromAPI = async (req, res, next) => {
   const club_id = req.params.club_id;
-
+  const league_id = req.params.league_id;
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
@@ -253,64 +253,77 @@ const getNextMatchfromAPI = async (req, res, next) => {
         const error = new HttpError("Could not find the club.", 404);
         return next(error);
       });
-    res.json({ upcomingMatch }); // return the player to the client
+    res.json("Success" ); // return the player to the client
   });
 };
 
 const getPlayersandCoachfromAPI = async (req, res, next) => {
   const club_id = req.params.club_id;
+  let players = [];
+  let coach = {};
   const options = {
     method: "GET",
-    url: "https://api-football-v1.p.rapidapi.com/v3/players",
-    qs: { team: club_id },
+    url: 'https://api-football-v1.p.rapidapi.com/v3/players',
+    qs: { team: club_id,season: '2023'},
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+      'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
     },
   };
 
-  const players = request(options, function (error, response, body) {
+  request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    const jsonBody = JSON.parse(body);
+    const jsonBody = JSON.parse(response.body);
     if (response == null) {
       const error = new HttpError("Could not find players.", 404);
       return next(error);
     }
-    return jsonBody.response; // return the player to the client
+    if(jsonBody.response.length > 0)
+    players = jsonBody.response;
+
+    clubModel.find({ footballAPI_id : club_id })
+    .then((matchesFromDB) => {
+      if (matchesFromDB.length == 0) {
+        const error = new HttpError("Could not find the club.", 404);
+        return next(error);
+      }
+      const club = matchesFromDB[0];
+      club.players = players;
+      club.save();
+    });  
   });
 
   const options2 = {
     method: "GET",
-    url: "https://api-football-v1.p.rapidapi.com/v3/coachs",
-    qs: { team: club_id },
+    url: 'https://api-football-v1.p.rapidapi.com/v3/coachs',
+    qs: { team: club_id},
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+      'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
     },
   };
-
-  const coach = request(options2, function (error, response, body) {
+  request(options2, function (error, response, body) {
     if (error) throw new Error(error);
-    // Parse JSON body
-    const jsonBody = JSON.parse(body);
+    const jsonBody = JSON.parse(response.body);
     if (response == null) {
-      const error = new HttpError("Could not find the coach.", 404);
+      const error = new HttpError("Could not find coach.", 404);
       return next(error);
     }
-    return jsonBody.response; // return the player to the client
+    if(jsonBody.response.length > 0)
+    coach = jsonBody.response[0];
+
+    clubModel.find({ footballAPI_id : club_id })
+    .then((matchesFromDB) => {
+      if (matchesFromDB.length == 0) {
+        const error = new HttpError("Could not find the club.", 404);
+        return next(error);
+      }
+      const club = matchesFromDB[0];
+      club.coach = coach;
+      club.save();
+    });
   });
-  //Store players and coach in MongoDB
-  clubModel.find({ footballAPI_id : club_id })
-  .then((matchesFromDB) => {
-    if (matchesFromDB.length == 0) {
-      const error = new HttpError("Could not find the club.", 404);
-      return next(error);
-    }
-    const club = matchesFromDB[0];
-    club.players = players;
-    club.coach = coach;
-    club.save();
-  });
+  res.json("Success"); // return the player to the client
 };
 
 const setUpclubs = async (req, res, next) => {
@@ -519,13 +532,19 @@ class Standings {
 }
 class Club {
   constructor(
-    footballAPI_id,
     name,
+    footballAPI_id,
     logo,
     founded,
     field_name,
     field_capacity,
-    field_img
+    field_img,
+    tickets_link,
+    players,
+    leagueStanding,
+    matches,
+    next_match,
+    coach
   ) {
     this.footballAPI_id = footballAPI_id;
     this.name = name;
@@ -534,6 +553,12 @@ class Club {
     this.field_name = field_name;
     this.field_capacity = field_capacity;
     this.field_img = field_img;
+    this.tickets_link = tickets_link;
+    this.players = players;
+    this.leagueStanding = leagueStanding;
+    this.matches = matches;
+    this.next_match = next_match;
+    this.coach = coach;
   }
 }
 class Match {

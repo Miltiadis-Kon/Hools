@@ -15,7 +15,8 @@ const ClubSchema = new Schema({
   players: { type: Array, required: false },
   leagueStanding: { type: Object, required: false },
   matches: { type: Array, required: false },
-  next_match: { type: String, required: false },
+  next_match: { type: Object, required: false },
+  coach: { type: Object, required: false },
 },
 {
     collection: 'hools.clubs'

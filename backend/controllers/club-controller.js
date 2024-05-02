@@ -4,27 +4,26 @@ const HttpError = require("../models/http-errors");
 ///Functions
 //Search club by Id.
 const getclubByID = async (req, res, next) => {
-  // get a club by id
-  const clubID = req.params.clubID; // get the club id from the request params
-  let club;
+  const clubID = req.params.clubID;
+  let _club;
   try {
-    club = await club.findById(clubID); // find the club in the database
+    _club = await club.find({footballAPI_id:clubID});
+    if (!_club || _club.length === 0) {
+      const error = new HttpError(
+        "Could not find a club for the provided id.",
+        404
+      );
+      return next(error);
+    }
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not find a club.",
+      "Something went wrong, could not find a club from ID.",
       500
     );
     return next(error);
   }
-  if (!club) {
-    const error = new HttpError(
-      "Could not find a club for the provided id.",
-      404
-    );
-    return next(error);
-  }
-  res.json({ club: club.toObject({ getters: true }) });
-};
+  res.json({ _club }); // return club in json format
+}
 
 const getclubs = async (req, res, next) => {
   let clubs;
