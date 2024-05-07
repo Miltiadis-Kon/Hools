@@ -6,39 +6,6 @@ const clubModel = require("../models/club");
 const club = require("../models/club");
 const matchModel = require("../models/match");
 
-//To run once every day
-const getLeaguefromAPI = async (req, res, next) => {
-  var league_id = req.parms.league_id;
-  //Fetch data from sport-api
-  var options = {
-    method: "GET",
-    url: "https://v3.football.api-sports.io/standings",
-    qs: { league: league_id, season: "2023" },
-    headers: {
-      "X-RapidAPI-Key": "f1067f680ed695a0463de28ec550d073",
-      "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-    },
-  };
-
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-    const standingsData = JSON.parse(body);
-    const leagueData = standingsData.response[0].league;
-    // Create new League instance
-    const league = new League(
-      leagueData.id,
-      leagueData.name,
-      leagueData.country,
-      leagueData.logo,
-      leagueData.flag,
-      leagueData.season
-    );
-
-    console.log(league);
-    //Save data to mongo
-  });
-};
-
 const getStandingsfromAPI = async (req, res, next) => {
   const league_id = req.params.league_id;
   const season_id = req.params.season_id;
@@ -98,70 +65,6 @@ const getStandingsfromAPI = async (req, res, next) => {
     res.json({ standings }); // return the player to the client
   });
 };
-
-const getNextMatchesfromAPI = async (req, res, next) => {
-  const league_id = req.params.league_id;
-  const options = {
-    method: "GET",
-    url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-    qs: { next: "5", league: league_id },
-    headers: {
-      "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-    },
-  };
-
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-
-    // Parse JSON body
-    const jsonBody = JSON.parse(body);
-    const upcomingMatches = jsonBody.response;
-    if (response == null) {
-      const error = new HttpError("Could not find any matches.", 404);
-      return next(error);
-    }
-    //TODO: Save to database
-    upcomingMatches.map((match) => {
-      const _m = new Match(
-        match.fixture.id,
-        match.fixture.referee,
-        match.teams.home,
-        match.teams.away,
-        match.goals.home + " - " + match.goals.away,
-        match.fixture.date,
-        match.fixture.date,
-        match.venue,
-        getStatistics(match.fixture.id)
-      );
-
-      matchModel
-        .find({ footballAPI_id: match.fixture.id })
-        .then((matchesFromDB) => {
-          if (matchesFromDB.length == 0) {
-            matchModel.insertMany(_m).then(function (err, docs) {
-              if (err) {
-                return console.error(err);
-              } else {
-                console.log(`Added match: ${_m} to MongoDB successfully.`);
-              }
-            });
-          } else console.log("Match already on DB");
-        });
-
-      // Save to database
-      matchModel.insertMany(_m).then(function (err, docs) {
-        if (err) {
-          return console.error(err);
-        } else {
-          console.log(`Added match: ${_m} to MongoDB successfully.`);
-        }
-      });
-    });
-    res.json({ upcomingMatches }); // return the player to the client
-  });
-};
-
 const getClubfromAPI = async (req, res, next) => {
   const club_id = req.params.club_id;
 };
@@ -253,7 +156,7 @@ const getNextMatchfromAPI = async (req, res, next) => {
         const error = new HttpError("Could not find the club.", 404);
         return next(error);
       });
-    res.json("Success" ); // return the player to the client
+    res.json("Success"); // return the player to the client
   });
 };
 
@@ -263,11 +166,11 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
   let coach = {};
   const options = {
     method: "GET",
-    url: 'https://api-football-v1.p.rapidapi.com/v3/players',
-    qs: { team: club_id,season: '2023'},
+    url: "https://api-football-v1.p.rapidapi.com/v3/players",
+    qs: { team: club_id, season: "2023" },
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
+      "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
 
@@ -278,11 +181,9 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
       const error = new HttpError("Could not find players.", 404);
       return next(error);
     }
-    if(jsonBody.response.length > 0)
-    players = jsonBody.response;
+    if (jsonBody.response.length > 0) players = jsonBody.response;
 
-    clubModel.find({ footballAPI_id : club_id })
-    .then((matchesFromDB) => {
+    clubModel.find({ footballAPI_id: club_id }).then((matchesFromDB) => {
       if (matchesFromDB.length == 0) {
         const error = new HttpError("Could not find the club.", 404);
         return next(error);
@@ -290,16 +191,16 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
       const club = matchesFromDB[0];
       club.players = players;
       club.save();
-    });  
+    });
   });
 
   const options2 = {
     method: "GET",
-    url: 'https://api-football-v1.p.rapidapi.com/v3/coachs',
-    qs: { team: club_id},
+    url: "https://api-football-v1.p.rapidapi.com/v3/coachs",
+    qs: { team: club_id },
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
+      "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
   request(options2, function (error, response, body) {
@@ -309,11 +210,9 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
       const error = new HttpError("Could not find coach.", 404);
       return next(error);
     }
-    if(jsonBody.response.length > 0)
-    coach = jsonBody.response[0];
+    if (jsonBody.response.length > 0) coach = jsonBody.response[0];
 
-    clubModel.find({ footballAPI_id : club_id })
-    .then((matchesFromDB) => {
+    clubModel.find({ footballAPI_id: club_id }).then((matchesFromDB) => {
       if (matchesFromDB.length == 0) {
         const error = new HttpError("Could not find the club.", 404);
         return next(error);
@@ -344,50 +243,71 @@ const getMatchfromAPI = async (req, res, next) => {
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-    qs: { fixture: match_id },
+    qs: { id: match_id },
     headers: {
-      "X-RapidAPI-Key": "84f63e80f5mshea51795cf0207b4p1f3db4jsn6322216a163c",
+      "X-RapidAPI-Key": process.env.RAPID_API_KEY,
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
-  const match = request(options, function (error, response, body) {
-    if (error) throw new Error(error);
+  request(options, function (error, response, body) {
     const jsonBody = JSON.parse(body);
-    if (response == null) {
-      const error = new HttpError("Could not find the match.", 404);
-      return next(error);
-    }
-    return jsonBody.response;
-  });
-  //Store match details in MongoDB
-  matchModel.find({ footballAPI_id: match_id })
-  .then((matchesFromDB)=>{
-    if(matchesFromDB.length == 0){
-      const _m = new Match(
-        match.fixture.id,
-        match.fixture.referee,
-        match.teams.home,
-        match.teams.away,
-        match.goals.home + " - " + match.goals.away,
-        match.fixture.date,
-        match.fixture.date,
-        match.fixture.venue,
-        getStatistics(match.fixture.id)
-      );
-      matchModel.insertMany(_m).then(function (err, docs) {
-        if (err) {
-          return console.error(err);
-        } else {
-          console.log(`Added match: ${_m} to MongoDB successfully.`);
-        }
+    let info = jsonBody.response[0];
+    //Store match details in MongoDB
+    matchModel
+      .find({ footballAPI_id: match_id })
+      .then((matchesFromDB) => {
+        if (matchesFromDB.length == 0) {
+          //Get all scorers
+          let h_scorers = [];
+          let a_scorers = [];
+
+          for (let i = 0; i < info.events.length; i++) {
+            let event = info.events[i];
+            if (event.type == "Goal") {
+              if (event.team.id == info.teams.home.id) {
+                h_scorers.push(event.player);
+              } else {
+                a_scorers.push(event.player);
+              }
+            }
+          }
+
+          const _m = new Match(
+            (footballAPI_id = info.fixture.id),
+            (date = info.fixture.date),
+            (time = info.fixture.date),
+            (referee = info.fixture.referee),
+            (venue = info.fixture.venue),
+            (match_status = info.fixture.status.short),
+            (score = info.goals.home + " - " + info.goals.away),
+            (home_team = info.teams.home),
+            (home_scorers = h_scorers),
+            (home_statistics = info.statistics[0].statistics),
+            (home_formation = info.lineups[0].formation),
+            (home_lineup = info.lineups[0].startXI),
+            (home_substitutes = info.lineups[0].substitutes),
+            (away_team = info.teams.away),
+            (away_scorers = a_scorers),
+            (away_statistics = info.statistics[1].statistics),
+            (away_formation = info.lineups[1].formation),
+
+            (away_lineup = info.lineups[1].startXI),
+            (away_substitutes = info.lineups[1].substitutes)
+          );
+          matchModel.insertMany(_m).then(function (err, docs) {
+            if (err) {
+              return console.error(err);
+            } else {
+              console.log(`Added match: ${_m} to MongoDB successfully.`);
+            }
+          });
+        } else console.log("Match already on DB");
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    }
-    else console.log("Match already on DB");
-  })
-  .catch((err)=>{
-    console.log(err);
+    res.json({ info }); // return the player to the client
   });
-  res.json({ match }); // return the player to the client
 };
 
 const getRecentMatches = async (req, res, next) => {
@@ -411,59 +331,182 @@ const getRecentMatches = async (req, res, next) => {
     }
     let ctr = 0;
     recentMatches.map((match) => {
-      const _m = new Match(
-        match.fixture.id,
-        match.fixture.referee,
-        match.teams.home,
-        match.teams.away,
-        match.goals.home + " - " + match.goals.away,
-        match.fixture.date,
-        match.fixture.date,
-        match.fixture.venue,
-        getStatistics(match.fixture.id)
-      );
-      console.log(++ctr);
-      // Save to database
-      matchModel
-        .find({ footballAPI_id: match.footballAPI_id })
-        .then((matchesFromDB) => {
-          if (matchesFromDB.length == 0) {
-            matchModel.insertMany(_m).then(function (err, docs) {
-              if (err) {
-                return console.error(err);
-              } else {
-                console.log(`Added match: ${ctr} to MongoDB successfully.`);
-              }
-            });
-          } else console.log("Match already on DB");
-        })
-        .catch((err) => {
-          console.log(err);
+      //Get all statistics
+      const statOptions = {
+        method: "GET",
+        url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
+        qs: { fixture: match.fixture.id },
+        headers: {
+          "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+        },
+      };
+
+      request(statOptions, function (error, response, body) {
+        if (error) throw new Error(error);
+        const jsonBody = JSON.parse(body);
+        if (response == null) {
+          const error = new HttpError("Could not find any matches.", 404);
+          return next(error);
+        }
+        const info = jsonBody.response[0];
+
+        //Get all scorers
+        let h_scorers = [];
+        let a_scorers = [];
+        info.events.forEach((event) => {
+          //Events include goals, cards, substitutions etc.
+          if (event.type == "goal") {
+            if (event.team.id == info.teams.home.id) {
+              h_scorers.push(event.player);
+            } else {
+              a_scorers.push(event.player);
+            }
+          }
         });
+
+        const _m = new Match(
+          (footballAPI_id = info.fixture.id),
+          (date = info.fixture.date),
+          (time = info.fixture.date),
+          (referee = info.fixture.referee),
+          (venue = info.fixture.venue),
+          (match_status = info.fixture.status.short),
+          (home_team = info.teams.home),
+          (away_team = info.teams.away),
+          (score = info.goals.home + " - " + info.goals.away),
+          (home_lineup = info.lineups[0].startXI),
+          (away_lineup = info.lineups[1].startXI),
+          (home_substitutes = info.lineups[0].substitutes),
+          (away_substitutes = info.lineups[1].substitutes),
+          (home_formation = info.lineups[0].formation),
+          (away_formation = info.lineups[1].formation),
+          (home_statistics = info.statistics[0].statistics),
+          (away_statistics = info.statistics[1].statistics),
+          (home_scorers = h_scorers),
+          (away_scorers = a_scorers)
+        );
+        console.log(++ctr);
+        // Save to database
+        matchModel
+          .find({ footballAPI_id: match.footballAPI_id })
+          .then((matchesFromDB) => {
+            if (matchesFromDB.length == 0) {
+              matchModel.insertMany(_m).then(function (err, docs) {
+                if (err) {
+                  return console.error(err);
+                } else {
+                  console.log(`Added match: ${ctr} to MongoDB successfully.`);
+                }
+              });
+            } else console.log("Match already on DB");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
     });
     res.json({ recentMatches }); // return the player to the client
   });
 };
 
-const getStatistics = async (match_id) => {
+const getNextMatchesfromAPI = async (req, res, next) => {
+  const league_id = req.params.league_id;
   const options = {
     method: "GET",
-    url: "https://api-football-v1.p.rapidapi.com/v3/fixtures/statistics",
-    qs: { fixture: match_id },
+    url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
+    qs: { next: "10", league: league_id },
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
-
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
     const jsonBody = JSON.parse(body);
+    const recentMatches = jsonBody.response;
     if (response == null) {
-      const error = new HttpError("Could not find the match statistics.", 404);
+      const error = new HttpError("Could not find any matches.", 404);
       return next(error);
     }
-    return jsonBody.response;
+    let ctr = 0;
+    recentMatches.map((match) => {
+      //Get all statistics
+      const statOptions = {
+        method: "GET",
+        url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
+        qs: { fixture: match.fixture.id },
+        headers: {
+          "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+        },
+      };
+
+      request(statOptions, function (error, response, body) {
+        if (error) throw new Error(error);
+        const jsonBody = JSON.parse(body);
+        if (response == null) {
+          const error = new HttpError("Could not find any matches.", 404);
+          return next(error);
+        }
+        const info = jsonBody.response[0];
+
+        //Get all scorers
+        let h_scorers = [];
+        let a_scorers = [];
+        info.events.forEach((event) => {
+          //Events include goals, cards, substitutions etc.
+          if (event.type == "goal") {
+            if (event.team.id == info.teams.home.id) {
+              h_scorers.push(event.player);
+            } else {
+              a_scorers.push(event.player);
+            }
+          }
+        });
+
+        const _m = new Match(
+          (footballAPI_id = info.fixture.id),
+          (date = info.fixture.date),
+          (time = info.fixture.date),
+          (referee = info.fixture.referee),
+          (venue = info.fixture.venue),
+          (match_status = info.fixture.status.short),
+          (home_team = info.teams.home),
+          (away_team = info.teams.away),
+          (score = info.goals.home + " - " + info.goals.away),
+          (home_lineup = info.lineups[0].startXI),
+          (away_lineup = info.lineups[1].startXI),
+          (home_substitutes = info.lineups[0].substitutes),
+          (away_substitutes = info.lineups[1].substitutes),
+          (home_formation = info.lineups[0].formation),
+          (away_formation = info.lineups[1].formation),
+          (home_statistics = info.statistics[0].statistics),
+          (away_statistics = info.statistics[1].statistics),
+          (home_scorers = h_scorers),
+          (away_scorers = a_scorers)
+        );
+        console.log(++ctr);
+        // Save to database
+        matchModel
+          .find({ footballAPI_id: match.footballAPI_id })
+          .then((matchesFromDB) => {
+            if (matchesFromDB.length == 0) {
+              matchModel.insertMany(_m).then(function (err, docs) {
+                if (err) {
+                  return console.error(err);
+                } else {
+                  console.log(`Added match: ${ctr} to MongoDB successfully.`);
+                }
+              });
+            } else console.log("Match already on DB");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    });
+    res.json({ recentMatches }); // return the player to the client
   });
 };
 
@@ -564,23 +607,43 @@ class Club {
 class Match {
   constructor(
     footballAPI_id,
-    referee,
-    home_team,
-    away_team,
-    score,
     date,
     time,
+    referee,
     venue,
-    statistics
+    match_status,
+    score,
+    home_team,
+    home_scorers,
+    home_statistics,
+    home_formation,
+    home_lineup,
+    home_substitutes,
+    away_team,
+    away_scorers,
+    away_statistics,
+    away_formation,
+    away_lineup,
+    away_substitutes
   ) {
     this.footballAPI_id = footballAPI_id;
-    this.referee = referee;
     this.home_team = home_team;
     this.away_team = away_team;
     this.score = score;
     this.date = date;
     this.time = time;
     this.venue = venue;
-    this.statistics = statistics;
+    this.home_statistics = home_statistics;
+    this.away_statistics = away_statistics;
+    this.home_scorers = home_scorers;
+    this.away_scorers = away_scorers;
+    this.home_lineup = home_lineup;
+    this.away_lineup = away_lineup;
+    this.home_substitutes = home_substitutes;
+    this.away_substitutes = away_substitutes;
+    this.home_formation = home_formation;
+    this.away_formation = away_formation;
+    this.match_status = match_status;
+    this.referee = referee;
   }
 }

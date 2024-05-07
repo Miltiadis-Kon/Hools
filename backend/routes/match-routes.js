@@ -15,7 +15,8 @@ router.get("/match/:match_id", (req, res, next) => {
     matchController.get_match(req, res, next);
 });
 // Get all matches between two dates
-router.get("/matches/:from_date/:to_date", (req, res, next) => {
+// ex. /matches/24_04_24/24_05_20
+router.get("/date/:from_date/:to_date", (req, res, next) => {
     matchController.get_matches(req, res, next);
 });
 

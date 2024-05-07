@@ -34,9 +34,14 @@ const displayClub = async () => {
     awayTeam.querySelector("h3").innerHTML = nextMatch.teams.away.name;
 
     // Set match date
+    //2024-05-15T17:00:00+00:00
+    const date = new Date(nextMatch.fixture.date);
+    const formattedDate = `${date.getDate()} / ${date.getMonth() + 1} / ${date.getFullYear()}`;
+    const formattedTime = `${date.getHours()}:${date.getMinutes()}`;
     const matchDate = document.querySelector(".upcomming-match .texts");
-    matchDate.querySelector("h3").innerHTML = nextMatch.fixture.date;
-    matchDate.querySelector("h4").innerHTML = nextMatch.fixture.time;
+    matchDate.querySelector("h3").innerHTML = formattedDate;
+    matchDate.querySelector("h4").innerHTML = formattedTime;
+
 
     // Set match venue
     const matchVenue = document.querySelector(".upcomming-match h2");

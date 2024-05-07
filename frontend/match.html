@@ -17,6 +17,9 @@
     <link href="styles/playerpositionspitch.css" rel="stylesheet"/>
     <link href ="styles/match-card.css"rel="stylesheet"/>
     <link href="styles/lineup.css" rel="stylesheet"/>
+
+    <!--Scripts-->
+    <script src="./scripts/setupMatchPage.js" defer></script>
   </head>
   <body class="body">
     <div class="sidebar">
@@ -83,14 +86,14 @@
           <div class="match-card">
             <h1> OPAP ARENA </h1> 
             <div class="club-info">
-              <div class="club">
-                <img src="./images/Olympiacos_FC_logo.svg.png" alt="olympiacos" width="100px" height="100px" />
+              <div class="club" home >
+                <img src="./images/Olympiacos_FC_logo.svg.png" alt="home" width="100px" height="100px" />
                 <h2> Olympiacos </h2>
               </div>
               <h1> 2 - 1 </h1>
-              <div class="club">
+              <div class="club" away>
                 <h2> AEK </h2>
-                <img src="./images/AEK_Athens_FC_(logo).svg.png" alt="aek" width="100px" height="100px" />
+                <img src="./images/AEK_Athens_FC_(logo).svg.png" alt="away" width="100px" height="100px" />
               </div>
             </div>
             <div class="scorrers">
@@ -234,18 +237,4 @@
       sidebar.classList.toggle("active");
     };
   </script>
-
-    <!-- Script to favorite club -->
-    <script>
-      let favoriteClub = document.querySelector('#favoriteClub');
-      let clubs = document.querySelector('.myclubs');
-      let imgHeart = document.querySelector('#imgHeart');
-      favoriteClub.onclick = function(){
-        console.log("Favorite Club");
-        imgHeart.classList.toggle("active");
-      };
-    </script>
 </html>
-
-<!--referance component log in-->
-<script src="./components/login.js"></script>

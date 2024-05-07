@@ -1,5 +1,6 @@
 const HttpError = require("../models/http-errors");
 const stand = require("../models/standings");
+const match = require("../models/match");
 
 const getstandings = async (req, res, next) => {
     let standings;
@@ -22,35 +23,47 @@ const getstandings = async (req, res, next) => {
 
 const get_match = async (req, res, next) => {
     const match_id = req.params.match_id;
-    let match;
+    let _m;
     try
     {
-        match = await match.find({ match_id: match_id }); // get the match from the database
+        _m = await match.find({ footballAPI_id: match_id }); // get the match from the database
     
     }
     catch(err){
         const error = new HttpError("Something error, could not find the match", 500);
         return next(error);
     }
-    if (!match || match.length == 0) {
+    if (!_m || _m.length == 0) {
         // if the match does not exist, throw an error
         const error = new HttpError("Could not find the match.", 404);
         return next(error);
     }
-    res.json({ match }); // return the match to the client
+    res.json({ _m }); // return the match to the client
     }
 
 const get_matches = async (req, res, next) => {
     const from_date = req.params.from_date;
-    const to_date = req.params.to_time;
+    const to_date = req.params.to_date;
+    // 10_04_24/12_05_24
+    //2024-04-28T17:30:00.000+00:00
+
+    const formatDate = (dateString) => {
+        const [day, month, year] = dateString.split("_");
+        let formattedDate = `20${year}-${month}-${day}T00:00:00.000+00:00`;
+        formattedDate = new Date(formattedDate);
+        formattedDate = formattedDate.toISOString();
+        return formattedDate;
+    };
+
+    const formattedFromDate = formatDate(from_date);
+    const formattedToDate = formatDate(to_date);
 
     let recent_matches;
     //scan based on date and time to get the recent matches
     try {
-        recent_matches = await match.find({ date:{$gte:from_date,$lte:to_date}  }); // get all recent matches from the database based on date and time
+        recent_matches = await match.find({ date:{$gte:formattedFromDate,$lte:formattedToDate }  }); // get all recent matches from the database based on date and time
     } catch (err) {
-        const error = new HttpError(
-        "Something went wrong, could not find recent matches.",
+        const error = new HttpError(err,
         500
         );
         return next(error);
