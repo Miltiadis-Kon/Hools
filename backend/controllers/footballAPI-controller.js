@@ -310,12 +310,155 @@ const getMatchfromAPI = async (req, res, next) => {
   });
 };
 
+const getMatch = (match_id) => {
+  //GET MATCH
+  const options = {
+    method: "GET",
+    url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
+    qs: { id: match_id },
+    headers: {
+      "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+      "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+    },
+  };
+  request(options, function (error, response, body) {
+    const jsonBody = JSON.parse(body);
+    let info = jsonBody.response[0];
+    //Store match details in MongoDB
+    matchModel
+      .find({ footballAPI_id: match_id })
+      .then((matchesFromDB) => {
+        if (matchesFromDB.length == 0) {
+          //Get all scorers
+          let h_scorers = [];
+          let a_scorers = [];
+
+          for (let i = 0; i < info.events.length; i++) {
+            let event = info.events[i];
+            if (event.type == "Goal") {
+              if (event.team.id == info.teams.home.id) {
+                h_scorers.push(event.player);
+              } else {
+                a_scorers.push(event.player);
+              }
+            }
+          }
+          console.log(info);
+          let _m=null;
+          //check if match is not played yet
+          if (info.fixture.status.short == "NS") {
+            _m = new Match(
+              (footballAPI_id = info.fixture.id),
+              (date = info.fixture.date),
+              (time = info.fixture.date),
+              (referee = info.fixture.referee),
+              (venue = info.fixture.venue),
+              (match_status = info.fixture.status.short),
+              (score = info.goals.home + " - " + info.goals.away),
+              (home_team = info.teams.home),
+              (home_scorers = h_scorers),
+              (home_statistics = []),
+              (home_formation = []),
+              (home_lineup = []),
+              (home_substitutes = []),
+              (away_team = info.teams.away),
+              (away_scorers = a_scorers),
+              (away_statistics =[]),
+              (away_formation = []),
+  
+              (away_lineup = []),
+              (away_substitutes = [])
+            );
+            
+          }
+          else
+          {
+          _m = new Match(
+            (footballAPI_id = info.fixture.id),
+            (date = info.fixture.date),
+            (time = info.fixture.date),
+            (referee = info.fixture.referee),
+            (venue = info.fixture.venue),
+            (match_status = info.fixture.status.short),
+            (score = info.goals.home + " - " + info.goals.away),
+            (home_team = info.teams.home),
+            (home_scorers = h_scorers),
+            (home_statistics = info.statistics[0].statistics),
+            (home_formation = info.lineups[0].formation),
+            (home_lineup = info.lineups[0].startXI),
+            (home_substitutes = info.lineups[0].substitutes),
+            (away_team = info.teams.away),
+            (away_scorers = a_scorers),
+            (away_statistics = info.statistics[1].statistics),
+            (away_formation = info.lineups[1].formation),
+
+            (away_lineup = info.lineups[1].startXI),
+            (away_substitutes = info.lineups[1].substitutes)
+          );
+        }
+          matchModel.insertMany(_m).then(function (err, docs) {
+            if (err) {
+              return console.error(err);
+            } else {
+              console.log(`Added match: ${_m} to MongoDB successfully.`);
+            }
+          });
+        } else 
+        {
+            // Check date the match was added to the database
+            // Check if the match has been played
+            // If match has been played, update the match details
+            // If match has not been played, do nothing
+            const matchDate = new Date(info.fixture.date);
+            const currentDate = new Date();
+            if (matchDate < currentDate) {
+            matchModel.findOneAndUpdate(
+              { footballAPI_id: match_id },
+              {
+              $set: {
+                date: info.fixture.date,
+                time: info.fixture.date,
+                referee: info.fixture.referee,
+                venue: info.fixture.venue,
+                match_status: info.fixture.status.short,
+                score: info.goals.home + " - " + info.goals.away,
+                home_team: info.teams.home,
+                home_scorers: h_scorers,
+                home_statistics: info.statistics[0].statistics,
+                home_formation: info.lineups[0].formation,
+                home_lineup: info.lineups[0].startXI,
+                home_substitutes: info.lineups[0].substitutes,
+                away_team: info.teams.away,
+                away_scorers: a_scorers,
+                away_statistics: info.statistics[1].statistics,
+                away_formation: info.lineups[1].formation,
+                away_lineup: info.lineups[1].startXI,
+                away_substitutes: info.lineups[1].substitutes,
+              },
+              },
+              { new: true }
+            )
+              .then((updatedMatch) => {
+              console.log(`Updated match: ${updatedMatch} in MongoDB.`);
+              })
+              .catch((err) => {
+              console.log(err);
+              });
+            }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+};
+
 const getRecentMatches = async (req, res, next) => {
   const league_id = req.params.league_id;
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-    qs: { last: "1", league: league_id },
+    qs: { last: "5", league: league_id },
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -329,82 +472,8 @@ const getRecentMatches = async (req, res, next) => {
       const error = new HttpError("Could not find any matches.", 404);
       return next(error);
     }
-    let ctr = 0;
     recentMatches.map((match) => {
-      //Get all statistics
-      const statOptions = {
-        method: "GET",
-        url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-        qs: { fixture: match.fixture.id },
-        headers: {
-          "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-        },
-      };
-
-      request(statOptions, function (error, response, body) {
-        if (error) throw new Error(error);
-        const jsonBody = JSON.parse(body);
-        if (response == null) {
-          const error = new HttpError("Could not find any matches.", 404);
-          return next(error);
-        }
-        const info = jsonBody.response[0];
-
-        //Get all scorers
-        let h_scorers = [];
-        let a_scorers = [];
-        info.events.forEach((event) => {
-          //Events include goals, cards, substitutions etc.
-          if (event.type == "goal") {
-            if (event.team.id == info.teams.home.id) {
-              h_scorers.push(event.player);
-            } else {
-              a_scorers.push(event.player);
-            }
-          }
-        });
-
-        const _m = new Match(
-          (footballAPI_id = info.fixture.id),
-          (date = info.fixture.date),
-          (time = info.fixture.date),
-          (referee = info.fixture.referee),
-          (venue = info.fixture.venue),
-          (match_status = info.fixture.status.short),
-          (home_team = info.teams.home),
-          (away_team = info.teams.away),
-          (score = info.goals.home + " - " + info.goals.away),
-          (home_lineup = info.lineups[0].startXI),
-          (away_lineup = info.lineups[1].startXI),
-          (home_substitutes = info.lineups[0].substitutes),
-          (away_substitutes = info.lineups[1].substitutes),
-          (home_formation = info.lineups[0].formation),
-          (away_formation = info.lineups[1].formation),
-          (home_statistics = info.statistics[0].statistics),
-          (away_statistics = info.statistics[1].statistics),
-          (home_scorers = h_scorers),
-          (away_scorers = a_scorers)
-        );
-        console.log(++ctr);
-        // Save to database
-        matchModel
-          .find({ footballAPI_id: match.footballAPI_id })
-          .then((matchesFromDB) => {
-            if (matchesFromDB.length == 0) {
-              matchModel.insertMany(_m).then(function (err, docs) {
-                if (err) {
-                  return console.error(err);
-                } else {
-                  console.log(`Added match: ${ctr} to MongoDB successfully.`);
-                }
-              });
-            } else console.log("Match already on DB");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
+      getMatch(match.fixture.id);
     });
     res.json({ recentMatches }); // return the player to the client
   });
@@ -415,7 +484,7 @@ const getNextMatchesfromAPI = async (req, res, next) => {
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-    qs: { next: "10", league: league_id },
+    qs: { next: "5", league: league_id },
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -429,82 +498,8 @@ const getNextMatchesfromAPI = async (req, res, next) => {
       const error = new HttpError("Could not find any matches.", 404);
       return next(error);
     }
-    let ctr = 0;
     recentMatches.map((match) => {
-      //Get all statistics
-      const statOptions = {
-        method: "GET",
-        url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-        qs: { fixture: match.fixture.id },
-        headers: {
-          "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-          "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-        },
-      };
-
-      request(statOptions, function (error, response, body) {
-        if (error) throw new Error(error);
-        const jsonBody = JSON.parse(body);
-        if (response == null) {
-          const error = new HttpError("Could not find any matches.", 404);
-          return next(error);
-        }
-        const info = jsonBody.response[0];
-
-        //Get all scorers
-        let h_scorers = [];
-        let a_scorers = [];
-        info.events.forEach((event) => {
-          //Events include goals, cards, substitutions etc.
-          if (event.type == "goal") {
-            if (event.team.id == info.teams.home.id) {
-              h_scorers.push(event.player);
-            } else {
-              a_scorers.push(event.player);
-            }
-          }
-        });
-
-        const _m = new Match(
-          (footballAPI_id = info.fixture.id),
-          (date = info.fixture.date),
-          (time = info.fixture.date),
-          (referee = info.fixture.referee),
-          (venue = info.fixture.venue),
-          (match_status = info.fixture.status.short),
-          (home_team = info.teams.home),
-          (away_team = info.teams.away),
-          (score = info.goals.home + " - " + info.goals.away),
-          (home_lineup = info.lineups[0].startXI),
-          (away_lineup = info.lineups[1].startXI),
-          (home_substitutes = info.lineups[0].substitutes),
-          (away_substitutes = info.lineups[1].substitutes),
-          (home_formation = info.lineups[0].formation),
-          (away_formation = info.lineups[1].formation),
-          (home_statistics = info.statistics[0].statistics),
-          (away_statistics = info.statistics[1].statistics),
-          (home_scorers = h_scorers),
-          (away_scorers = a_scorers)
-        );
-        console.log(++ctr);
-        // Save to database
-        matchModel
-          .find({ footballAPI_id: match.footballAPI_id })
-          .then((matchesFromDB) => {
-            if (matchesFromDB.length == 0) {
-              matchModel.insertMany(_m).then(function (err, docs) {
-                if (err) {
-                  return console.error(err);
-                } else {
-                  console.log(`Added match: ${ctr} to MongoDB successfully.`);
-                }
-              });
-            } else console.log("Match already on DB");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
+      getMatch(match.fixture.id);
     });
     res.json({ recentMatches }); // return the player to the client
   });
