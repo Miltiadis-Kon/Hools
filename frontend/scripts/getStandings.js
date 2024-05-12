@@ -29,7 +29,10 @@ const createStandingsCard = (team) => {
     standingsHome.querySelector(".generalclubinfo img").src = team.teamLogo;
     standingsHome.querySelector(".generalclubinfo img").alt = team.teamName;
     standingsHome.querySelector(".generalclubinfo h3").textContent = team.teamName;
-    standingsHome.querySelector(".points span").textContent = team.points;
+    const statArray = [team.points,team.played, team.wins, team.defeats, team.losses, team.goaldiff];
+    standingsHome.querySelectorAll(".points span").forEach((span, index) => {
+        span.textContent = statArray[index];
+    });
 
     // Set the last five matches
     const lastFiveMatches = team.form.split("");
