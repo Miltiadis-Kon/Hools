@@ -36,7 +36,6 @@ const getStandingsfromAPI = async (req, res, next) => {
 
     // Create new Standings instances for the first 16 teams
     const standings = standingsData
-      .slice(0, 12)
       .map(
         (teamData) =>
           new Standings(
@@ -45,10 +44,12 @@ const getStandingsfromAPI = async (req, res, next) => {
             teamData.team.name,
             teamData.team.logo,
             teamData.points,
+            teamData.all.played,
+            teamData.all.win,
+            teamData.all.draw,
+            teamData.all.lose,
             teamData.goalsDiff,
-            teamData.form,
-            teamData.status,
-            teamData.description
+            teamData.form
           )
       );
     const league = new League(
@@ -552,20 +553,24 @@ class Standings {
     teamName,
     teamLogo,
     points,
-    goalsDiff,
-    form,
-    status,
-    description
+    played,
+    wins,
+    defeats,
+    losses,
+    goaldiff,
+    form
   ) {
     this.rank = rank;
     this.teamId = teamId;
     this.teamName = teamName;
     this.teamLogo = teamLogo;
     this.points = points;
-    this.goalsDiff = goalsDiff;
+    this.played = played;
+    this.wins = wins;
+    this.defeats = defeats;
+    this.losses = losses;
+    this.goaldiff = goaldiff;
     this.form = form;
-    this.status = status;
-    this.description = description;
   }
 }
 class Club {
