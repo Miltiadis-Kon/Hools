@@ -10,44 +10,39 @@
     font-size: 20px;
 }
 
-.sidebar
-
-/* when sidebar is inactive */
-    {
+.sidebar {
     width: 80px;
     height: 100%;
     background-color: var(--primary);
-    position: absolute;
-    padding: 20px 0;
+    position: fixed; 
     transition: all .3s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
+    left: 0; /* Stick the sidebar to the left */
+    top: 0; /* Align the sidebar to the top */
+    bottom: 0; /* Align the sidebar to the bottom */
+    
 }
 
-.sidebar.active~.main-content
-
-/* move main container left */
-    {
+.sidebar.active ~ .main-content {
     left: 250px;
     width: calc(100% + 250px);
     transition: all .3s ease-in-out;
 }
 
-.sidebar.active
-
-/* when sidebar is active */
-    {
+.sidebar.active {
     width: 250px;
     align-items: start;
     margin-right: 4rem;
+    padding: 0;
 }
 
 .sidebar #btn {
     position: absolute;
     color: var(--accent);
     top: .4rem;
-    left: 30%;
+    left: 40%;
     line-height: 50px;
     font-size: 1.2rem;
     transform: translateX(-50%);
@@ -101,15 +96,6 @@
 .sidebar.active ul li img:hover {
     transform: scale(1.1);
 }
-
-/*
-    .sidebar.active ul li a:hover
-    {
-        background-color: var(--secondary);
-        transform: scale(1.1); 
-         
-    }
-    */
 
 .sidebar.active ul li a:hover {
     transform: scale(1.1);

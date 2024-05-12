@@ -48,22 +48,19 @@
         <a href="#"> <!--assign link -->
           <img src="./images/football.png" alt="matches" /> <!--image-->
           <span class="side-text">Matches</span> <!--text-->
-          <span class="tooltip">Matches</span> <!--tooltip-->
         </a>
       </li>
       <!-- Standings -->
       <li>
         <a href="#">
           <img src="./images/award.png" alt="standings" />
-          <span class="side-text">Standings</span>
-          <span class="tooltip">Standings</span>
+          <span class="side-text">Standings</span>          
         </a>
       </li>
       <!-- My clubs -->
       <li>
         <a href="#">
           <img src="./images/football-club.png" alt="myclubs" />
-          <span class="tooltip">My Clubs</span>
           <span class="side-text">My Clubs</span>
         </a>
       </li>
@@ -220,21 +217,27 @@
 </body>
 <!-- Script to click sidebar -->
 <script>
-  let btn = document.querySelector('#btn');
-  let sidebar = document.querySelector('.sidebar');
-  let container = document.querySelector('.container');
+  document.addEventListener('DOMContentLoaded', function () {
+    let btn = document.querySelector('#btn');
+    let sidebar = document.querySelector('.sidebar');
+    let container = document.querySelector('.container');
 
-  btn.onclick = function () {
-    sidebar.classList.toggle("active");
-    if (sidebar.classList.contains("active")) {
-      sidebar.style.width = "200px"; // Αλλάζει το πλάτος του sidebar
-      container.style.marginLeft = "120px"; // Προσαρμόζει το margin του container
-    } else {
-      sidebar.style.width = "80px"; // Επαναφέρει το πλάτος του sidebar στην αρχική του τιμή
-      container.style.marginLeft = "0px"; // Επαναφέρει το margin του container στην αρχική του τιμή
-    }
-  };
+    btn.onclick = function () {
+        sidebar.classList.toggle("active");
+        if (sidebar.classList.contains("active")) {
+            sidebar.style.width = "200px"; // Change width when active
+            container.style.marginLeft = "120px"; // Adjust margin
+        } else {
+            sidebar.style.width = "80px"; // Change width when inactive
+            container.style.marginLeft = "0px"; // Adjust margin
+        }
+    };
+});
+
 
 </script>
+
+
+
 
 </html>
