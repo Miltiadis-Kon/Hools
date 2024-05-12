@@ -19,9 +19,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    left: 0; /* Stick the sidebar to the left */
-    top: 0; /* Align the sidebar to the top */
-    bottom: 0; /* Align the sidebar to the bottom */
+    left: 0; 
+    top: 0; 
+    bottom: 0;
     
 }
 
@@ -42,7 +42,7 @@
     position: absolute;
     color: var(--accent);
     top: .4rem;
-    left: 40%;
+    left: 50%;
     line-height: 50px;
     font-size: 1.2rem;
     transform: translateX(-50%);
@@ -65,6 +65,7 @@
     list-style-position: inside;
     list-style: none;
     margin: 0;
+    padding: 0;
 }
 
 .sidebar.active ul {
@@ -77,16 +78,18 @@
     height: 50px;
     width: 100%;
     margin: 0.8rem;
+    margin-left: 0;
     line-height: 50px;
     text-align: center;
 }
 
 .sidebar ul li a {
-    display: flex;
-    align-items: center;
+    display: inline-block; 
     text-decoration: none;
     border-radius: 0.8rem;
     color: var(--text);
+    line-height: 50px; 
+    vertical-align: middle; 
 }
 
 .sidebar ul li img:hover {
@@ -104,48 +107,34 @@
 
 .sidebar.active ul li:hover .side-text {
     margin: 0 1.2rem;
-    /* Μπορείς να προσαρμόσεις το περιθώριο όπως θέλεις */
+    
 }
 
 
 
-.sidebar ul li a img {
+.sidebar ul li img {
     min-width: 30px;
     text-align: center;
     height: 40px;
     border-radius: 12px !important;
-    line-height: 50px;
+    vertical-align: middle; 
 }
 
 .sidebar .side-text {
     opacity: 0;
+    vertical-align: middle; 
 }
 
 .sidebar.active .side-text {
     opacity: 1;
     margin: 0 1rem;
-
 }
 
-/* Tooltip Region */
-.sidebar ul li .tooltip {
-    position: absolute;
-    left: 100px;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
-    border-radius: 0.6rem;
-    padding: .4rem 1.2rem;
-    line-height: 1.8rem;
-    z-index: 20;
-    opacity: 0;
-    width: 100px;
+.sidebar ul li:last-child  {
+    margin-left: 12px;
 }
 
-.sidebar ul li:hover .tooltip {
-    opacity: 1;
-}
+.sidebar.active ul li:last-child {
+    margin-left: 0;
 
-.sidebar.active ul li .tooltip {
-    opacity: 0;
 }
