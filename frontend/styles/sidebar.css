@@ -1,20 +1,19 @@
-.logo img
-{
+.logo img {
     width: 50px;
     height: 50px;
-    margin: 20px 0;
+    margin-right: 10px;
 }
-.menu-icon
-{
-    width: 60px;
-    height: 60px;
-    margin: 60px 20px 0;
+
+.menu-icon {
     cursor: pointer;
     font-weight: bold;
     font-size: 20px;
 }
-.sidebar /* when sidebar is inactive */
-{
+
+.sidebar
+
+/* when sidebar is inactive */
+    {
     width: 80px;
     height: 100vh;
     background-color: var(--primary);
@@ -26,24 +25,28 @@
     align-items: center;
 }
 
-.sidebar.active ~ .main-content /* move main container left */
-{
+.sidebar.active~.main-content
+
+/* move main container left */
+    {
     left: 250px;
     width: calc(100% + 250px);
     transition: all .3s ease-in-out;
 }
 
-.sidebar.active /* when sidebar is active */
-{
+.sidebar.active
+
+/* when sidebar is active */
+    {
     width: 250px;
     align-items: start;
     margin-right: 4rem;
 }
-.sidebar #btn
-{
+
+.sidebar #btn {
     position: absolute;
     color: var(--accent);
-    top : .4rem;
+    top: .4rem;
     left: 30%;
     line-height: 50px;
     font-size: 1.2rem;
@@ -51,40 +54,39 @@
     cursor: pointer;
 }
 
-.sidebar.active #btn{left: 90%;}
+.sidebar.active #btn {
+    left: 90%;
+}
 
-.sidebar .top .logo
-{
+.sidebar .top .logo {
     opacity: 0;
 }
-.sidebar.active .top .logo
-{
+
+.sidebar.active .top .logo {
     opacity: 1;
 }
 
-.sidebar ul
-{
+.sidebar ul {
     list-style-position: inside;
     list-style: none;
     margin: 0;
 }
 
-.sidebar.active ul
-{
+.sidebar.active ul {
     padding: 0;
+
 }
 
-.sidebar ul li{
-    position:relative;
+.sidebar ul li {
+    position: relative;
     height: 50px;
     width: 100%;
     margin: 0.8rem;
     line-height: 50px;
     text-align: center;
-    }
+}
 
-.sidebar ul li a
-{
+.sidebar ul li a {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -92,49 +94,60 @@
     color: var(--text);
 }
 
-.sidebar ul li img:hover
-{
-    transform: scale(1.3);       
-}
-.sidebar.active ul li img:hover
-{
-    transform: scale(1.1);       
+.sidebar ul li img:hover {
+    transform: scale(1.3);
 }
 
-.sidebar.active ul li a:hover
-{
+.sidebar.active ul li img:hover {
+    transform: scale(1.1);
+}
+
+/*
+    .sidebar.active ul li a:hover
+    {
+        background-color: var(--secondary);
+        transform: scale(1.1); 
+         
+    }
+    */
+
+.sidebar.active ul li a:hover {
+    transform: scale(1.1);
     background-color: var(--secondary);
 }
 
-.sidebar ul li a img
-{
- min-width: 30px;
- text-align: center;
- height: 40px;
- border-radius: 12px !important;
- line-height: 50px;
+.sidebar.active ul li:hover .side-text {
+    margin: 0 1.2rem;
+    /* Μπορείς να προσαρμόσεις το περιθώριο όπως θέλεις */
 }
 
-.sidebar .side-text
-{
+
+
+.sidebar ul li a img {
+    min-width: 30px;
+    text-align: center;
+    height: 40px;
+    border-radius: 12px !important;
+    line-height: 50px;
+}
+
+.sidebar .side-text {
     opacity: 0;
 }
 
-.sidebar.active .side-text
-{
+.sidebar.active .side-text {
     opacity: 1;
     margin: 0 1rem;
-    
+
 }
 
 /* Tooltip Region */
-.sidebar ul li .tooltip
-{   
+.sidebar ul li .tooltip {
     position: absolute;
     left: 100px;
     top: 50%;
-    transform: translate(-50%,-50%);
-    box-shadow: 0 0.5rem 0.8rem rgba(0,0,0,0.2);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
     border-radius: 0.6rem;
     padding: .4rem 1.2rem;
     line-height: 1.8rem;
@@ -143,12 +156,10 @@
     width: 100px;
 }
 
-.sidebar ul li:hover .tooltip
-{
+.sidebar ul li:hover .tooltip {
     opacity: 1;
 }
 
-.sidebar.active ul li .tooltip
-{
+.sidebar.active ul li .tooltip {
     opacity: 0;
 }

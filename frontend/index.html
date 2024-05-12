@@ -1,188 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Hooligans</title>
-    <!--Linking the css files-->
-    <link href="styles/index.css" rel="stylesheet"/>
-    <link href= "styles/sidebar.css" rel="stylesheet"/>
-    <link href= "styles/searchbar.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="styles/clubs.css" rel="stylesheet"/>
-    <link href="styles/matches.css" rel="stylesheet"/>
-    <link href ="styles/footballmatches-radio.css" rel="stylesheet"/>
-    <link href="styles/standing.css" rel="stylesheet"/>
-    <!--------------------------------------------------------------->
-    <!--Linking the js files-->
-    <!-- TODO: ADD Redirect logic (if !logged in log in) -->
-  </head>
-  <body class="body">
-    <div class="sidebar">
-      <div class="top">
-        <div class="logo">
-          <img src="./images/socerballFull - Copy.png"  alt="logo"/>
-          <span class="menu-icon">Hooligans</span>
-        </div>
-        <!--seperate logo with side menu-->
-          <div style="padding: 10px 0;">
-          </div>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Hooligans</title>
+  <!--Linking the css files-->
+  <link href="styles/index.css" rel="stylesheet" />
+  <link href="styles/sidebar.css" rel="stylesheet" />
+  <link href="styles/searchbar.css" rel="stylesheet" />
+  
+  <link href="styles/clubs.css" rel="stylesheet" />
+  <link href="styles/matches.css" rel="stylesheet" />
+  <link href="styles/footballmatches-radio.css" rel="stylesheet" />
+  <link href="styles/standing.css" rel="stylesheet" />
+  <!--
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  -->
+  <!--------------------------------------------------------------->
+  <!--Linking the js files-->
+  <!-- TODO: ADD Redirect logic (if !logged in log in) -->
+</head>
+
+<body class="body">
+  <div class="sidebar">
+    <div class="top">
+      <div class="logo">
+        <img src="./images/socerballFull - Copy.png" alt="logo" />
+        <span class="menu-icon">Hooligans</span>
       </div>
-      <!-- sidebar open/close button -->
-      <div id="btn">
-        <img src="./images/menu.png" alt="menu" width="26px" height="26px" />
+      <!--sseperate logo with side menu-->
+      <div style="padding: 10px 0;">
       </div>
-      <ul> <!--list of the side bar-->
-        <!-- Matches -->
-          <li> 
-            <a href="#"> <!--assign link -->
-            <img src="./images/football.png" alt="matches" /> <!--image-->
-            <span class="side-text">Matches</span> <!--text-->
-            </a>
-            <span class="tooltip">Matches</span> <!--tooltip-->
-          </li>
-        <!-- Standings -->
-          <li>
-            <a href="#">
-            <img src="./images/award.png" alt="standings" />
-            <span class="side-text">Standings</span>
-            </a>
-            <span class="tooltip">Standings</span>
-          </li>
-        <!-- My clubs -->
-          <li>
-            <a href="#">
-            <img src="./images/football-club.png" alt="myclubs" />
-            <span class="side-text">My Clubs</span>
-            </a>
-            <span class="tooltip">My Clubs</span>
-          </li>
-      </ul>
     </div>
-    <div class="main-content">
-      <!--MAIN WRAPPER OF BODY-->
-    <div class="container">
-      <!--Topside Contains searchbar & avatar -->
-      <div class="topside">
-        <!--Search Bar-->
-        <div class="group">
-          <input placeholder="Search" type="search" class="input" search-input>
-        </div>
-        
-        <div class="avatar">
-          <div style="padding: 45px;">
+
+    <!-- sidebar open/close button -->
+    <div id="btn">
+      <img src="./images/menu.png" alt="menu" width="26px" height="26px" />
+    </div>
+
+    <!--list of the side bar-->
+    <ul>
+      <!-- Matches -->
+      <li>
+        <a href="#"> <!--assign link -->
+          <img src="./images/football.png" alt="matches" /> <!--image-->
+          <span class="side-text">Matches</span> <!--text-->
+          <span class="tooltip">Matches</span> <!--tooltip-->
+        </a>
+      </li>
+      <!-- Standings -->
+      <li>
+        <a href="#">
+          <img src="./images/award.png" alt="standings" />
+          <span class="side-text">Standings</span>
+          <span class="tooltip">Standings</span>
+        </a>
+      </li>
+      <!-- My clubs -->
+      <li>
+        <a href="#">
+          <img src="./images/football-club.png" alt="myclubs" />
+          <span class="tooltip">My Clubs</span>
+          <span class="side-text">My Clubs</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!--MAIN WRAPPER OF BODY-->
+  <div class="container">
+    <!--Topside Contains searchbar & avatar -->
+    <div class="topside">
+      <!--Search Bar-->
+      <div class="group">
+        <input placeholder="Search" type="search" class="input" search-input>
+      </div>
+      <div class="avatar">
+        <div>
           <img src="./images/bell.png" alt="bell" width="30px" height="30px" />
           <img src="./images/plane-tickets.png" alt="plane-tickets" width="30px" height="30px" />
         </div>
-          <img src="./images/user.png" alt="avatar" width="40px" height="40px" />
-        </div>
+        <img src="./images/user.png" alt="avatar" width="40px" height="40px" />
       </div>
-      <!--Main Content-->
-      <div class="matches">
-        <div class="title">
-          <h1>Matches</h1>
-        </div>
-        <div class="matchInput">
-          <div class="radio-input">
-            <label>
+    </div>
+    <!--Main Content-->
+    <div class="matches">
+      <div class="title">
+        <h1>Matches</h1>
+      </div>
+      <div class="matchInput">
+        <div class="radio-input">
+          <label>
             <input type="radio" id="value-1" name="value-radio" value="value-1" checked="checked">
             <span>Comming Matches</span>
-            </label>
-            <label>
-              <input type="radio" id="value-2" name="value-radio" value="value-2">
+          </label>
+          <label>
+            <input type="radio" id="value-2" name="value-radio" value="value-2">
             <span>Recent Matches</span>
-            </label>
-            <label>
-              <input type="radio" id="value-3" name="value-radio" value="value-3">
+          </label>
+          <label>
+            <input type="radio" id="value-3" name="value-radio" value="value-3">
             <span>Completed Matches</span>
-            </label>
-            <span class="selection"></span>
-          </div>
-        </div>
-        <div class="matchtable">
-          <script src="./scripts/getMatches.js" defer></script>
-          <a href="match.html?match=$1182363" target="_blank" style="text-decoration: none; color: var(--text); " >
-          <div class="matchcard">
-              <div class="team">
-                <img src="./images/PAOK.png" alt="PAOK" />
-                <span>PAOK</span>
-              </div>
-              <div class="score">
-                <span>&nbsp;2&nbsp;-&nbsp;1&nbsp;</span>
-              </div>
-              <div class="team">
-                <span>AEK</span>
-                <img src="./images/AEK_Athens_FC_(logo).svg.png" alt="AEK" />
-              </div>
-              <div class="duration">
-                <span>&nbsp;90 min&nbsp;</span>
-              </div>
-              <div class="date">
-                <span>&nbsp;03 / 04&nbsp;</span>
-                </div> 
-          </div>
-        </a>
+          </label>
+          <span class="selection"></span>
         </div>
       </div>
-      <!--Standings-->
-      <div class="standings">
-        <div class="title">
-          <h1>Standings</h1>
+      <div class="matchtable">
+        <script src="./scripts/getMatches.js" defer></script>
+        <a href="match.html?match=$1182363" target="_blank" style="text-decoration: none; color: var(--text); ">
+          <div class="matchcard">
+            <div class="team">
+              <img src="./images/PAOK.png" alt="PAOK" />
+              <span>PAOK</span>
+            </div>
+            <div class="score">
+              <span>&nbsp;2&nbsp;-&nbsp;1&nbsp;</span>
+            </div>
+            <div class="team">
+              <span>AEK</span>
+              <img src="./images/AEK_Athens_FC_(logo).svg.png" alt="AEK" />
+            </div>
+            <div class="duration">
+              <span>&nbsp;90 min&nbsp;</span>
+            </div>
+            <div class="date">
+              <span>&nbsp;03 / 04&nbsp;</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <!--Standings-->
+    <div class="standings">
+      <div class="title">
+        <h1>Standings</h1>
+      </div>
+      <div class="standingsInput">
+        <img src="./images/football-award.png" alt="award" />
+        <img src="./images/Flag_of_Greece.png" alt="Flag_of_Greece" style="border-radius: 20px;" />
+        <h2> Κύπελο Ελλάδος </h2>
+      </div>
+      <div class="standingsCards">
+        <div class="position">
+          <span>POSITION</span>
         </div>
-        <div class="standingsInput">
-          <img src="./images/football-award.png" alt="award"  />
-          <img src="./images/Flag_of_Greece.png" alt="Flag_of_Greece" style="border-radius: 20px;" />
-          <h2> Κύπελο Ελλάδος </h2>
+        <div class="generalclubinfo">
         </div>
-        <div class="standingsCards">
+        <div class="points">
+          <span>W</span>
+          <span>D</span>
+          <span>L</span>
+          <span>PTS</span>
+        </div>
+        <div class="lastfivematches">
+          <span>LAST 5 MATCHES</span>
+        </div>
+      </div>
+      <div class="standingsTable" standings_home_container>
+      </div>
+      <script src="./scripts/getStandings.js" defer></script>
+      <template standings-home-template>
+        <div class="standingsCards" style="margin:0rem 0rem 1rem  0rem; padding: 0.5rem 0rem;">
           <div class="position">
-            <pan>POSITION</span>
+            <h2 style="font-size: large;">1</h2>
           </div>
           <div class="generalclubinfo">
+            <img src="./images/1200px-Aris_Thessaloniki_F.C._logo.svg.png" alt="aris" />
+            <h3 style="font-size: medium;">Aris</h3>
           </div>
           <div class="points">
             <span>PTS</span>
             <span>W</span>
             <span>D</span>
             <span>L</span>
-        </div>
-        <div class="lastfivematches">
-          <span>LAST 5 MATCHES</span>
-        </div>
-      </div>
-        <div class="standingsTable"  standings_home_container >
-        </div>
-          <script src="./scripts/getStandings.js" defer></script>
-          <template standings-home-template>
-          <div class="standingsCards" style="margin:0rem 0rem 1rem  0rem; padding: 0.5rem 0rem;"  >
-            <div class="position">
-              <h2 style="font-size: large;" >1</h2>
-            </div>
-            <div class="generalclubinfo">
-              <img src="./images/1200px-Aris_Thessaloniki_F.C._logo.svg.png" alt="aris"/>
-              <h3 style="font-size: medium;" >Aris</h3>
-            </div>
-            <div class="points">
-              <span>PTS</span>
-              <span>W</span>
-              <span>D</span>
-              <span>L</span>
           </div>
           <div class="lastfivematches">
           </div>
         </div>
-        </template>
-        <div style="display: flex; align-items: center; flex-direction: row; margin-bottom: 10px; " > 
-          <div>
-            <div class="dot"  style="background-color: var(--tritery);" ></div>
-            <span style="margin-right: 10px;" > Promoted to Champions League</span>
-          </div>
-          <div>
-            <div class="dot" style="background-color: var(--secondary);" ></div>
-            <span> Promoted to Conference League</span>
-          </div>        
+      </template>
+      <div style="display: flex; align-items: center; flex-direction: row; margin-bottom: 10px; ">
+        <div>
+          <div class="dot" style="background-color: var(--tritery);"></div>
+          <span style="margin-right: 10px;"> Promoted to Champions League</span>
         </div>
+        <div>
+          <div class="dot" style="background-color: var(--secondary);"></div>
+          <span> Promoted to Conference League</span>
+        </div>
+      </div>
     </div>
     <!--Clubs-->
     <div class="clubs">
@@ -192,30 +199,42 @@
       <div class="clubContainer" club-home-container>
       </div>
       <script src="./scripts/getClubs.js" defer></script>
-        <template club-home-template> 
+      <template club-home-template>
         <div class="card">
           <div class="card-border-top">
           </div>
           <div class="img" club-image>
             <a href="" target="_blank">
-            <img src="" alt=""/>
+              <img src="#" alt="" />
             </a>
           </div>
           <span club-name> </span>
-          <button class="buttonImg" id="favoriteClub"> 
-            <img src="./images/e-commerce.png" alt="heart"/>
+          <button class="buttonImg" id="favoriteClub">
+            <img src="./images/e-commerce.png" alt="heart" />
             <img class="img2" src="./images/e-commerce2.png" alt="heart" id="imgHeart" />
           </button>
         </div>
-        </template>
+      </template>
     </div>
-  </body>
-  <!-- Script to click sidebar -->
-  <script>
-    let btn = document.querySelector('#btn');
-    let sidebar = document.querySelector('.sidebar');
-    btn.onclick = function(){
-      sidebar.classList.toggle("active");
-    };
-  </script>
+  </div>
+</body>
+<!-- Script to click sidebar -->
+<script>
+  let btn = document.querySelector('#btn');
+  let sidebar = document.querySelector('.sidebar');
+  let container = document.querySelector('.container');
+
+  btn.onclick = function () {
+    sidebar.classList.toggle("active");
+    if (sidebar.classList.contains("active")) {
+      sidebar.style.width = "200px"; // Αλλάζει το πλάτος του sidebar
+      container.style.marginLeft = "120px"; // Προσαρμόζει το margin του container
+    } else {
+      sidebar.style.width = "80px"; // Επαναφέρει το πλάτος του sidebar στην αρχική του τιμή
+      container.style.marginLeft = "0px"; // Επαναφέρει το margin του container στην αρχική του τιμή
+    }
+  };
+
+</script>
+
 </html>
