@@ -19,9 +19,9 @@ const displayMatches = (data) => {
   const matches = data.recent_matches;
   matches.forEach(match => {
     const match_id = match.footballAPI_id;
-    const home = match.home_team.name;
-    const away = match.away_team.name;
-    const durationtxt = match.duration;
+    const home = match.home_team;
+    const away = match.away_team;
+    const durationtxt = match.match_status;
     const scoretxt = match.score;
     const datetxt = match.date;
    createMatchcard(match_id,home, scoretxt, away,durationtxt, datetxt);
@@ -47,26 +47,29 @@ const createMatchcard = (match_id, home, scoretxt, away, durationtxt, datetxt) =
   const homeDiv = document.createElement('div');
   homeDiv.className = "team";
   const homeImg = document.createElement('img');
-  homeImg.src = `./images/${home}.png`;
-  homeImg.alt = home;
+  homeImg.src = home.logo;
+  homeImg.alt = home.name;
   const homeSpan = document.createElement('span');
-  homeSpan.textContent = home;
+  homeSpan.textContent = home.name;
   homeDiv.appendChild(homeImg);
   homeDiv.appendChild(homeSpan);
 
   const scoreDiv = document.createElement('div');
   scoreDiv.className = "score";
   const scoreSpan = document.createElement('span');
+  if (scoretxt ===  "null - null" ) {
+    scoretxt = " 0 - 0 ";
+  }
   scoreSpan.textContent = ` ${scoretxt} `;
   scoreDiv.appendChild(scoreSpan);
 
   const awayDiv = document.createElement('div');
   awayDiv.className = "team";
   const awayImg = document.createElement('img');
-  awayImg.src = `./images/${away}.png`;
-  awayImg.alt = away;
+  awayImg.src = away.logo;
+  awayImg.alt = away.name;
   const awaySpan = document.createElement('span');
-  awaySpan.textContent = away;
+  awaySpan.textContent = away.name;
   awayDiv.appendChild(awaySpan);
   awayDiv.appendChild(awayImg);
 
@@ -79,7 +82,7 @@ const createMatchcard = (match_id, home, scoretxt, away, durationtxt, datetxt) =
   const dateDiv = document.createElement('div');
   dateDiv.className = "date";
   const dateSpan = document.createElement('span');
-  dateSpan.textContent = ` ${datetxt} `;
+  dateSpan.textContent = ` ${new Date(datetxt).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} `;
   dateDiv.appendChild(dateSpan);
 
   // Append all divs to the matchcard
