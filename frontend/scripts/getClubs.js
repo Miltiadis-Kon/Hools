@@ -29,7 +29,10 @@ const getTeams = async () => {
     throw new Error("No data found");
   }
   //Loop through the data and display it on the page
+  let i=0;
   data.clubs.map((team) => {
+    if (i>3) return;
+    i++;
     const clubHome = club_home_template.content.cloneNode(true);
     clubHome.querySelector("[club-name]").textContent = team.name;
     var img = clubHome.querySelector("[club-image] img");
