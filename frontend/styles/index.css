@@ -27,9 +27,8 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    
     position: relative; 
-    margin: 0;
+    
 }
 
 .container {
