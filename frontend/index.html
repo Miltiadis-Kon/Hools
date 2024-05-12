@@ -45,21 +45,21 @@
     <ul>
       <!-- Matches -->
       <li>
-        <a href="#"> <!--assign link -->
+        <a href="#matches"> <!--assign link -->
           <img src="./images/football.png" alt="matches" /> <!--image-->
           <span class="side-text">Matches</span> <!--text-->
         </a>
       </li>
       <!-- Standings -->
       <li>
-        <a href="#">
+        <a href="#standings">
           <img src="./images/award.png" alt="standings" />
           <span class="side-text">Standings</span>          
         </a>
       </li>
       <!-- My clubs -->
       <li>
-        <a href="#">
+        <a href="#clubs">
           <img src="./images/football-club.png" alt="myclubs" />
           <span class="side-text">My Clubs</span>
         </a>
@@ -83,7 +83,7 @@
       </div>
     </div>
     <!--Main Content-->
-    <div class="matches">
+    <div id="matches" class="matches">
       <div class="title">
         <h1>Matches</h1>
       </div>
@@ -109,7 +109,7 @@
       </div>
     </div>
     <!--Standings-->
-    <div class="standings">
+    <div id="standings" class="standings">
       <div class="title">
         <h1>Standings</h1>
       </div>
@@ -172,7 +172,7 @@
       </div>
     </div>
     <!--Clubs-->
-    <div class="clubs">
+    <div id="clubs" class="clubs">
       <div class="title">
         <h1>Clubs</h1>
       </div>
@@ -216,10 +216,33 @@
         }
     };
 });
-
-
 </script>
 
+
+<!-- Smooth scroll and link -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar ul li a');
+
+    links.forEach(link => {
+        link.addEventListener('click', smoothScroll);
+    });
+
+    function smoothScroll(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    }
+});
+</script>
 
 
 
