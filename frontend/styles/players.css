@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+
 body {
   min-height: 100vh;
   background: #100721;
@@ -14,15 +15,14 @@ body {
   height: 250px;
   gap: 10px;
 
-  .player-info
-  {
+  .player-info {
     text-shadow: black 2px 2px 2px;
     color: white;
     align-self: flex-end;
     background-color: black;
   }
 
-  > div {
+  >div {
     flex: 0 0 150px;
     border-radius: 0.5rem;
     transition: 0.5s ease-in-out;
@@ -31,22 +31,21 @@ body {
     overflow: hidden;
 
     &:nth-of-type(1) {
-      background: url("/frontend/images/fotis.png")
-        no-repeat 50% / cover;
+      background: url("/frontend/images/fotis.png") no-repeat 50% / cover;
     }
+
     &:nth-of-type(2) {
-      background: url("/frontend/images/bakasetas.jfif")
-        no-repeat 50% / cover;
+      background: url("/frontend/images/bakasetas.jfif") no-repeat 50% / cover;
     }
+
     &:nth-of-type(3) {
-      background: url("https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-        no-repeat 50% / cover;
+      background: url("https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
     }
+
     &:nth-of-type(4) {
-      background: url("https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-        no-repeat 50% / cover;
+      background: url("https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
     }
-    
+
     &:hover {
       flex: 0 0 200px;
       box-shadow: 1px 3px 15px var(--accent);

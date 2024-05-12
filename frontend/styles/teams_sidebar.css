@@ -49,6 +49,7 @@
     cursor: pointer;
 
 }
+
 .sidebar.active #btn {
     left: 90%;
 }
@@ -92,6 +93,7 @@
     color: var(--text);
     line-height: 50px;
     vertical-align: middle;
+    width: auto;
 
 }
 
@@ -135,19 +137,20 @@
     margin-left: 15px;
 }
 
-.sidebar ul li:last-child {
-    margin-left: 12px;
+
+.sidebar.active ul li:nth-child(1) {
+    margin-left: 3px;
+}
+
+.sidebar ul li:nth-child(2) {
+    margin-left: 20px;
+}
+
+
+.sidebar.active ul li:nth-child(2) {
+    margin-left: 20px;
 }
 
 .sidebar.active ul li:last-child {
-    margin-left: 17px;
-}
-
-
-.sidebar.active ul li:nth-child(1) {
-    margin-left: 5px;
-}
-
-.sidebar.active ul li:nth-child(2) {
-    margin-left: 10px;
+    margin-left: 7px;
 }

@@ -11,7 +11,8 @@
     font-family: inherit;
   }
   .clubs{
-    background-color: var(--secondary);
+    background-color: var(--primary);
+    padding-bottom: 50px;
   }
   .card span {
     font-weight: 600;

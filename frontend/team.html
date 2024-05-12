@@ -1,157 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Hooligans</title>
-    <link href="styles/index.css" rel="stylesheet"/>
-    <link href= "styles/sidebar.css" rel="stylesheet"/>
-    <link href= "styles/searchbar.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href = "styles/club-info.css" rel="stylesheet"/>
-    <link href="styles/standing.css" rel="stylesheet"/>
-    <link href="styles/players.css" rel="stylesheet"/>
-    <!--Scripts-->
-    <script src="./scripts/setupClubPage.js" defer></script>
-  </head>
-  <body class="body">
-    <div class="sidebar">
-      <div class="top">
-        <div class="logo">
-          <img src="./images/socerballFull - Copy.png"  alt="logo"/>
-          <span class="menu-icon">Hooligans</span>
-        </div>
-        <!--seperate logo with side menu-->
-          <div style="padding: 10px 0;">
-          </div>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Team</title>
+  <!--Linking the css files-->
+  <link href="styles/index.css" rel="stylesheet" />
+  <link href="styles/teams_sidebar.css" rel="stylesheet" />
+  <link href="styles/searchbar.css" rel="stylesheet" />
+
+  <link href="styles/club-info.css" rel="stylesheet" />
+  <link href="styles/standing.css" rel="stylesheet" />
+  <link href="styles/players.css" rel="stylesheet" />
+
+  <script src="./scripts/setupClubPage.js" defer></script>
+  <!--
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  -->
+  <!--------------------------------------------------------------->
+  <!--Linking the js files-->
+  <!-- TODO: ADD Redirect logic (if !logged in log in) -->
+</head>
+
+<body class="body">
+  <div class="sidebar">
+    <div class="top">
+      <div class="logo">
+        <img src="./images/socerballFull - Copy.png" alt="logo" />
+        <span class="menu-icon">Hooligans</span>
       </div>
-      <!-- sidebar open/close button -->
-      <div id="btn">
-        <img src="./images/menu.png" alt="menu" width="26px" height="26px" />
+      <!--sseperate logo with side menu-->
+      <div style="padding: 10px 0;">
       </div>
-      <ul> <!--list of the side bar-->
-        <!-- Matches -->
-          <li> 
-            <a href="#"> <!--assign link -->
-            <img src="./images/football.png" alt="matches" /> <!--image-->
-            <span class="side-text">Matches</span> <!--text-->
-            </a>
-            <span class="tooltip">Matches</span> <!--tooltip-->
-          </li>
-        <!-- Standings -->
-          <li>
-            <a href="#">
-            <img src="./images/award.png" alt="standings" />
-            <span class="side-text">Standings</span>
-            </a>
-            <span class="tooltip">Standings</span>
-          </li>
-        <!-- My clubs -->
-          <li>
-            <a href="#">
-            <img src="./images/football-club.png" alt="myclubs" />
-            <span class="side-text">My Clubs</span>
-            </a>
-            <span class="tooltip">My Clubs</span>
-          </li>
-      </ul>
     </div>
-    <div class="main-content">
-      <!--MAIN WRAPPER OF BODY-->
-    <div class="container">
-      <!--Topside Contains searchbar & avatar -->
-      <div class="topside">
-        <!--Search Bar-->
-        <div class="group">
-          <input placeholder="Search" type="search" class="input">
-        </div>
-        
-        <div class="avatar">
-          <div style="padding: 45px;">
+
+    <!-- sidebar open/close button -->
+    <div id="btn">
+      <img src="./images/menu.png" alt="menu" width="26px" height="26px" />
+    </div>
+
+    <!--list of the side bar-->
+    <ul>
+      <!-- Home -->
+      <li>
+        <a id="home" href="#topside"> <!--assign link -->
+          <img src="./images/home.png" alt="matches" /> <!--image-->
+          <span class="side-text"> Home</span> <!--text-->
+        </a>
+      </li>
+      <!-- Matches -->
+      <li>
+        <a href="#upcomming-match"> <!--assign link -->
+          <img src="./images/football.png" alt="matches" /> <!--image-->
+          <span class="side-text">Next Match</span> <!--text-->
+        </a>
+      </li>
+      <!-- Standings -->
+      <li>
+        <a href="#standings">
+          <img src="./images/award.png" alt="standings" />
+          <span class="side-text">Standings</span>
+        </a>
+      </li>
+      <!-- My clubs -->
+      <li>
+        <a href="#players">
+          <img src="./images/player.png" alt="myclubs" />
+          <span class="side-text">Players</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!--MAIN WRAPPER OF BODY-->
+  <div class="container">
+    <!--Topside Contains searchbar & avatar -->
+    <div id="topside" class="topside">
+      <!--Search Bar-->
+      <div class="group">
+        <input placeholder="Search" type="search" class="input" search-input>
+      </div>
+      <div class="avatar">
+        <div>
           <img src="./images/bell.png" alt="bell" width="30px" height="30px" />
           <img src="./images/plane-tickets.png" alt="plane-tickets" width="30px" height="30px" />
         </div>
-          <img src="./images/user.png" alt="avatar" width="40px" height="40px" />
+        <img src="./images/user.png" alt="avatar" width="40px" height="40px" />
+      </div>
+    </div>
+    <!--Main Content-->
+
+    <!-- Club Information -->
+    <div class="club">
+      <div class="club-info">
+        <img src="#" alt="club" />
+        <div class="texts">
+          <h1>CLUB F.C</h1>
+          <div style="display:flex; flex-direction: row;">
+            <img src="./images/Flag_of_Greece.png" alt="country">
+            <h3 style="margin-left:10px;">Greece</h3>
+          </div>
         </div>
       </div>
-      <!--Main Content-->
-          <!-- Club Information -->
-        <div class="club">
-            <div class="club-info">
-                    <img src="" alt="club"/>
-                    <div class="texts">
-                        <h1>CLUB F.C</h1>
-                        <div style="display:flex; flex-direction: row;" >
-                            <img src="./images/Flag_of_Greece.png" alt="country">
-                            <h3 style="margin-left:10px;">Greece</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="club-backround">
-                    <img src="" alt="club">
-                </div>
+      <div class="club-backround">
+        <img src="#" alt="club">
+      </div>
+    </div>
+    <!-- UPCOMMING MATCH-->
+    <div id="upcomming-match" class="upcomming-match">
+      <h1>Upcomming Match</h1>
+      <div class="clubs">
+        <div class="home">
+          <img src="#" alt="" />
+          <h3> HOME F.C </h3>
         </div>
-        <!-- UPCOMMING MATCH-->
-        <div class="upcomming-match">
-            <h1>Upcomming Match</h1>
-            <div class="clubs">
-                <div class="home">
-                    <img src="" alt=""/>
-                    <h3> HOME F.C </h3>
-                </div>
-                <div class="away">
-                    <h3> AWAY F.C </h3>
-                    <img src="" alt=""/>
-                </div>
-            </div>
-            <div class="texts">
-                <h3> 24 March 2024</h3>
-                <h4> 20:00</h4>
-            </div>
-            <h2> HAGIA SOPHIA</h2>
-            <button> Reserve! </button>
+        <div class="away">
+          <h3> AWAY F.C </h3>
+          <img src="#" alt="" />
         </div>
-      <!--Standings-->
-      <div class="standings">
-        <div class="title">
-          <h1>Standings</h1>
+      </div>
+      <div class="texts">
+        <h3> 24 March 2024</h3>
+        <h4> 20:00</h4>
+      </div>
+      <h2> HAGIA SOPHIA</h2>
+      <button> Reserve! </button>
+    </div>
+    <!--Standings-->
+    <div id="standings" class="standings">
+      <div class="title">
+        <h1>Standings</h1>
+      </div>
+      <div class="standingsInput">
+        <img src="./images/football-award.png" alt="award" />
+        <img src="./images/Flag_of_Greece.png" alt="Flag_of_Greece" style="border-radius: 20px;" />
+        <h2> Κύπελο Ελλάδος </h2>
+      </div>
+      <div class="standingsCards">
+        <div class="position">
+          <span>POSITION</span>
         </div>
-        <div class="standingsInput">
-          <img src="./images/football-award.png" alt="award"  />
-          <img src="./images/Flag_of_Greece.png" alt="Flag_of_Greece" style="border-radius: 20px;" />
-          <h2> Κύπελο Ελλάδος </h2>
+        <div class="generalclubinfo">
         </div>
+        <div class="points">
+          <span>W</span>
+          <span>D</span>
+          <span>L</span>
+          <span>PTS</span>
+        </div>
+        <div class="lastfivematches">
+          <span>LAST 5 MATCHES</span>
+        </div>
+      </div>
+      <div class="standingsTable">
         <div class="standingsCards">
           <div class="position">
-            <pan>POSITION</span>
+            <h2>1</h2>
           </div>
           <div class="generalclubinfo">
+            <img src="./images/1200px-Aris_Thessaloniki_F.C._logo.svg.png" alt="aris" />
+            <h3>Aris</h3>
           </div>
           <div class="points">
             <span>W</span>
             <span>D</span>
             <span>L</span>
             <span>PTS</span>
-        </div>
-        <div class="lastfivematches">
-          <span>LAST 5 MATCHES</span>
-        </div>
-      </div>
-        <div class="standingsTable">
-          <div class="standingsCards">
-            <div class="position">
-              <h2>1</h2>
-            </div>
-            <div class="generalclubinfo">
-              <img src="./images/1200px-Aris_Thessaloniki_F.C._logo.svg.png" alt="aris"/>
-              <h3>Aris</h3>
-            </div>
-            <div class="points">
-              <span>W</span>
-              <span>D</span>
-              <span>L</span>
-              <span>PTS</span>
           </div>
           <div class="lastfivematches">
             <img src="images/accept.png" alt="win">
@@ -164,31 +180,87 @@
       </div>
     </div>
     <!--PLAYERS -->
-        <div class="players">
-            <div class="buttons">
-            </div>
-            <div class="carousel">
-                <div >
-                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 3% 10%;  align-items: center; " >
-                    <img src="./images/Flag_of_Greece.png" alt="country" style="border-radius: 50%; width: 30px; height: 30px; " />
-                    <h3>11 </h3>
-                  </div>
-                  <div class="player-info">
-                    <h2>Fotis Ioanidis</h2>
-                    <span>Striker</span>
-                  </div>
-                </div>
-            </div>
+    <div id="players" class="players">
+      <div class="buttons">
+      </div>
+      <div class="carousel">
+        <div>
+          <div
+            style="display: flex; flex-direction: row; justify-content: space-between; margin: 3% 10%;  align-items: center; ">
+            <img src="./images/Flag_of_Greece.png" alt="country"
+              style="border-radius: 50%; width: 30px; height: 30px; " />
+            <h3>11 </h3>
+          </div>
+          <div class="player-info">
+            <h2>Fotis Ioanidis</h2>
+            <span>Striker</span>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-  </body>
-  <!-- Script to click sidebar -->
-  <script>
+
+
+
+
+
+
+
+  </div>
+</body>
+<!-- Script to click sidebar -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
     let btn = document.querySelector('#btn');
     let sidebar = document.querySelector('.sidebar');
-    btn.onclick = function(){
+    let container = document.querySelector('.container');
+
+    btn.onclick = function () {
       sidebar.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
+        sidebar.style.width = "200px"; // Change width when active
+        container.style.marginLeft = "120px"; // Adjust margin
+      } else {
+        sidebar.style.width = "80px"; // Change width when inactive
+        container.style.marginLeft = "0px"; // Adjust margin
+      }
     };
-  </script>
+  });
+</script>
+
+
+<!-- Smooth scroll and link -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar ul li a');
+
+    links.forEach(link => {
+      link.addEventListener('click', smoothScroll);
+    });
+
+    function smoothScroll(e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+  });
+</script>
+
+<!-- Go to index.html with home button-->
+<script>
+  document.getElementById("home").addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the default behavior of the link
+
+    // Load the new HTML file
+    window.location.href = "index.html";
+  });
+</script>
+
 </html>

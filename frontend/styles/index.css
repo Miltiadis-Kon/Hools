@@ -47,7 +47,7 @@
 
 .sidebar {
     width: 80px;
-    height: 100vh;
+    height: 100vh;s
     background-color: var(--primary);
     position: absolute;
     padding: 20px 0;
@@ -58,6 +58,7 @@
     left: 0; /* Προσθήκη */
     top: 0; /* Προσθήκη */
 }
+
 
 .topside {
     display: flex;
@@ -122,13 +123,13 @@
     display: flex;
 }
 
+
+
 @media only screen and (max-width: 600px) {
     .body {
     transform: scale(0.58);
     transform-origin: top left;
 }
-.sidebar ul li .tooltip {
-    display: none;
-}
+
 
 }

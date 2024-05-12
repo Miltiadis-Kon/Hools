@@ -10,7 +10,7 @@
   <link href="styles/index.css" rel="stylesheet" />
   <link href="styles/sidebar.css" rel="stylesheet" />
   <link href="styles/searchbar.css" rel="stylesheet" />
-  
+
   <link href="styles/clubs.css" rel="stylesheet" />
   <link href="styles/matches.css" rel="stylesheet" />
   <link href="styles/footballmatches-radio.css" rel="stylesheet" />
@@ -43,6 +43,13 @@
 
     <!--list of the side bar-->
     <ul>
+      <!-- Home -->
+      <li>
+        <a href="#topside"> <!--assign link -->
+          <img src="./images/home.png" alt="matches" /> <!--image-->
+          <span class="side-text"> Home</span> <!--text-->
+        </a>
+      </li>
       <!-- Matches -->
       <li>
         <a href="#matches"> <!--assign link -->
@@ -54,7 +61,7 @@
       <li>
         <a href="#standings">
           <img src="./images/award.png" alt="standings" />
-          <span class="side-text">Standings</span>          
+          <span class="side-text">Standings</span>
         </a>
       </li>
       <!-- My clubs -->
@@ -69,7 +76,7 @@
   <!--MAIN WRAPPER OF BODY-->
   <div class="container">
     <!--Topside Contains searchbar & avatar -->
-    <div class="topside">
+    <div id="topside" class="topside">
       <!--Search Bar-->
       <div class="group">
         <input placeholder="Search" type="search" class="input" search-input>
@@ -177,24 +184,25 @@
         <h1>Clubs</h1>
       </div>
       <div class="clubContainer" club-home-container>
+
+        <script src="./scripts/getClubs.js" defer></script>
+        <template club-home-template>
+          <div class="card">
+            <div class="card-border-top">
+            </div>
+            <div class="img" club-image>
+              <a href="" target="_blank">
+                <img src="#" alt="" />
+              </a>
+            </div>
+            <span club-name> </span>
+            <button class="buttonImg" id="favoriteClub">
+              <img src="./images/e-commerce.png" alt="heart" />
+              <img class="img2" src="./images/e-commerce2.png" alt="heart" id="imgHeart" />
+            </button>
+          </div>
+        </template>
       </div>
-      <script src="./scripts/getClubs.js" defer></script>
-      <template club-home-template>
-        <div class="card">
-          <div class="card-border-top">
-          </div>
-          <div class="img" club-image>
-            <a href="" target="_blank">
-              <img src="#" alt="" />
-            </a>
-          </div>
-          <span club-name> </span>
-          <button class="buttonImg" id="favoriteClub">
-            <img src="./images/e-commerce.png" alt="heart" />
-            <img class="img2" src="./images/e-commerce2.png" alt="heart" id="imgHeart" />
-          </button>
-        </div>
-      </template>
     </div>
   </div>
 </body>
@@ -206,16 +214,16 @@
     let container = document.querySelector('.container');
 
     btn.onclick = function () {
-        sidebar.classList.toggle("active");
-        if (sidebar.classList.contains("active")) {
-            sidebar.style.width = "200px"; // Change width when active
-            container.style.marginLeft = "120px"; // Adjust margin
-        } else {
-            sidebar.style.width = "80px"; // Change width when inactive
-            container.style.marginLeft = "0px"; // Adjust margin
-        }
+      sidebar.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
+        sidebar.style.width = "200px"; // Change width when active
+        container.style.marginLeft = "120px"; // Adjust margin
+      } else {
+        sidebar.style.width = "80px"; // Change width when inactive
+        container.style.marginLeft = "0px"; // Adjust margin
+      }
     };
-});
+  });
 </script>
 
 
@@ -225,25 +233,24 @@
     const links = document.querySelectorAll('.sidebar ul li a');
 
     links.forEach(link => {
-        link.addEventListener('click', smoothScroll);
+      link.addEventListener('click', smoothScroll);
     });
 
     function smoothScroll(e) {
-        e.preventDefault();
+      e.preventDefault();
 
-        const targetId = this.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
 
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop,
-                behavior: 'smooth'
-            });
-        }
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop,
+          behavior: 'smooth'
+        });
+      }
     }
-});
+  });
 </script>
-
 
 
 </html>
