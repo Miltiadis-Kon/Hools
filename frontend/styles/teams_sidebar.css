@@ -80,7 +80,7 @@
     position: relative;
     height: 50px;
     width: 100%;
-    margin: 3rem 0.8rem 0.8rem 0.8rem;
+    margin: 2rem 0.8rem 0 0.8rem;
     margin-left: 0;
     line-height: 50px;
     text-align: center;
@@ -139,18 +139,27 @@
 
 
 .sidebar.active ul li:nth-child(1) {
-    margin-left: 3px;
+    margin-left: 1px;
 }
 
 .sidebar ul li:nth-child(2) {
+    margin-left:13px;
+}
+
+.sidebar.active ul li:nth-child(2) {
+    padding-right: 15px;
+    margin-left:0;
+}
+
+.sidebar ul li:nth-child(3) {
     margin-left: 20px;
 }
 
 
-.sidebar.active ul li:nth-child(2) {
+.sidebar.active ul li:nth-child(3) {
     margin-left: 20px;
 }
 
 .sidebar.active ul li:last-child {
-    margin-left: 7px;
+    margin-left: 8px;
 }

@@ -51,9 +51,17 @@
           <span class="side-text"> Home</span> <!--text-->
         </a>
       </li>
+
+      <li>
+        <a id="up" href="#topside"> <!--assign link -->
+          <img src="./images/up3.png" alt="matches" /> <!--image-->
+          <span class="side-text"> Top</span> <!--text-->
+        </a>
+      </li>
+
       <!-- Matches -->
       <li>
-        <a href="#upcomming-match"> <!--assign link -->
+        <a href="#upcoming-match"> <!--assign link -->
           <img src="./images/football.png" alt="matches" /> <!--image-->
           <span class="side-text">Next Match</span> <!--text-->
         </a>
@@ -94,39 +102,47 @@
 
     <!-- Club Information -->
     <div class="club">
+      <div class="club-background-image"></div>
       <div class="club-info">
-        <img src="#" alt="club" />
-        <div class="texts">
-          <h1>CLUB F.C</h1>
-          <div style="display:flex; flex-direction: row;">
-            <img src="./images/Flag_of_Greece.png" alt="country">
-            <h3 style="margin-left:10px;">Greece</h3>
+          <img src="#" alt="club" />
+          <div class="texts">
+              <h1>CLUB F.C</h1>
+              <div style="display:flex; flex-direction: row;">
+                  <img src="./images/Flag_of_Greece.png" alt="country">
+                  <h3 style="margin-left:10px;">Greece</h3>
+              </div>
           </div>
-        </div>
       </div>
-      <div class="club-backround">
-        <img src="#" alt="club">
-      </div>
-    </div>
-    <!-- UPCOMMING MATCH-->
-    <div id="upcomming-match" class="upcomming-match">
-      <h1>Upcomming Match</h1>
+  </div>
+  
+    <!-- upcoming MATCH-->
+    <div id="upcoming-match" class="upcoming-match">
+      <!-- Background image with filters -->
+      <div class="upcoming-match-background"></div>
+    
+      <h1>upcoming Match</h1>
+    
       <div class="clubs">
         <div class="home">
-          <img src="#" alt="" />
+          <img src="images/Olympiacos_FC_logo.svg.png" alt="" />
           <h3> HOME F.C </h3>
         </div>
+
         <div class="away">
+          
+          <img src="images/Olympiacos_FC_logo.svg.png" alt="" />
           <h3> AWAY F.C </h3>
-          <img src="#" alt="" />
         </div>
       </div>
+    
       <div class="texts">
         <h3> 24 March 2024</h3>
         <h4> 20:00</h4>
       </div>
+    
       <h2> HAGIA SOPHIA</h2>
-      <button> Reserve! </button>
+    
+      <button class="btn-reserve"> Reserve! </button>
     </div>
     <!--Standings-->
     <div id="standings" class="standings">
