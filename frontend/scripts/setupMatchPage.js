@@ -236,4 +236,48 @@ filteredStatTypes.forEach(statName => {
 
 };
 
+const setFootballfield = async () => {
+    const result = await fetchMatchFromAPI(); // get the match from the API
+    const match_info = result._m[0]; // extract the match information from the result
+    console.log(match_info);
+
+
+    const homePlayers = document.querySelector(".containerFF .players .home");
+    const awayPlayers = document.querySelector(".containerFF .players .away");
+
+    const home_formation = match_info.home_lineup;
+
+    console.log(match_info.home_formation[0]);
+
+    home_formation.forEach(player => {
+        const playerGrid = player.player.grid;
+        const playerNumber = player.player.number;
+        Array.from(homePlayers.children).forEach(child => {
+          const childId = child.id;
+          if (playerGrid === childId) {
+            child.style.visibility = 'visible';
+            child.textContent = playerNumber;
+          }
+        });
+      });
+
+    const away_formation = match_info.away_lineup;
+      console.log(match_info.away_formation[0]);
+    away_formation.forEach(player => {
+        const playerGrid = player.player.grid;
+        const playerNumber = player.player.number;
+      
+        Array.from(awayPlayers.children).forEach(child => {
+          const childId = child.id;
+      
+          if (playerGrid === childId) {
+            child.style.visibility = 'visible';
+            child.textContent = playerNumber;
+          }
+        });
+      });
+}
+
 displayMatch();
+
+setFootballfield();

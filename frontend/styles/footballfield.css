@@ -1,404 +1,185 @@
-.footballfied {
-  /* football field is 105x68 meters */
-  /* 1 meter = 7px  to change recalculate all widths and heights based on new value */
+
+.containerFF {
+  width: 120em;
+  height: 80em;
+  background-color: green;
+  font-size: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --line: 0.3em solid white;
+}
+
+.containerFF span {
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.field {
+  border: var(--line);
   position: relative;
-  width: 735px;
-  height: 476px;
-  background: var(--field);
-  border: 2px solid var(--text);
+  overflow: hidden;
+  /*角球线隐藏*/
+  width: inherit;
+  height: inherit;
+  z-index: 1;
 }
 
-.footballfied .goalHome .penaldyspot {
-  /* penaldy circle is 11m from the goal line */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  background: var(--text);
+.halfway-line {
+  width: 60em;
+  height: 80em;
+  border-right: var(--line);
+}
+
+.centre-circle,
+.penalty-arc {
+  width: 20em;
+  height: 20em;
+  border: var(--line);
   border-radius: 50%;
-  left: 10.47%;
+  position: absolute;
+  top: 30em;
 }
 
-.footballfied .goalHome .penaldyarea {
-  /* goal area is 5.5m from the goal line */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 2px solid var(--text);
-  /* width: 18.32m x 7 */
-  width: 38.5px;
-  /* height: 5.5m x 7 */
-  height: 128.24px;
+.centre-circle {
+  left: calc((120em - 20em - 0.3em)/2);
 }
 
-.footballfied .goalHome .goalarea {
-  /* goal area is 16.5m from the goal line */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 2px solid var(--text);
-  /* width: 40.32m */
-  height: 282.24px;
-  /* height: 16.5m */
-  width: 115.5px;
-}
-
-.footballfied .goalHome .arch {
-  /* arch is 11m from the goal line and 9.15m radius */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 84.05px;
-  height: 84.05px;
+.centre-mark {
+  width: 2em;
+  height: 2em;
+  background-color: white;
   border-radius: 50%;
-  left: 8.5%;
-  background-image: linear-gradient(
-    to left,
-    var(--text) 37%,
-    rgba(0, 0, 0, 0) 20%
-  );
-}
-.footballfied .goalHome .arch2 {
-  /* arch is 11m from the goal line and 9.15m radius */
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 84.05px;
-  height: 80.05px;
+  top: calc(80em / 2 - 1em);
+  left: calc(120em / 2 - 1em + 0.3em / 2);
+
+}
+
+.penalty-mark {
+  width: 2em;
+  height: 2em;
+  background-color: white;
   border-radius: 50%;
-  left: 8.25%;
-  background-image: linear-gradient(
-    to left,
-    var(--field) 37%,
-    rgba(0, 0, 0, 0) 20%
-  );
+  position: absolute;
+  top: calc(80em / 2 - 1em);
+  left: calc(12em - 2em / 2);
 }
 
-.footballfied .goalAway .penaldyspot {
-  /* penaldy circle is 11m from the goal line */
+.penalty-area {
+  width: 18em;
+  height: 44em;
+  border: var(--line);
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  background: var(--text);
+  top: calc((80em - 44em) / 2);
+  left: -0.3em;
+  background-color: green;
+}
+
+.penalty-arc {
+  left: calc(12em - 20em / 2);
+  z-index: -1;
+}
+
+.goal-area {
+  width: 6em;
+  height: 20em;
+  border: var(--line);
+  position: absolute;
+  top: calc((80em - 20em) / 2);
+  left: -0.3em;
+}
+
+.corner-arc{
+  border:1px solid red;
+}
+
+.corner-arc::after,
+.corner-arc::before{
+  content: '';
+  position: absolute;
+  width: 5em;
+  height: 5em;
+  border: 0.3em solid white;
   border-radius: 50%;
-  right: 10.47%;
+  left:calc(-5em / 2 - 0.3em);
 }
 
-.footballfied .goalAway .penaldyarea {
-  /* goal area is 5.5m from the goal line */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 2px solid var(--text);
-  /* width: 18.32m */
-  width: 38.5px;
-  /* height: 5.5m */
-  height: 128.24px;
-  right: 0;
+.corner-arc::before {
+  top:calc(-5em / 2 - 0.3em);
 }
 
-.footballfied .goalAway .goalarea {
-  /* goal area is 16.5m from the goal line */
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 2px solid var(--text);
-  /* width: 40.32m */
-  height: 282.24px;
-  /* height: 16.5m */
-  width: 115.5px;
-  right: 0;
+.corner-arc::after {
+  bottom:calc(-5em / 2 - 0.3em);
 }
 
-.footballfied .goalAway .arch {
-  /* arch is 11m from the goal line and 9.15m radius */
+
+/* .corner-arc-top {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 0.3em solid white;
+  border-radius: 0 0 100px 0;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 84.05px;
-  height: 84.05px;
-  border-radius: 50%;
-  right: 8.5%;
-  background-image: linear-gradient(
-    to right,
-    var(--text) 37%,
-    rgba(0, 0, 0, 0) 20%
-  );
-}
-.footballfied .goalAway .arch2 {
-  /* arch is 11m from the goal line and 9.15m radius */
+  top: -5%;
+  left:-5%;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 84.05px;
-  height: 80.05px;
-  border-radius: 50%;
-  right: 8.25%;
-  background-image: linear-gradient(
-    to right,
-    var(--field) 37%,
-    rgba(0, 0, 0, 0) 20%
-  );
 }
 
-.footballfied .centerspot {
-  /* center circle is 9.15m in radius */
+.corner-arc-bottom {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 0.3em solid white;
+  border-radius: 0 100px 0 0;
   position: absolute;
-  top: 50%;
+  top: 880px;
+  left: -20px;
+  position: absolute;
+} */
+
+.right {
+  position: absolute;
+  top: 0px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--text);
+  transform: rotateY(180deg);
 }
 
-.footballfied .line {
+
+.players
+{
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 100%;
-  background: var(--text);
-}
-
-.footballfied .centercirlce {
-  /* center circle is 9.15m in radius */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 128.1px;
-  height: 128.1px;
-  border: 2px solid var(--text);
+  width: inherit;
+  height: inherit;
   border-radius: 50%;
+  z-index: 2;
 }
 
-/* PLAYER POSITIONS */
-.footballfied .players .home p {
-  color: var(--accent);
-  font-size: small;
+.home .player
+{
+  background-color: var(--primary);
+  border: 1px solid var(--accent);
+}
+
+.away .player
+{
+  background-color: var(--secondary);
+  border: 1px solid var(--text);
+}
+
+.player
+{
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
   align-items: center;
   justify-content: center;
   display: flex;
-  margin: 2px;
-  width: 28px;
-  height: 28px;
-  background: var(--bg);
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-}
-
-.footballfied .players .home .goalkeeper {
-  position: absolute;
-  top: 50%;
-  left: 1%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .leftback {
-  position: absolute;
-  top: 12%;
-  left: 18%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .centerback {
-  position: absolute;
-  top: 30%;
-  left: 13%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .centerback2 {
-  position: absolute;
-  bottom: 30%;
-  left: 13%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .rightback {
-  position: absolute;
-  bottom: 12%;
-  left: 18%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .leftmidfield {
-  position: absolute;
-  top: 8%;
-  left: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .centermidfield {
-  position: absolute;
-  top: 28%;
-  left: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .centermidfield2 {
-  position: absolute;
-  top: 48%;
-  left: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .centermidfield3 {
-  position: absolute;
-  top: 68%;
-  left: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .rightmidfield {
-  position: absolute;
-  top: 90%;
-  left: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .leftforward {
-  position: absolute;
-  top: 20%;
-  left: 40%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .centerforward1 {
-  position: absolute;
-  top: 50%;
-  left: 40%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .centerforward2 {
-  position: absolute;
-  top: 50%;
-  left: 45%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .home .rightforward {
-  position: absolute;
-  top: 80%;
-  left: 40%;
-  transform: translateY(-50%);
-}
-
-/* AWAY PLAYER POSITIONS */
-.footballfied .players .away p {
-  color: var(--);
-  font-size: small;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  margin: 2px;
-  border: 2px solid var(--text);
-  border-radius: 50%;
-  background: var(--secondary);
-  width: 28px;
-  height: 28px;
-}
-
-.footballfied .players .away .goalkeeper {
-  position: absolute;
-  top: 50%;
-  right: 1%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .leftback {
-  position: absolute;
-  top: 12%;
-  right: 18%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .centerback {
-  position: absolute;
-  top: 30%;
-  right: 13%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .centerback2 {
-  position: absolute;
-  bottom: 30%;
-  right: 13%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .rightback {
-  position: absolute;
-  bottom: 12%;
-  right: 18%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .leftmidfield {
-  position: absolute;
-  top: 8%;
-  right: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .centermidfield {
-  position: absolute;
-  top: 28%;
-  right: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .centermidfield2 {
-  position: absolute;
-  top: 48%;
-  right: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .centermidfield3 {
-  position: absolute;
-  top: 68%;
-  right: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .rightmidfield {
-  position: absolute;
-  top: 90%;
-  right: 30%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .leftforward {
-  position: absolute;
-  top: 20%;
-  right: 40%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .centerforward1 {
-  position: absolute;
-  top: 50%;
-  right: 40%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .centerforward2 {
-  position: absolute;
-  top: 50%;
-  right: 45%;
-  transform: translateY(-50%);
-}
-
-.footballfied .players .away .rightforward {
-  position: absolute;
-  top: 80%;
-  right: 40%;
-  transform: translateY(-50%);
+  visibility: hidden;
 }

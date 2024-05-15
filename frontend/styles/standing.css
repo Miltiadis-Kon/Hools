@@ -63,6 +63,10 @@
     border-radius: 50%;
 }
 
+.generalclubinfo:hover h3 {
+    color: var(--accent);
+}
+
 .standingsCards .generalclubinfo {
     display: flex;
     flex-direction: row;

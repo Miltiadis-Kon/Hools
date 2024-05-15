@@ -9,6 +9,10 @@
   border-radius: 10px;
 }
 
+.matchcard:hover  {
+  border: 1px solid var(--secondary);
+}
+
 .matches {
 
   padding-bottom: 2rem;
@@ -36,3 +40,41 @@
   padding: 0.5rem 1.2rem;
   border-radius: 15%;
 }
+
+.show-more {
+  display: inline-block;
+  border-radius: 5px;
+  background-color: var(--secondary);
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 17px;
+  padding: 18px;
+  transition: all 0.5s;
+  cursor: pointer;
+ }
+ 
+ .show-more span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+ }
+ 
+ .show-more span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -15px;
+  transition: 0.5s;
+ }
+ 
+ .show-more:hover span {
+  padding-right: 15px;
+ }
+ 
+ .show-more:hover span:after {
+  opacity: 1;
+  right: 0;
+ }

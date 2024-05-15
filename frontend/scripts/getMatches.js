@@ -38,15 +38,20 @@ const createMatchcard = (match_id, home, scoretxt, away, durationtxt, datetxt) =
   // Create a new anchor element
   console.log(match_id,home, scoretxt, away, durationtxt, datetxt);
   //ref.href = `match.html?club=${match_id}`;
-  const a = document.createElement('a');
-  a.href = `match.html?match=${match_id}`;
-  a.target = "_blank";
-  a.style.textDecoration = "none";
-  a.style.color = "var(--text)";
-
   // Create a new div for the matchcard
   const matchcard = document.createElement('div');
   matchcard.className = "matchcard";
+
+  const a = document.createElement('a');
+  if (scoretxt != "null - null") {
+    a.href = `match.html?match=${match_id}`;
+  }
+  else
+  {
+    matchcard.style.pointerEvents = "none";
+  }
+  a.style.textDecoration = "none";
+  a.style.color = "var(--text)";
 
   // Create divs for the home team, score, away team, duration, and date
   const homeDiv = document.createElement('div');
@@ -90,12 +95,23 @@ const createMatchcard = (match_id, home, scoretxt, away, durationtxt, datetxt) =
   dateSpan.textContent = ` ${new Date(datetxt).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })} `;
   dateDiv.appendChild(dateSpan);
 
+  const show_more = document.createElement('button');
+  const span = document.createElement('span');
+  span.textContent = "Show more";
+  show_more.appendChild(span);
+  show_more.className = "show-more";
+  show_more.addEventListener("click", () => {
+    window.location.href = `match.html?match=${match_id}`;
+  });
+
+
   // Append all divs to the matchcard
   matchcard.appendChild(homeDiv);
   matchcard.appendChild(scoreDiv);
   matchcard.appendChild(awayDiv);
   matchcard.appendChild(durationDiv);
   matchcard.appendChild(dateDiv);
+  matchcard.appendChild(show_more);
 
   // Append the matchcard to the anchor element
   a.appendChild(matchcard);
