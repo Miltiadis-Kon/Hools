@@ -1,3 +1,7 @@
+const model = "https://hools.onrender.com";
+//const model = "http://localhost:10000";
+
+
 const container = document.getElementById("container");
 const registerBtn = document.getElementById("register");
 const loginBtn = document.getElementById("login");
@@ -33,18 +37,18 @@ signupBtn.addEventListener("click", async () => {
   var nameCheck = false;
   var mailCheck = false;
   //Check if user name does not exist
-  let check_name = await fetch(`http://localhost:5000/users/${username}`);
+  let check_name = await fetch(model+`/users/${username}`);
   if (!check_name.ok) {
     nameCheck = true;
   }
   //check if email does not exist
-  let check_email = await fetch(`http://localhost:5000/users/${email}`);
+  let check_email = await fetch(model+`/users/${email}`);
   if (!check_email.ok) {
     mailCheck = true;
   }
   //Add user to database
   if (nameCheck && mailCheck) {
-    let response = await fetch("http://localhost:5000/users/", {
+    let response = await fetch(model+"/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +82,7 @@ signinBtn.addEventListener("click", async () => {
     'input[placeholder="Password"]'
   ).value;
   //check if user exists
-  let response = await fetch(`http://localhost:5000/users/${username}`);
+  let response = await fetch(model+`/users/${username}`);
   let data = await response.json();
   console.log(response);
   if (!response.ok) {

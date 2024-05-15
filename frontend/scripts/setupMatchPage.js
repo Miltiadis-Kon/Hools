@@ -1,3 +1,7 @@
+const model = "https://hools.onrender.com";
+//const model = "http://localhost:10000";
+
+
 const fetchMatchFromAPI = async () => {
 
     // Get the URL parameters
@@ -6,7 +10,7 @@ const fetchMatchFromAPI = async () => {
     // Get the matchId parameter
     const matchId = urlParams.get('match');
     
-    const response = await fetch(`http://localhost:5000/matches/match/${matchId}`);
+    const response = await fetch(model+`/matches/match/${matchId}`);
     const data = await response.json();
     return data;
     };

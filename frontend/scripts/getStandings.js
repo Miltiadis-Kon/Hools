@@ -3,7 +3,7 @@ const standings_home_container = document.querySelector('[standings_home_contain
 
 
 const getStandings = async () => {
-    const response = await fetch("http://localhost:5000/matches/standings");
+    const response = await fetch(model+"/matches/standings");
     const data = await response.json();
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

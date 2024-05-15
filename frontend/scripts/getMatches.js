@@ -1,9 +1,14 @@
+const model = "https://hools.onrender.com";
+//const model = "http://localhost:10000";
+
+
+
 const getUpcomingMatches = async () => {
   //Demonstration values
   const from_date = "24_04_24";
   const to_date = "15_05_24";
 
-  const response = await fetch(`http://localhost:5000/matches/date/${from_date}/${to_date}`);
+  const response = await fetch(model+`/matches/date/${from_date}/${to_date}`);
   const data = await response.json();
   
   if (!response.ok) {

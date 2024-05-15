@@ -1,3 +1,4 @@
+
 const club_home_template = document.querySelector("[club-home-template]");
 
 const club_home_container = document.querySelector("[club-home-container]");
@@ -19,7 +20,8 @@ search_input.addEventListener("input", (e) => {
 
 //Function to get the data from the DB
 const getTeams = async () => {
-  const response = await fetch("http://localhost:5000/clubs");
+  console.log(model);
+  const response = await fetch( model+"/clubs");
   const data = await response.json();
   //console.log(data);
   if (!response.ok) {
@@ -46,7 +48,7 @@ const getTeams = async () => {
         const parent = e.target.parentElement;
         let favClub = parent.querySelector("#imgHeart");
         //TODO: fix this
-        const res = fetch("http://localhost:5000/users/clubs/", {
+        const res = fetch(model+"/users/clubs/", {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

@@ -1,10 +1,14 @@
+const model = "https://hools.onrender.com";
+//const model = "http://localhost:10000";
+
+
 
 const fetchClubfromAPI = async () => {
       // Get the URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   // Get the clubId parameter
   const clubId = urlParams.get('club');
-    const response = await fetch(`http://localhost:5000/clubs/${clubId}`);
+    const response = await fetch(model+`/clubs/${clubId}`);
     const data = await response.json();
     return data;
     };
