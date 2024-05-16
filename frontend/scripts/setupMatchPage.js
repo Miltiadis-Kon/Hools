@@ -77,7 +77,7 @@ const displayMatch = async () => {
     //TODO: Add coach
     homeInfo.querySelector("h3").src = match_info.home_team.name;
 
-    const homePlayers = document.querySelector(".info .lineup .home .players");
+    const homePlayers = document.querySelector(".info .lineup .home .players-container");
     // Assuming match_info.home_team.players is an array of player objects
     match_info.home_lineup.forEach(player => {
     // Create a new div for the player card
@@ -116,7 +116,7 @@ const displayMatch = async () => {
 const awayInfo = document.querySelector(".info .lineup .away .general");
 awayInfo.querySelector("h1").innerHTML = match_info.away_team.name;
 awayInfo.querySelector("h3").src = match_info.away_team.name;
-const awayPlayers = document.querySelector(".info .lineup .away .players");
+const awayPlayers = document.querySelector(".info .lineup .away .players-container");
 match_info.away_lineup.forEach(player => {
 // Create a new div for the player card
 const playerCard = document.createElement('div');
@@ -255,8 +255,12 @@ const setFootballfield = async () => {
         Array.from(homePlayers.children).forEach(child => {
           const childId = child.id;
           if (playerGrid === childId) {
+            child.textContent="";
             child.style.visibility = 'visible';
-            child.textContent = playerNumber;
+            const playerNumberH2 = document.createElement('h2');
+            playerNumberH2.style.font = "3.5em sans-serif"
+            playerNumberH2.textContent = playerNumber;
+            child.appendChild(playerNumberH2);
           }
         });
       });
@@ -271,8 +275,12 @@ const setFootballfield = async () => {
           const childId = child.id;
       
           if (playerGrid === childId) {
+            child.textContent="";
             child.style.visibility = 'visible';
-            child.textContent = playerNumber;
+            const playerNumberH2 = document.createElement('h2');
+            playerNumberH2.style.font = "3.5em sans-serif"
+            playerNumberH2.textContent = playerNumber;
+            child.appendChild(playerNumberH2);
           }
         });
       });

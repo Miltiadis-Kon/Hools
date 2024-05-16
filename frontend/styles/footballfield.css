@@ -3,8 +3,8 @@
   width: 120em;
   height: 80em;
   background-color: green;
-  font-size: 5px;
   display: flex;
+  font-size: 7px;
   align-items: center;
   justify-content: center;
   --line: 0.3em solid white;
@@ -21,7 +21,6 @@
   border: var(--line);
   position: relative;
   overflow: hidden;
-  /*角球线隐藏*/
   width: inherit;
   height: inherit;
   z-index: 1;
@@ -173,8 +172,8 @@
 
 .player
 {
-  width: 5em;
-  height: 5em;
+  width: 7em;
+  height: 7em;
   border-radius: 50%;
   position: absolute;
   z-index: 2;

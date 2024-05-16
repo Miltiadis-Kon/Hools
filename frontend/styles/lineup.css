@@ -146,7 +146,7 @@ margin-right: 3%;
 .lineup .home .line{ background-color: var(--accent); }
 .lineup .away .line{ background-color: var(--text); }
 
-.lineup .home .players, .lineup .away .players
+.lineup .home .players-container, .lineup .away .players-container
 {
     display: flex;
     flex-direction: column;
