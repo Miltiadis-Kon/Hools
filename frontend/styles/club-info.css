@@ -72,9 +72,10 @@
     border-radius: 15px;
     /* Εδώ θέτουμε το background image και το zoom out */
     background-image: url("../images/Olympiacos_FC_logo.svg.png");
-    background-size: 20%; /* Το zoom out effect */
+    background-size: 30%; /* Το zoom out effect */
     background-repeat: no-repeat;
     z-index: 0;
+    
 }
 
 
