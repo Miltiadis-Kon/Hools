@@ -1,5 +1,7 @@
-const model = "https://hools.onrender.com";
-//const model = "http://localhost:10000";
+
+
+//const model = "https://hools.onrender.com";
+const model = "http://localhost:5000";
 
 
 const fetchMatchFromAPI = async () => {
@@ -284,12 +286,12 @@ const setFootballfield = async () => {
 
     home_formation.forEach(player => {
         const playerGrid = player.player.grid;
-        const playerNumber = player.player.number;
+        const playerNumber =player.player.name;
         let playerPhoto = null;
         //match player of home formation with player of home_players_addData
         home_players_allData.forEach(playerData => {
-            if (playerData.id === player.player.id) {
-                playerPhoto = playerData.photo;
+            if (playerData.player.id === player.player.id) {
+                playerPhoto = playerData.player.photo;
                 console.log(player.player.name);
             }
         });
@@ -300,10 +302,11 @@ const setFootballfield = async () => {
             child.textContent="";
             child.style.visibility = 'visible';
             const playerNumberH2 = document.createElement('h2');
-            playerNumberH2.style.font = "3.5em sans-serif"
             playerNumberH2.textContent = playerNumber;
+            playerNumberH2.style.textShadow = "0 0 5px var(--bg)";
             child.appendChild(playerNumberH2);
             child.style.backgroundImage = `url(${playerPhoto})`;
+            child.style.backgroundSize = "contain";
           }
         });
       });

@@ -1,6 +1,7 @@
-const model = "https://hools.onrender.com";
-//const model = "http://localhost:10000";
 
+
+//const model = "https://hools.onrender.com";
+const model = "http://localhost:5000";
 
 
 const getUpcomingMatches = async () => {

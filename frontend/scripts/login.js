@@ -1,5 +1,3 @@
-const model = "https://hools.onrender.com";
-//const model = "http://localhost:10000";
 
 
 const container = document.getElementById("container");
