@@ -72,7 +72,7 @@ mongoose
   .connect(process.env.MONGO_CLUSTER_URL)
   .then(() => {
     console.log("Connected to database");
-    app.listen(10000, () => {
+    app.listen(5000, () => {
       console.log("Server running on port 10000");
     });
   })

@@ -6,6 +6,12 @@ const clubModel = require("../models/club");
 const club = require("../models/club");
 const matchModel = require("../models/match");
 
+
+//TODO: Split the functions into smaller .js files to have a cleaner codebase 
+//TODO: Implment user functions,cookies & redierect code
+//TODO: Implement 404 error page 
+
+
 const getStandingsfromAPI = async (req, res, next) => {
   const league_id = req.params.league_id;
   const season_id = req.params.season_id;
@@ -163,8 +169,13 @@ const getNextMatchfromAPI = async (req, res, next) => {
 
 const getPlayersandCoachfromAPI = async (req, res, next) => {
   const club_id = req.params.club_id;
-  let players = [];
-  let coach = {};
+  var players = [];
+  var coach = {};
+
+
+  
+
+
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/players",
@@ -175,14 +186,41 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
     },
   };
 
-  request(options, function (error, response, body) {
+  request(options, async function (error, response, body) {
     if (error) throw new Error(error);
     const jsonBody = JSON.parse(response.body);
     if (response == null) {
       const error = new HttpError("Could not find players.", 404);
+      console.log("ERROR PRESENTED ON THIS CLUB" + club_id);
       return next(error);
     }
-    if (jsonBody.response.length > 0) players = jsonBody.response;
+
+
+    //Get paginated players
+    if (jsonBody.paging.total > 1) {
+      console.log("More than 1 page of players. Fetching all players. Total number of pages = " + jsonBody.paging.total);
+      for (let i = 1; i < jsonBody.paging.total +1; i++) {
+        const options = {
+          method: "GET",
+          url: "https://api-football-v1.p.rapidapi.com/v3/players",
+          qs: { team: club_id, season: "2023", page: i },
+          headers: {
+            "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+            "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+          },
+        };
+      request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+          const jsonBody =  JSON.parse(response.body);
+          if (response == null) {
+            const error = new HttpError("Could not find players.", 404);
+            return next(error);
+          }
+          if (jsonBody.response.length > 0) {players = players.concat(jsonBody.response); console.log("Added players. Total number = " +players.length );}
+        });
+
+      }
+    }
 
     clubModel.find({ footballAPI_id: club_id }).then((matchesFromDB) => {
       if (matchesFromDB.length == 0) {
@@ -192,6 +230,7 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
       const club = matchesFromDB[0];
       club.players = players;
       club.save();
+      console.log("Players added to club. Total number : "+club.players.length );
     });
   });
 
@@ -215,6 +254,7 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
 
     clubModel.find({ footballAPI_id: club_id }).then((matchesFromDB) => {
       if (matchesFromDB.length == 0) {
+        console.log("ERROR PRESENTED ON THIS CLUB" + club_id);
         const error = new HttpError("Could not find the club.", 404);
         return next(error);
       }
@@ -223,7 +263,7 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
       club.save();
     });
   });
-  res.json("Success"); // return the player to the client
+  res.json(players); // return the player to the client
 };
 
 const setUpclubs = async (req, res, next) => {

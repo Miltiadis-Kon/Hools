@@ -19,6 +19,7 @@ const displayMatch = async () => {
     const result = await fetchMatchFromAPI(); // get the match from the API
     const match_info = result._m[0]; // extract the match information from the result
     console.log(match_info);
+
     // Set match date
     //2024-05-15T17:00:00+00:00
     const date = new Date(match_info.date);
@@ -35,10 +36,29 @@ const displayMatch = async () => {
 
     // Set teams
     const homeTeam = document.querySelector(".match-card .club-info [home]");
+    homeTeam.addEventListener('click', function() {
+        window.location.href = `team.html?club=${match_info.home_team.id}`;
+    });
+    homeTeam.addEventListener('mouseover', function() {
+        homeTeam.querySelector("h2").style.color = "var(--accent)";
+    });
+    homeTeam.addEventListener('mouseout', function() {
+        homeTeam.querySelector("h2").style.color = "var(--text)";
+    });
+
     homeTeam.querySelector("img").src = match_info.home_team.logo;
     homeTeam.querySelector("h2").innerHTML = match_info.home_team.name;
 
     const awayTeam = document.querySelector(".match-card .club-info [away]");
+    awayTeam.addEventListener('click', function() {
+        window.location.href = `team.html?club=${match_info.away_team.id}`;
+    });
+    awayTeam.addEventListener('mouseover', function() {
+        awayTeam.querySelector("h2").style.color = "var(--secondary)";
+    });
+    awayTeam.addEventListener('mouseout', function() {
+        awayTeam.querySelector("h2").style.color = "var(--text)";
+    });
     awayTeam.querySelector("img").src = match_info.away_team.logo;
     awayTeam.querySelector("h2").innerHTML = match_info.away_team.name;
 
@@ -241,6 +261,19 @@ const setFootballfield = async () => {
     const match_info = result._m[0]; // extract the match information from the result
     console.log(match_info);
 
+        // Get players of each club
+        const _homeCall = await fetch(model+`/clubs/${match_info.home_team.id}`);
+        const _awayCall = await fetch(model+`/clubs/${ match_info.away_team.id}`);
+    
+        const home = await _homeCall.json();
+        const away = await _awayCall.json();
+    
+        const home_players_allData = home._club[0].players;
+        const away_players_allData = away._club[0].players;
+    
+        console.log(home_players_allData);
+        console.log(away_players_allData);
+
 
     const homePlayers = document.querySelector(".containerFF .players .home");
     const awayPlayers = document.querySelector(".containerFF .players .away");
@@ -252,6 +285,15 @@ const setFootballfield = async () => {
     home_formation.forEach(player => {
         const playerGrid = player.player.grid;
         const playerNumber = player.player.number;
+        let playerPhoto = null;
+        //match player of home formation with player of home_players_addData
+        home_players_allData.forEach(playerData => {
+            if (playerData.id === player.player.id) {
+                playerPhoto = playerData.photo;
+                console.log(player.player.name);
+            }
+        });
+
         Array.from(homePlayers.children).forEach(child => {
           const childId = child.id;
           if (playerGrid === childId) {
@@ -261,6 +303,7 @@ const setFootballfield = async () => {
             playerNumberH2.style.font = "3.5em sans-serif"
             playerNumberH2.textContent = playerNumber;
             child.appendChild(playerNumberH2);
+            child.style.backgroundImage = `url(${playerPhoto})`;
           }
         });
       });
