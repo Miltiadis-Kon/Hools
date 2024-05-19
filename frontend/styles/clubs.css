@@ -83,3 +83,8 @@
     top: 80%;
     left: 40%;
   }
+
+  .card:hover{
+      transform: scale(1.1);
+  
+  }
