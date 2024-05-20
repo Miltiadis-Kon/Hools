@@ -12,10 +12,8 @@ const getStandings = async () => {
         throw new Error("No data found");
     }
     const stds = data.standings[0].standings;
-    console.log(stds);
    for (let i = 0; i < stds.length; i++) {
        let team_data = stds[i];
-       console.log(team_data);
        createStandingsCard(team_data);
    }
     }

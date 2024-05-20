@@ -97,6 +97,7 @@ const getMatchfromAPI = async (req, res, next) => {
         .find({ footballAPI_id: match_id })
         .then((matchesFromDB) => {
           if (matchesFromDB.length == 0) {
+            console.log("Match not in DB, adding match...");
             //Get all scorers
             let h_scorers = [];
             let a_scorers = [];
@@ -112,7 +113,6 @@ const getMatchfromAPI = async (req, res, next) => {
                 }
               }
             }
-            console.log(info);
             let _m=null;
             //check if match is not played yet
             if (info.fixture.status.short == "NS") {
@@ -180,7 +180,22 @@ const getMatchfromAPI = async (req, res, next) => {
               // If match has not been played, do nothing
               const matchDate = new Date(info.fixture.date);
               const currentDate = new Date();
+              console.log(`Match date: ${matchDate} Current date: ${currentDate} updating match...`);
               if (matchDate < currentDate) {
+                let h_scorers = [];
+                let a_scorers = [];
+      
+                for (let i = 0; i < info.events.length; i++) {
+                  let event = info.events[i];
+                  if (event.type == "Goal") {
+                    let scorer = { player: event.player, time: event.time };
+                    if (event.team.id == info.teams.home.id) {
+                      h_scorers.push(scorer);
+                    } else {
+                      a_scorers.push(scorer);
+                    }
+                  }
+                }
               matchModel.findOneAndUpdate(
                 { footballAPI_id: match_id },
                 {
@@ -208,7 +223,7 @@ const getMatchfromAPI = async (req, res, next) => {
                 { new: true }
               )
                 .then((updatedMatch) => {
-                console.log(`Updated match: ${updatedMatch} in MongoDB.`);
+                console.log(`Updated match: ${updatedMatch.footballAPI_id} in MongoDB.`);
                 })
                 .catch((err) => {
                 console.log(err);

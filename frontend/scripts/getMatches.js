@@ -3,11 +3,18 @@
 //const model = "https://hools.onrender.com";
 const model = "http://localhost:5000";
 
+const radioInput = document.querySelector('input[name="radioName"]:checked');
+const radioValue = radioInput ? radioInput.value : null;
 
-const getUpcomingMatches = async () => {
-  //Demonstration values
-  const from_date = "24_04_24";
-  const to_date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replaceAll('/', '_');
+let _matches = [];
+// Get data from the API
+const getUpcomingMatches = async (from_date,to_date) => {
+   // Get the date range based on the selected radio button
+    let from_date_init = new Date();
+   from_date_init.setMonth(from_date_init.getMonth() - 2); // 2 months ago
+   from_date = from_date_init.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replaceAll('/', '_');
+   to_date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replaceAll('/', '_');
+
 
   const response = await fetch(model+`/matches/date/${from_date}/${to_date}`);
   const data = await response.json();
@@ -18,6 +25,7 @@ const getUpcomingMatches = async () => {
   if (!data) {
     throw new Error("No data found");
   }
+  _matches = data.recent_matches;
   displayMatches(data);
 };
 
@@ -37,9 +45,6 @@ const displayMatches = (data) => {
 
 //TODO: Create matchcard
 const createMatchcard = (match_id, home, scoretxt, away, durationtxt, datetxt) => {
-  // Create a new anchor element
-  console.log(match_id,home, scoretxt, away, durationtxt, datetxt);
-  //ref.href = `match.html?club=${match_id}`;
   // Create a new div for the matchcard
   const matchcard = document.createElement('div');
   matchcard.className = "matchcard";
@@ -124,4 +129,79 @@ const createMatchcard = (match_id, home, scoretxt, away, durationtxt, datetxt) =
   matchtable.appendChild(a);
 };
 
+// Get all radio buttons
+const radioButtons = document.querySelectorAll('.radio-input input[type="radio"]');
+
+// Add click event listener to each radio button
+radioButtons.forEach(radioButton => {
+  radioButton.addEventListener('click', function() {
+    changeDisplayedMatches(this.value);
+  });
+});
+
+// Function to change displayed matches
+async function changeDisplayedMatches(value) {  
+  const matchtable = document.querySelector('.matchtable');
+  switch(value) {
+    case 'value-1':
+      console.log("Showing upcoming matches");
+      // Code to display upcoming matches
+      matchtable.querySelectorAll('.matchcard').forEach(card => {
+        console.log(card.querySelector('.duration span').textContent);
+        if(card.querySelector('.duration span').textContent !== " NS ") {
+          console.log(card.querySelector('.duration').textContent);
+          card.style.display = 'none';
+        }
+        else {
+          card.style.display = 'flex';
+        }
+      });
+      break;
+    case 'value-2':
+      console.log("Showing recent matches");
+      // Code to display recent matches
+      const latest_accepted_date = new Date();
+      latest_accepted_date.setDate(latest_accepted_date.getDate() - 7);
+
+      matchtable.querySelectorAll('.matchcard').forEach(card => {
+
+        let card_date = card.querySelector('.date span').textContent;
+        let [datePart, timePart] = card_date.split(', ');
+        let [day, month, year] = datePart.split('/');
+        let [hour, minute] = timePart.split(':');
+        
+        // JavaScript counts months from 0, so subtract 1 from the month
+        let card_date_object = new Date(year, month - 1, day, hour, minute);
+
+        if(card_date_object < latest_accepted_date) {
+          card.style.display = 'none';
+        }
+        else {
+          card.style.display = 'flex';
+        }
+      }
+      );
+      break;
+    case 'value-3':
+      console.log("Showing completed matches");
+      // Code to display completed matches
+      matchtable.querySelectorAll('.matchcard').forEach(card => {
+        if(card.querySelector('.duration span').textContent !== " FT ") {
+          card.style.display = 'none';
+        }
+        else {
+          card.style.display = 'flex';
+        }
+      });
+      break;
+    default:
+      // Code to display completed matches
+      matchtable.querySelectorAll('.matchcard').forEach(card => {
+        card.style.display = 'flex';
+      });
+      break;
+  }
+}
+
+// Initial call to changeDisplayedMatches
 getUpcomingMatches();
