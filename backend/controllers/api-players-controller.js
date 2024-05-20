@@ -114,8 +114,6 @@ const getPlayersandCoachfromAPI = async (req, res, next) => {
   res.json("Success"); // return the player to the client
 };
 
-
-
 module.exports = {
   getPlayersandCoachfromAPI,
 };

@@ -1,41 +1,5 @@
 //Classes
-class League {
-    constructor(id, name, country, logo, flag, season) {
-      this.footballAPI_id = id;
-      this.name = name;
-      this.country = country;
-      this.logo = logo;
-      this.flag = flag;
-      this.season = season;
-    }
-  }
-  class Standings {
-    constructor(
-      rank,
-      teamId,
-      teamName,
-      teamLogo,
-      points,
-      played,
-      wins,
-      defeats,
-      losses,
-      goaldiff,
-      form
-    ) {
-      this.rank = rank;
-      this.teamId = teamId;
-      this.teamName = teamName;
-      this.teamLogo = teamLogo;
-      this.points = points;
-      this.played = played;
-      this.wins = wins;
-      this.defeats = defeats;
-      this.losses = losses;
-      this.goaldiff = goaldiff;
-      this.form = form;
-    }
-  }
+
   class Club {
     constructor(
       name,

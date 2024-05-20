@@ -4,8 +4,6 @@ const standingsModel = require("../models/standings");
 const HttpError = require("../models/http-errors");
 
 
-
-
 const getMatchfromAPI = async (req, res, next) => {
     const match_id = req.params.match_id;
     //GET MATCH
@@ -318,7 +316,6 @@ const getMatchfromAPI = async (req, res, next) => {
     });
   };
   
-
 const getStandingsfromAPI = async (req, res, next) => {
     const league_id = req.params.league_id;
     const season_id = req.params.season_id;
@@ -344,7 +341,8 @@ const getStandingsfromAPI = async (req, res, next) => {
       const jsonBody = JSON.parse(body);
   
       // Extract standings info
-      const standingsData = jsonBody.response[0].league.standings[0];
+      const getStandingsPointer = jsonBody.response[0].league.standings.length - 1;
+      const standingsData = jsonBody.response[0].league.standings[getStandingsPointer];
       const leagueData = jsonBody.response[0].league;
   
       // Create new Standings instances for the first 16 teams
@@ -379,9 +377,17 @@ const getStandingsfromAPI = async (req, res, next) => {
       res.json({ standings }); // return the player to the client
     });
   };
-
   
 async function appendStandingstoMongo(league, data, season) {
+  //Destroy the existing standings data
+  standingsModel.deleteMany({ league: league }).then(function () {
+    console.log("Data deleted"); // Success
+  }
+  ).catch(function (error) {
+    console.log(error); // Failure
+  }
+  );
+
     // Create a new document
     const standingsDocument = new standingsModel({
       league: league,
@@ -402,3 +408,42 @@ async function appendStandingstoMongo(league, data, season) {
     getNextMatchfromAPI,
     getStandingsfromAPI,
   };
+
+
+  class League {
+    constructor(id, name, country, logo, flag, season) {
+      this.footballAPI_id = id;
+      this.name = name;
+      this.country = country;
+      this.logo = logo;
+      this.flag = flag;
+      this.season = season;
+    }
+  }
+  class Standings {
+    constructor(
+      rank,
+      teamId,
+      teamName,
+      teamLogo,
+      points,
+      played,
+      wins,
+      defeats,
+      losses,
+      goaldiff,
+      form
+    ) {
+      this.rank = rank;
+      this.teamId = teamId;
+      this.teamName = teamName;
+      this.teamLogo = teamLogo;
+      this.points = points;
+      this.played = played;
+      this.wins = wins;
+      this.defeats = defeats;
+      this.losses = losses;
+      this.goaldiff = goaldiff;
+      this.form = form;
+    }
+  }

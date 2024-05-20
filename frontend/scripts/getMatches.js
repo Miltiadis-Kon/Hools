@@ -7,7 +7,7 @@ const model = "http://localhost:5000";
 const getUpcomingMatches = async () => {
   //Demonstration values
   const from_date = "24_04_24";
-  const to_date = "15_05_24";
+  const to_date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replaceAll('/', '_');
 
   const response = await fetch(model+`/matches/date/${from_date}/${to_date}`);
   const data = await response.json();
@@ -23,6 +23,7 @@ const getUpcomingMatches = async () => {
 
 const displayMatches = (data) => {
   const matches = data.recent_matches;
+  matches.sort((a, b) => new Date(b.date) - new Date(a.date));
   matches.forEach(match => {
     const match_id = match.footballAPI_id;
     const home = match.home_team;
