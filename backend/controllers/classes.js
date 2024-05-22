@@ -1,36 +1,4 @@
 //Classes
-
-  class Club {
-    constructor(
-      name,
-      footballAPI_id,
-      logo,
-      founded,
-      field_name,
-      field_capacity,
-      field_img,
-      tickets_link,
-      players,
-      leagueStanding,
-      matches,
-      next_match,
-      coach
-    ) {
-      this.footballAPI_id = footballAPI_id;
-      this.name = name;
-      this.logo = logo;
-      this.founded = founded;
-      this.field_name = field_name;
-      this.field_capacity = field_capacity;
-      this.field_img = field_img;
-      this.tickets_link = tickets_link;
-      this.players = players;
-      this.leagueStanding = leagueStanding;
-      this.matches = matches;
-      this.next_match = next_match;
-      this.coach = coach;
-    }
-  }
   class Match {
     constructor(
       footballAPI_id,

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Hooligans</title>
+  <!--Linking the css files-->
+  <link href="styles/index.css" rel="stylesheet" />
+  <link href="styles/sidebar.css" rel="stylesheet" />
+
+
+  <link href="styles/admin.css" rel="stylesheet" />
+  <link href="styles/footballmatches-radio.css" rel="stylesheet" />
+
+  <link rel="canonical" href="https://maximmaeder.com/display-json-with-html-css-and-javascript/" />
+  <link rel="stylesheet" href="styles/code.css">
+
+  <script src="scripts/showResponse.js" defer></script>
+ <!--------------------------------------------------------------->
+  <!--Linking the js files-->
+  
+  <!-- TODO: ADD Redirect logic (if !logged in log in) -->
+</head>
+
+<body class="body">
+  <div class="sidebar">
+    <div class="top">
+      <div class="logo">
+        <img src="./images/socerballFull - Copy.png" alt="logo" />
+        <span class="menu-icon">Hooligans</span>
+      </div>
+      <!--sseperate logo with side menu-->
+      <div style="padding: 10px 0;">
+      </div>
+    </div>
+
+    <!-- sidebar open/close button -->
+    <div id="btn">
+      <img src="./images/menu.png" alt="menu" width="26px" height="26px" />
+    </div>
+
+    <!--list of the side bar-->
+    <ul>
+      <!-- Home -->
+      <li>
+        <a href="#topside"> <!--assign link -->
+          <img src="./images/home.png" alt="matches" /> <!--image-->
+          <span class="side-text"> Home</span> <!--text-->
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!--MAIN WRAPPER OF BODY-->
+  <div class="container">
+    <!--Topside Contains searchbar & avatar -->
+    <div id="topside" class="topside">
+      <!--Search Bar-->
+      <div class="group">
+        <input placeholder="Search" type="search" class="input" search-input>
+      </div>
+      <div>
+        ADMIN DASHBOARD
+      </div>
+      <div class="avatar">
+        <div>
+          <img src="./images/bell.png" alt="bell" width="30px" height="30px" />
+          <img src="./images/plane-tickets.png" alt="plane-tickets" width="30px" height="30px" />
+        </div>
+        <img src="./images/user.png" alt="avatar" width="40px" height="40px" />
+      </div>
+    </div>
+    <!--Main Content-->
+    <div class="wrapper">
+        <div class="radio-input">
+          <label>
+            <input type="radio" id="value-1" name="value-radio" value="value-1" checked="checked">
+            <span>Club Endpoints</span>
+          </label>
+          <label>
+            <input type="radio" id="value-2" name="value-radio" value="value-2">
+            <span>Match Endpoints</span>
+          </label>
+          <label>
+            <input type="radio" id="value-3" name="value-radio" value="value-3">
+            <span>User Endpoints</span>
+          </label>
+          <span class="selection"></span>
+        </div>
+    <!--Will contain a list of buttons that will controll the clubs-->
+    <div class="call-content" style="display: none;" id="club-functions" >
+      <h1>API functions related to club content</h1>
+      <h3>IMPORTANT !   API functions under this category are not FREE !  Use wisely ! </h3>
+      <div class="card">
+        <h2>Set up clubs</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">League ID</label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Season</label>
+        </div>
+        <button id="setUpClubs" >GET</button>
+      </div>
+      <div class="card">
+        <h2>Get all Clubs from football API</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">League ID</label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Season</label>
+        </div>
+        <button id="getClubs" >GET</button>
+      </div>
+      <div class="card">
+        <h2>Get single Club from football API</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">League ID </label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input" id="getClubByID-input" >
+          <label class="label">Club ID</label>
+        </div>
+        <button id="getClubByID" > GET </button>
+      </div>
+      <div class="card">
+        <h2>Get Players & Coach from football API</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">League ID </label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input" id="getPlayersandCoach-input">
+          <label class="label">Club ID</label>
+        </div>
+        <button id="getPlayersandCoach" > GET </button>
+      </div>
+    </div>
+    <div class="call-content" style="display: none;" id="match-functions" >
+      <h1>API functions related to match content</h1>
+      <h3>IMPORTANT !   API functions under this category are not FREE !  Use wisely ! </h3>
+      <div class="card">
+        <h2>Get the recent played matches</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">League ID</label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Season</label>
+        </div>
+        <button id="getRecentMatches" >GET</button>
+      </div>
+      <div class="card">
+        <h2>Get the upcoming matches</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">League ID</label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Season</label>
+        </div>
+        <button id="getCommingMatches" >GET</button>
+      </div>
+      <div class="card">
+        <h2>Get last played match of club</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Club ID</label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Season</label>
+        </div>
+        <button id="getlastmatch" >GET</button>
+      </div>
+      <div class="card">
+        <h2>Get next played match of club</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Club ID</label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Season</label>
+        </div>
+        <button id="getnextmatch" >GET</button>
+      </div>
+      <div class="card">
+        <h2>Get standings</h2>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">League ID</label>
+        </div>
+        <div class="input-container">
+          <input required="" type="text" name="text" class="input">
+          <label class="label">Season</label>
+        </div>
+        <button id="getstandings" >GET</button>
+      </div>
+    </div>
+    <div class="call-content" style="display: none;" id="user-functions" >
+      <h1>API functions related to user content</h1>
+      <h3>IMPORTANT !   API functions under this category are not FREE !  Use wisely ! </h3>
+    </div>
+  </div>
+  </div>
+</body>
+<!-- Script to click sidebar -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let btn = document.querySelector('#btn');
+    let sidebar = document.querySelector('.sidebar');
+    let container = document.querySelector('.container');
+
+    btn.onclick = function () {
+      sidebar.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
+        sidebar.style.width = "200px"; // Change width when active
+        container.style.marginLeft = "120px"; // Adjust margin
+      } else {
+        sidebar.style.width = "80px"; // Change width when inactive
+        container.style.marginLeft = "0px"; // Adjust margin
+      }
+    };
+  });
+</script>
+
+
+<!-- Smooth scroll and link -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar ul li a');
+
+    links.forEach(link => {
+      link.addEventListener('click', smoothScroll);
+    });
+
+    function smoothScroll(e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+  });
+</script>
+
+
+</html>

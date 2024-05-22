@@ -2,7 +2,7 @@ const request = require("request");
 const matchModel = require("../models/match");
 const standingsModel = require("../models/standings");
 const HttpError = require("../models/http-errors");
-
+const clubModel = require("../models/club");
 
 const getMatchfromAPI = async (req, res, next) => {
     const match_id = req.params.match_id;
@@ -307,11 +307,11 @@ const getMatchfromAPI = async (req, res, next) => {
   
       // Parse JSON body
       const jsonBody = JSON.parse(body);
-      const upcomingMatch = jsonBody.response[0];
-      if (response == null) {
+      if (jsonBody.response==null || jsonBody.response.length == 0) {
         const error = new HttpError("Could not find any matches.", 404);
         return next(error);
       }
+      const upcomingMatch = jsonBody.response[0];
       clubModel
         .find({ footballAPI_id: club_id })
         .then((matchesFromDB) => {
@@ -319,15 +319,16 @@ const getMatchfromAPI = async (req, res, next) => {
             const error = new HttpError("Could not find the club.", 404);
             return next(error);
           }
+          console.log("Next match added to MongoDB successfully  " + upcomingMatch.fixture.id);
           const club = matchesFromDB[0];
           club.next_match = upcomingMatch;
           club.save();
+          res.json("Success"); // return the player to the client
         })
         .catch((err) => {
           const error = new HttpError("Could not find the club.", 404);
           return next(error);
         });
-      res.json("Success"); // return the player to the client
     });
   };
   
@@ -415,6 +416,45 @@ async function appendStandingstoMongo(league, data, season) {
     console.log("Standings added to MongoDB successfully");
   }
 
+const getLastMatchfromAPI = async (req, res, next) => {
+    const club_id = req.params.club_id;
+    const league_id = 197;
+    
+    const options = {
+      method: "GET",
+      url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
+      qs: { last: "1", league: league_id, team: club_id, season: "2023" },
+      headers: {
+        "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+        "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+      },
+    };
+
+    //Search for the last match of the club on the DB 
+    clubModel
+      .find({ footballAPI_id: club_id })
+      .then((matchesFromDB) => {
+        if (matchesFromDB.length == 0) {
+          const error = new HttpError("Could not find the club.", 404);
+          return next(error);
+        }
+        const club = matchesFromDB[0];
+        request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+          const jsonBody = JSON.parse(body);
+          const lastMatch = jsonBody.response[0];
+          club.last_match = lastMatch;
+          club.save();
+          res.json("Success"); // return the player to the client
+        });
+      })
+      .catch((err) => {
+        const error = new HttpError("Could not find the club.", 404);
+        return next(error);
+      });
+  }
+
+
 
   module.exports = {
     getMatchfromAPI,
@@ -422,6 +462,7 @@ async function appendStandingstoMongo(league, data, season) {
     getNextMatchesfromAPI,
     getNextMatchfromAPI,
     getStandingsfromAPI,
+    getLastMatchfromAPI,
   };
 
 

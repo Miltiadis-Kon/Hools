@@ -16,10 +16,11 @@ const ClubSchema = new Schema({
   leagueStanding: { type: Object, required: false },
   matches: { type: Array, required: false },
   next_match: { type: Object, required: false },
+  last_match: { type: Object, required: false },
   coach: { type: Object, required: false },
 },
 {
-    collection: 'hools.clubs'
+    collection: 'hools.clubs.2'
 });
 
 //Create Model from Schema and export

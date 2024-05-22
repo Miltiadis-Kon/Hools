@@ -23,7 +23,6 @@ const createStandingsCard = (team) => {
     const standingsHome = standings_home_template.content.cloneNode(true);
 
     // Set the team name, logo, and rank
-
     standingsHome.querySelector(".position h2").textContent = team.rank;
     standingsHome.querySelector(".generalclubinfo a").href =`team.html?club=${team.teamId}`;
     standingsHome.querySelector(".generalclubinfo img").src = team.teamLogo;
