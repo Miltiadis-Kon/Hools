@@ -20,7 +20,7 @@ const ClubSchema = new Schema({
   coach: { type: Object, required: false },
 },
 {
-    collection: 'hools.clubs.2'
+    collection: 'hools.clubs'
 });
 
 //Create Model from Schema and export
