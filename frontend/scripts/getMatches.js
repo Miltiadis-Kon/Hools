@@ -1,7 +1,7 @@
 
 
-//const model = "https://hools.onrender.com";
-const model = "http://localhost:5000";
+const model = "https://hools.onrender.com";
+//const model = "http://localhost:5000";
 
 const radioInput = document.querySelector('input[name="radioName"]:checked');
 const radioValue = radioInput ? radioInput.value : null;

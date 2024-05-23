@@ -1,4 +1,5 @@
-const model = "http://localhost:5000";
+//const model = "http://localhost:5000";
+const model = "https://hools.onrender.com";
 
 
 const container = document.getElementById("container");
