@@ -6,20 +6,19 @@ const userController = require('../controllers/user-controller');
 
 //Define api endpoints
 //GET
-Router.get('/', userController.getUsers); // get all users
-Router.get('/:userID', userController.getUserByID); // get a user by id
+Router.get('/allusers/', userController.getUsers); // get all users
+Router.get('/getuser/:userID', userController.getUserByID); // get a user by id
 
 //POST
-Router.post('/', userController.createUser); // create a user
-//PATCH
-Router.patch('/:userID', userController.updateUser); // update a user
+Router.post('/createuser/', userController.createUser); // create a user
+
 //DELETE
-Router.delete('/:userID', userController.deleteUser); // delete a user
+Router.delete('/deleteuser/:userID', userController.deleteUser); // delete a user
 
-Router.patch('/clubs/', userController.addFavoriteClub); // add a favorite club
+Router.get('/addclub/:userID/:clubID', userController.addFavoriteClub); // add a favorite club
 
-Router.get('/:username', userController.checkUsername); // check if username exists
-Router.get('/:email', userController.checkEmail); // check if email exists
+Router.get('/checkname/:username', userController.checkUsername); // check if username exists
+Router.get('/checkmail/:email', userController.checkEmail); // check if email exists
 
 
 //Export module

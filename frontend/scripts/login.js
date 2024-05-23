@@ -1,3 +1,4 @@
+const model = "http://localhost:5000";
 
 
 const container = document.getElementById("container");
@@ -17,10 +18,70 @@ loginBtn.addEventListener("click", () => {
   container.classList.remove("active");
 });
 
+
+const checkName = async (username) => {
+  //Check if user name is unique
+  const checkuser = await fetch(model+`/users/checkname/${username}`);
+  const user_data = await checkuser.json();
+  if (!checkuser.ok) {
+    throw new Error(`HTTP error! status: ${checkuser.status}`);
+  }
+  if (!user_data) {
+    throw new Error("No data found");
+  }
+  if (user_data.answer === "true") {
+    return true;
+  } else {
+    alert("Username already exists!");
+    return false;
+  }
+}
+
+const checkEmail = async (email) => {
+  //Check if email is unique
+  const checkmail = await fetch(model+`/users/checkmail/${email}`);
+  const mail_data = await checkmail.json();
+  if (!checkmail.ok) {
+    throw new Error(`HTTP error! status: ${checkmail.status}`);
+  }
+  if (!mail_data) {
+    throw new Error("No data found");
+  }
+  if (mail_data.answer === "true") {
+    return true;
+  }
+  else {
+    alert("Email already exists!");
+    return false;
+  }
+}
+
+const signupUser = async (username, email, password, isAdmin) => {
+  //Create a custom ID for the user
+  const id = Math.floor(Math.random() * 1000);
+  let response = await fetch(model+"/users/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, email, password,isAdmin,id,clubs:{},tickets:{} }),
+  });
+  let data = await response.json();
+
+  console.log(data);
+  console.log(response);
+  if (!response.ok) {
+    alert("User already exists!");
+  } 
+  else 
+  {
+    alert("User created successfully!");
+    loginUser(username, password);
+  }
+}
+
 signupBtn.addEventListener("click", async () => {
   console.log("SIGN UP");
-  //TODO: Add signup functionality
-
   //Get user name, email, password
   const username = signup_form.querySelector('input[placeholder="Name"]').value;
   const email = signup_form.querySelector('input[placeholder="Email"]').value;
@@ -34,74 +95,57 @@ signupBtn.addEventListener("click", async () => {
   console.log(username + " " + email + " " + password + " " + admin);
   var nameCheck = false;
   var mailCheck = false;
-  //Check if user name does not exist
-  let check_name = await fetch(model+`/users/${username}`);
-  if (!check_name.ok) {
-    nameCheck = true;
-  }
-  //check if email does not exist
-  let check_email = await fetch(model+`/users/${email}`);
-  if (!check_email.ok) {
-    mailCheck = true;
-  }
-  //Add user to database
-  if (nameCheck && mailCheck) {
-    let response = await fetch(model+"/users/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password,isAdmin }),
-    });
-    let data = await response.json();
-    console.log(data);
-    console.log(response);
-    if (!response.ok) {
-      alert("User already exists!");
-    } 
-    else 
-    {
-      alert("User created successfully!");
-    }
-  }
-      //TODO:login
-      // login user
+  //Check if user name is unique
+  nameCheck = await checkName(username);
+  //Check if email is unique
+  mailCheck = await checkEmail(email);
 
-      // Redirect to home page
+    //Add user to database
+  if (nameCheck && mailCheck) {
+    console.log("User can be added!");
+    signupUser(username, email, password, isAdmin);
+  }
+
 });
 
+//TODO:Fix login
+async function loginUser (username, password) {
+  //check if user exists
+  const response = await fetch(model+`/users/getuser/${username}`);
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+    if (!data) {
+    throw new Error("No data found");
+    }
+    console.log(data);
+    //check if password is correct
+    if (data.user.password !== password) {
+      throw new Error("Incorrect password!" );
+    }
+      window.href = "/";
+      setCookie("username", username, 7);
+      setCookie("userID", data._id, 7);
+  }
+
+
 signinBtn.addEventListener("click", async () => {
-  console.log("LOG IN");
-  console.log(signin_form);
   const username = signin_form.querySelector(
     'input[placeholder="Email"]'
   ).value;
   const password = signin_form.querySelector(
     'input[placeholder="Password"]'
   ).value;
-  //check if user exists
-  let response = await fetch(model+`/users/${username}`);
-  let data = await response.json();
-  console.log(response);
-  if (!response.ok) {
-    alert("User does not exist!");
-    throw new Error(`HTTP error! status: ${response.status}`);
-  } else {
-    if (!data) {
-      alert("No user found");
-      throw new Error("No data found");
-    }
-    //check if password is correct
-    if (data.password !== password) {
-      alert("Incorrect password");
-      throw new Error("Incorrect password");
-    } else {
-      alert("Logged in successfully!");
-      //TODO:login
-      // login user
+  console.log(username + " " + password); 
+  await loginUser(username, password);
+});
 
-      // Redirect to home page
-      window.location.href = "/";
-    }
+
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    if(container.classList.contains("active")) signupBtn.click();
+    else signinBtn.click();
   }
 });
