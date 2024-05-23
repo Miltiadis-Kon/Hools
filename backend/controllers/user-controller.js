@@ -145,11 +145,36 @@ const addFavoriteClub = async (req, res, next) => {
   }
 };
 
+const removeFavoriteClub = async (req, res, next) => {
+  const userID = req.params.userID; // get the user id from the request params
+  const clubID = req.params.clubID; // get the club id from the request params
+  //remove the club from the user
+  try {
+    //Find user
+    const _user = await user.findOne({ userID: userID });
+    //Check if club is already in user
+    if (!_user.clubs.includes(clubID)) {
+      return res.status(200).json({ message: "Club not in user" });
+    }
+    //Remove club from user
+    else {
+      _user.clubs.pull(clubID);
+      await _user.save();
+      return res.status(200).json({ message: "Club removed from user successfully" });
+    }
+  } catch (err) {
+    const error = new HttpError("Could not remove club from user.", 500);
+    return next(error);
+  }
+};
+
 exports.getUserByID = getUserByID;
 exports.getUsers = getUsers;
 exports.createUser = createUser;
 exports.deleteUser = deleteUser;
 exports.addFavoriteClub = addFavoriteClub;
+exports.removeFavoriteClub = removeFavoriteClub;
 exports.checkUsername = checkUsername;
 exports.checkEmail = checkEmail;
+
 

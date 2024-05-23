@@ -16,6 +16,7 @@ Router.post('/createuser/', userController.createUser); // create a user
 Router.delete('/deleteuser/:userID', userController.deleteUser); // delete a user
 
 Router.get('/addclub/:userID/:clubID', userController.addFavoriteClub); // add a favorite club
+Router.get('/removeclub/:userID/:clubID', userController.removeFavoriteClub); // remove a favorite club
 
 Router.get('/checkname/:username', userController.checkUsername); // check if username exists
 Router.get('/checkmail/:email', userController.checkEmail); // check if email exists

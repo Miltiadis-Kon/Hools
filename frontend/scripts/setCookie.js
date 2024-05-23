@@ -48,9 +48,13 @@ if (isLoggedInGlobal) {
 // Get the value of the "username" cookie
 var username = getCookie("username");
 var userID = getCookie("userID");
+var email = getCookie("email");
 
 // Delete cookies
 //setCookie("username", "", -1);
 //setCookie("userID", "", -1);
 
-
+//Set cookies
+setCookie("username", "John Doe", 7);
+setCookie("userID", "1", 7);
+setCookie("email", "admin@admin.com", 7);

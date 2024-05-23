@@ -109,7 +109,7 @@ signupBtn.addEventListener("click", async () => {
 });
 
 //TODO:Fix login
-async function loginUser (username, password) {
+const  loginUser = async (username, password) => {
   //check if user exists
   const response = await fetch(model+`/users/getuser/${username}`);
   const data = await response.json();
@@ -128,7 +128,6 @@ async function loginUser (username, password) {
       setCookie("username", username, 7);
       setCookie("userID", data._id, 7);
   }
-
 
 signinBtn.addEventListener("click", async () => {
   const username = signin_form.querySelector(
