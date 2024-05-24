@@ -319,6 +319,8 @@ const getMatchfromAPI = async (req, res, next) => {
               const error = new HttpError("Could not find the next match.", 404);
               return next(error);
             }
+            //Get further statistics and store match to DB
+            getMatch(next_match.fixture.id);
           console.log("Next match added to MongoDB successfully  " + next_match.fixture.id);
           clubModel.findOneAndUpdate({ footballAPI_id: club_id },{$set: {next_match: next_match }}).
           then((updatedClub) => {
@@ -445,6 +447,13 @@ const getLastMatchfromAPI = async (req, res, next) => {
           if (error) throw new Error(error);
           const jsonBody = JSON.parse(body);
           const lastMatch = jsonBody.response[0];
+          if(jsonBody.response.length == 0)
+            {
+              const error = new HttpError("Could not find the last match.", 404);
+              return next(error);
+            }
+            //Get further statistics and store match to DB
+            getMatch(lastMatch.fixture.id);
           console.log("Last match added to MongoDB successfully  " + lastMatch.fixture.id);
           clubModel.findOneAndUpdate({ footballAPI_id: club_id },{$set: {last_match: lastMatch }}).
           then((updatedClub) => {

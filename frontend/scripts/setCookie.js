@@ -49,12 +49,41 @@ if (isLoggedInGlobal) {
 var username = getCookie("username");
 var userID = getCookie("userID");
 var email = getCookie("email");
+var avatar = getCookie("avatar");
+
+
+
+const randomAvatarImages = [
+"https://api.dicebear.com/8.x/personas/svg?seed=Bella",
+"https://api.dicebear.com/8.x/personas/svg?seed=Felix",
+"https://api.dicebear.com/8.x/personas/svg?seed=Jasper",
+"https://api.dicebear.com/8.x/personas/svg?seed=Bubba",
+"https://api.dicebear.com/8.x/personas/svg?seed=Gizmo",
+"https://api.dicebear.com/8.x/personas/svg?seed=Abby"
+]
+
+const changeAvatarLayout = () => {
+    if (isLoggedInGlobal) {
+        document.querySelector('.avatar a h2').textContent = username;
+        document.getElementById("avatarimg").src = avatar;
+    } else {
+        document.querySelector('.avatar a h2').textContent = "Sign In";
+        document.querySelector('.avatar a').style = "text-decoration: none;"
+        document.querySelector('.avatar a h2').style = "color: var(--text);"
+        document.querySelector('.avatar a').href = "/frontend/signin.html";
+    }
+};
 
 // Delete cookies
 //setCookie("username", "", -1);
 //setCookie("userID", "", -1);
+//setCookie("email", "", -1);
+//setCookie("avatar", "", -1);
 
 //Set cookies
-//setCookie("username", "John Doe", 7);
-//setCookie("userID", "1", 7);
-//setCookie("email", "admin@admin.com", 7);
+setCookie("username", "John Doe", 7);
+setCookie("userID", "1", 7);
+setCookie("email", "admin@admin.com", 7);
+setCookie("avatar", randomAvatarImages[Math.floor(Math.random() * randomAvatarImages.length)], 7);
+
+changeAvatarLayout();
