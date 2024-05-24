@@ -31,15 +31,6 @@ const displayClub = async () => {
 
     if(nextMatch == null || nextMatch == undefined)
     {
-        // Create an endpoint that calls the API and returns the last match of a club
-        const response = await fetch(model + `/matches/last_match/${club_info.footballAPI_id}`);
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        if (!data) {
-          throw new Error("No data found");
-        }
         nextMatch = data.last_match;
     }
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");

@@ -1,5 +1,5 @@
-//const model = "http://localhost:5000";
-const model = "https://hools.onrender.com";
+const model = "http://localhost:5000";
+//const model = "https://hools.onrender.com";
 
 //Initialize functions
 const getClubs = async () => {
