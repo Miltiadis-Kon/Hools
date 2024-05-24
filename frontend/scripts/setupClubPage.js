@@ -36,6 +36,11 @@ const displayClub = async () => {
         document.querySelector(".clubs .score h1").textContent = ""+nextMatch.goals.home + " - " + nextMatch.goals.away+"     ";
         document.querySelector(".btn-reserve").style.display = "none";
     }
+    //LOG MATCH INFO 
+    const response = await fetch(model+`/matches/match/${nextMatch.footballAPI_id}`);
+    const data = await response.json();
+    console.log("MATCH INFO: ",data);
+
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");
   homeTeam.querySelector("img").src = nextMatch.teams.home.logo;
   homeTeam.querySelector("h3").innerHTML = nextMatch.teams.home.name;
