@@ -10,7 +10,7 @@ router.get("/clubfromleague/:league_id",matchController.getClubsfromAPI); //get 
 router.get("/deleteAllClubs",matchController.deleteAllClubs); //delete all clubs from database
 //Club info related routes
 router.get("/players/:club_id",api_players_controller.getPlayersandCoachfromAPI); //get ALL players and coach based on club_id
-router.get("/next_match/:league_id/:club_id",api_matches_controller.getNextMatchfromAPI); //get the next match based on club_id
+router.get("/next_match/197/:club_id",api_matches_controller.getNextMatchfromAPI); //get the next match based on club_id
 router.get("/last_match/197/:club_id",api_matches_controller.getLastMatchfromAPI); //get the last match based on club_id
 
 //Match related routes

@@ -73,7 +73,7 @@
     </div>
     <!--Main Content-->
     <div class="wrapper">
-        <div class="radio-input">
+        <div class="radio-input" style="margin: 20px;" >
           <label>
             <input type="radio" id="value-1" name="value-radio" value="value-1" checked="checked">
             <span>Club Endpoints</span>
@@ -146,14 +146,6 @@
       <h3>IMPORTANT !   API functions under this category are not FREE !  Use wisely ! </h3>
       <div class="card">
         <h2>Get the recent played matches</h2>
-        <div class="input-container">
-          <input required="" type="text" name="text" class="input">
-          <label class="label">League ID</label>
-        </div>
-        <div class="input-container">
-          <input required="" type="text" name="text" class="input">
-          <label class="label">Season</label>
-        </div>
         <button id="getRecentMatches" >GET</button>
       </div>
       <div class="card">
@@ -171,37 +163,21 @@
       <div class="card">
         <h2>Get last played match of club</h2>
         <div class="input-container">
-          <input required="" type="text" name="text" class="input">
+          <input required="" type="text" name="text" class="input" id="last_match-input" >
           <label class="label">Club ID</label>
-        </div>
-        <div class="input-container">
-          <input required="" type="text" name="text" class="input">
-          <label class="label">Season</label>
         </div>
         <button id="getlastmatch" >GET</button>
       </div>
       <div class="card">
         <h2>Get next played match of club</h2>
         <div class="input-container">
-          <input required="" type="text" name="text" class="input">
+          <input required="" type="text" name="text" class="input" id="next_match-input" >
           <label class="label">Club ID</label>
-        </div>
-        <div class="input-container">
-          <input required="" type="text" name="text" class="input">
-          <label class="label">Season</label>
         </div>
         <button id="getnextmatch" >GET</button>
       </div>
       <div class="card">
         <h2>Get standings</h2>
-        <div class="input-container">
-          <input required="" type="text" name="text" class="input">
-          <label class="label">League ID</label>
-        </div>
-        <div class="input-container">
-          <input required="" type="text" name="text" class="input">
-          <label class="label">Season</label>
-        </div>
         <button id="getstandings" >GET</button>
       </div>
     </div>

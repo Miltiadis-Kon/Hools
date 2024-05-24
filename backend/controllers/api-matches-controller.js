@@ -291,7 +291,8 @@ const getMatchfromAPI = async (req, res, next) => {
 
   const getNextMatchfromAPI = async (req, res, next) => {
     const club_id = req.params.club_id;
-    const league_id = req.params.league_id;
+    const league_id = 197;
+    
     const options = {
       method: "GET",
       url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
@@ -301,35 +302,38 @@ const getMatchfromAPI = async (req, res, next) => {
         "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
       },
     };
-  
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-  
-      // Parse JSON body
-      const jsonBody = JSON.parse(body);
-      if (jsonBody.response==null || jsonBody.response.length == 0) {
-        const error = new HttpError("Could not find any matches.", 404);
-        return next(error);
-      }
-      const upcomingMatch = jsonBody.response[0];
-      clubModel
-        .find({ footballAPI_id: club_id })
-        .then((matchesFromDB) => {
-          if (matchesFromDB.length == 0) {
-            const error = new HttpError("Could not find the club.", 404);
-            return next(error);
-          }
-          console.log("Next match added to MongoDB successfully  " + upcomingMatch.fixture.id);
-          const club = matchesFromDB[0];
-          club.next_match = upcomingMatch;
-          club.save();
-          res.json("Success"); // return the player to the client
-        })
-        .catch((err) => {
+    //Search for the last match of the club on the DB 
+    clubModel
+      .findOne({ footballAPI_id: club_id })
+      .then((matchesFromDB) => {
+        if (matchesFromDB.length == 0) {
           const error = new HttpError("Could not find the club.", 404);
           return next(error);
+        }
+        request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+          const jsonBody = JSON.parse(body);
+          const next_match = jsonBody.response[0];
+          if(jsonBody.response.length == 0)
+            {
+              const error = new HttpError("Could not find the next match.", 404);
+              return next(error);
+            }
+          console.log("Next match added to MongoDB successfully  " + next_match.fixture.id);
+          clubModel.findOneAndUpdate({ footballAPI_id: club_id },{$set: {next_match: next_match }}).
+          then((updatedClub) => {
+            console.log(`Updated club: ${updatedClub.footballAPI_id} in MongoDB.`);
+          }).
+          catch((err) => {
+            return next(err);
+          });
+          return res.status(200).json("Success"); // return the player to the client
         });
-    });
+      })
+      .catch((err) => {
+        const error = new HttpError("Could not find the club.", 404);
+        return next(error);
+      });
   };
   
 const getStandingsfromAPI = async (req, res, next) => {
@@ -429,22 +433,26 @@ const getLastMatchfromAPI = async (req, res, next) => {
         "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
       },
     };
-
     //Search for the last match of the club on the DB 
     clubModel
-      .find({ footballAPI_id: club_id })
+      .findOne({ footballAPI_id: club_id })
       .then((matchesFromDB) => {
         if (matchesFromDB.length == 0) {
           const error = new HttpError("Could not find the club.", 404);
           return next(error);
         }
-        const club = matchesFromDB[0];
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
           const jsonBody = JSON.parse(body);
           const lastMatch = jsonBody.response[0];
-          club.last_match = lastMatch;
-          club.save();
+          console.log("Last match added to MongoDB successfully  " + lastMatch.fixture.id);
+          clubModel.findOneAndUpdate({ footballAPI_id: club_id },{$set: {last_match: lastMatch }}).
+          then((updatedClub) => {
+            console.log(`Updated club: ${updatedClub.footballAPI_id} in MongoDB.`);
+          }).
+          catch((err) => {
+            console.log(err);
+          });
           res.json("Success"); // return the player to the client
         });
       })
