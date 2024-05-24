@@ -31,7 +31,7 @@ const displayClub = async () => {
 
     if(nextMatch == null || nextMatch == undefined)
     {
-        nextMatch = data.last_match;
+        nextMatch = club_info.last_match;
     }
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");
   homeTeam.querySelector("img").src = nextMatch.teams.home.logo;
