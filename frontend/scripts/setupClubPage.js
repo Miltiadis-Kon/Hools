@@ -1,5 +1,5 @@
-const model = "https://hools.onrender.com";
-//const model = "http://localhost:5000";
+//const model = "https://hools.onrender.com";
+const model = "http://localhost:5000";
 
 const fetchClubfromAPI = async () => {
   // Get the URL parameters
@@ -14,7 +14,8 @@ const fetchClubfromAPI = async () => {
 const displayClub = async () => {
   const result = await fetchClubfromAPI(); // get the club from the API
   const club_info = result._club[0]; // extract the club information from the result
-  console.log(club_info);
+  console.log("GENERAL CLUB INFO",club_info);
+  
   // Set club name
   const club_name = document.querySelector(".club-info .texts h1");
   club_name.innerHTML = club_info.name;
@@ -37,9 +38,16 @@ const displayClub = async () => {
         document.querySelector(".btn-reserve").style.display = "none";
     }
     //LOG MATCH INFO 
-    const response = await fetch(model+`/matches/match/${nextMatch.footballAPI_id}`);
+    const response = await fetch(model+`/matches/match/${nextMatch.fixture.id}`);
     const data = await response.json();
-    console.log("MATCH INFO: ",data);
+    const match_data = data._m[0];
+
+    // GET PLAYERS and subs
+    let players = [];
+    //Home lineup contains the starting 11 players and home substitutes contains the substitutes
+     players = players.concat(match_data.home_lineup, match_data.home_substitutes);
+    console.log("PLAYERS core plus substitutes: ",players);
+
 
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");
   homeTeam.querySelector("img").src = nextMatch.teams.home.logo;
@@ -106,8 +114,6 @@ const createStandingsCard = async (clubId) => {
   //Find club by clubID in standings
 
   let team = stds.find((team) => team.teamId == clubId);
-
-  console.log(team);
 
   // Get the template and clone it
   const standingsHome = document.querySelector(
