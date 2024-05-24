@@ -32,6 +32,9 @@ const displayClub = async () => {
     if(nextMatch == null || nextMatch == undefined)
     {
         nextMatch = club_info.last_match;
+        document.querySelector(".upcoming-match h1").textContent = "Last Match";
+        document.querySelector(".clubs .score h1").textContent = "  "+nextMatch.goals.home + " - " + nextMatch.goals.away+"  ";
+        document.querySelector(".btn-reserve").style.display = "none";
     }
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");
   homeTeam.querySelector("img").src = nextMatch.teams.home.logo;
