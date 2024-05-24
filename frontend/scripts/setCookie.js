@@ -55,6 +55,6 @@ var email = getCookie("email");
 //setCookie("userID", "", -1);
 
 //Set cookies
-setCookie("username", "John Doe", 7);
-setCookie("userID", "1", 7);
-setCookie("email", "admin@admin.com", 7);
+//setCookie("username", "John Doe", 7);
+//setCookie("userID", "1", 7);
+//setCookie("email", "admin@admin.com", 7);

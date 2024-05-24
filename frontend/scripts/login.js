@@ -1,5 +1,5 @@
-//const model = "http://localhost:5000";
-const model = "https://hools.onrender.com";
+const model = "http://localhost:5000";
+//const model = "https://hools.onrender.com";
 
 
 const container = document.getElementById("container");
@@ -60,12 +60,12 @@ const checkEmail = async (email) => {
 const signupUser = async (username, email, password, isAdmin) => {
   //Create a custom ID for the user
   const id = Math.floor(Math.random() * 1000);
-  let response = await fetch(model+"/users/", {
+  let response = await fetch(model+"/users/createuser/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, email, password,isAdmin,id,clubs:{},tickets:{} }),
+    body: JSON.stringify({ name:username, email:email,password:password,isAdmin:isAdmin,userID:id}),
   });
   let data = await response.json();
 
@@ -76,13 +76,15 @@ const signupUser = async (username, email, password, isAdmin) => {
   } 
   else 
   {
-    alert("User created successfully!");
-    loginUser(username, password);
+    setCookie("username", username, 7);
+    setCookie("userID", id, 7);
+    setCookie("email", email, 7);
+    window.location.href = "/frontend/";
   }
 }
 
-signupBtn.addEventListener("click", async () => {
-  console.log("SIGN UP");
+signupBtn.addEventListener("click", (event) => {
+  event.preventDefault();
   //Get user name, email, password
   const username = signup_form.querySelector('input[placeholder="Name"]').value;
   const email = signup_form.querySelector('input[placeholder="Email"]').value;
@@ -94,58 +96,75 @@ signupBtn.addEventListener("click", async () => {
     if (admin === "on") { isAdmin = true; }
     else { isAdmin = false; }
   console.log(username + " " + email + " " + password + " " + admin);
-  var nameCheck = false;
-  var mailCheck = false;
-  //Check if user name is unique
-  nameCheck = await checkName(username);
-  //Check if email is unique
-  mailCheck = await checkEmail(email);
-
-    //Add user to database
-  if (nameCheck && mailCheck) {
-    console.log("User can be added!");
-    signupUser(username, email, password, isAdmin);
-  }
+  checkName(username).then((name) => {
+    if (name) {
+      checkEmail(email).then((mail) => {
+        if (mail) {
+          signupUser(username, email, password, isAdmin);
+        }
+      });
+    }
+  });
 
 });
 
 //TODO:Fix login
 const  loginUser = async (username, password) => {
+  //Delete cookies
+  setCookie("username", "", -1);
+  setCookie("userID", "", -1);
+  setCookie("email", "", -1);
   //check if user exists
   const response = await fetch(model+`/users/getuser/${username}`);
   const data = await response.json();
   if (!response.ok) {
+    document.getElementById("wrong_mail").style.display = "flex";
     throw new Error(`HTTP error! status: ${response.status}`);
   }
     if (!data) {
+      document.getElementById("wrong_mail").style.display = "flex";
     throw new Error("No data found");
     }
-    console.log(data);
     //check if password is correct
     if (data.user.password !== password) {
-      throw new Error("Incorrect password!" );
+      document.getElementById("wrong_mail").style.display = "none";
+      document.getElementById("wrong_pass").style.display = "flex";
+      throw new Error("Wrong password");
     }
-      window.href = "/";
+    document.getElementById("wrong_pass").style.display = "none";
+    console.log(data);
       setCookie("username", username, 7);
-      setCookie("userID", data._id, 7);
+      setCookie("userID", data.user.userID, 7);
+      setCookie("email", data.user.email, 7);
+      window.location.href = "/frontend/";
   }
 
-signinBtn.addEventListener("click", async () => {
+signinBtn.addEventListener("click",  (event) => {
+  event.preventDefault();
   const username = signin_form.querySelector(
     'input[placeholder="Email"]'
   ).value;
   const password = signin_form.querySelector(
     'input[placeholder="Password"]'
   ).value;
-  console.log(username + " " + password); 
-  await loginUser(username, password);
+  loginUser(username, password);
 });
 
 
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    if(container.classList.contains("active")) signupBtn.click();
-    else signinBtn.click();
+    if(container.classList.contains("active"))
+      {
+        console.log("Sing up");
+        signupBtn.click();
+
+      }
+    else 
+    {
+      console.log("Sign in");
+      signinBtn.click();
+
+    }
   }
 });
