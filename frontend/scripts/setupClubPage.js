@@ -168,7 +168,14 @@ const createStandingsCard = async (clubId) => {
 };
 
 const getPlayers = async () => {
+  //const model = "http://localhost:5000";
     // -----HOW TO GET THE PLAYERS -------
+
+    const result = await fetchClubfromAPI(); // get the club from the API
+    const club_info = result._club[0]; // extract the club information from the result
+    console.log("GENERAL CLUB INFO",club_info);
+
+
     //LOG MATCH INFO 
     const response = await fetch(model+`/matches/match/${nextMatch.fixture.id}`);
     const data = await response.json();
