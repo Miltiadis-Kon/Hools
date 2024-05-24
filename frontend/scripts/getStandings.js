@@ -12,10 +12,8 @@ const getStandings = async () => {
         throw new Error("No data found");
     }
     const stds = data.standings[0].standings;
-    console.log(stds);
    for (let i = 0; i < stds.length; i++) {
        let team_data = stds[i];
-       console.log(team_data);
        createStandingsCard(team_data);
    }
     }
@@ -25,7 +23,6 @@ const createStandingsCard = (team) => {
     const standingsHome = standings_home_template.content.cloneNode(true);
 
     // Set the team name, logo, and rank
-
     standingsHome.querySelector(".position h2").textContent = team.rank;
     standingsHome.querySelector(".generalclubinfo a").href =`team.html?club=${team.teamId}`;
     standingsHome.querySelector(".generalclubinfo img").src = team.teamLogo;
