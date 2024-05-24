@@ -37,6 +37,7 @@ const displayClub = async () => {
         document.querySelector(".clubs .score h1").textContent = ""+nextMatch.goals.home + " - " + nextMatch.goals.away+"     ";
         document.querySelector(".btn-reserve").style.display = "none";
     }
+    // -----HOW TO GET THE PLAYERS -------
     //LOG MATCH INFO 
     const response = await fetch(model+`/matches/match/${nextMatch.fixture.id}`);
     const data = await response.json();
@@ -47,7 +48,7 @@ const displayClub = async () => {
     //Home lineup contains the starting 11 players and home substitutes contains the substitutes
      players = players.concat(match_data.home_lineup, match_data.home_substitutes);
     console.log("PLAYERS core plus substitutes: ",players);
-
+    // -------------------------------------
 
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");
   homeTeam.querySelector("img").src = nextMatch.teams.home.logo;
