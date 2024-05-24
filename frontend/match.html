@@ -43,42 +43,38 @@
       </div>
 
       <!--list of the side bar-->
-      <ul>
-        <!-- Home -->
-        <li>
-          <a href="#topside">
-            <!--assign link -->
-            <img src="./images/home.png" alt="matches" />
-            <!--image-->
-            <span class="side-text"> Home</span>
-            <!--text-->
-          </a>
-        </li>
-        <!-- Matches -->
-        <li>
-          <a href="#matches">
-            <!--assign link -->
-            <img src="./images/football.png" alt="matches" />
-            <!--image-->
-            <span class="side-text">Matches</span>
-            <!--text-->
-          </a>
-        </li>
-        <!-- Standings -->
-        <li>
-          <a href="#standings">
-            <img src="./images/award.png" alt="standings" />
-            <span class="side-text">Standings</span>
-          </a>
-        </li>
-        <!-- My clubs -->
-        <li>
-          <a href="#clubs">
-            <img src="./images/football-club.png" alt="myclubs" />
-            <span class="side-text">My Clubs</span>
-          </a>
-        </li>
-      </ul>
+      
+    <!--list of the side bar-->
+    <ul>
+      <!-- Home -->
+      <li>
+        <a id="home" href="#topside"> <!--assign link -->
+          <img src="./images/home.png" alt="home" /> <!--image-->
+          <span class="side-text"> Home</span> <!--text-->
+        </a>
+      </li>
+      <!--Info-->
+      <li>
+        <a href="#topside"> <!--assign link -->
+          <img src="./images/whistle.png" alt="whistle" /> <!--image-->
+          <span class="side-text"> Home</span> <!--text-->
+        </a>
+      </li>
+      <!-- Lineup -->
+      <li>
+        <a href="#lineup"> <!--assign link -->
+          <img src="./images/lineup.png" alt="lineup" /> <!--image-->
+          <span class="side-text"> Lineup</span> <!--text-->
+        </a>
+      </li>
+      <!-- Statistics -->
+      <li>
+        <a href="#stats">
+          <img src="./images/yellow-card.png" alt="standings" />
+          <span class="side-text">Stats</span>
+        </a>
+      </li>
+    </ul>
     </div>
     <!--MAIN WRAPPER OF BODY-->
     <div class="container">
@@ -148,7 +144,7 @@
         </div>
       </div>
       <!--Football Field-->
-      <div class="containerFF">
+      <div id="lineup" class="containerFF">
         <div class="field">
           <div class="left">
             <span class="halfway-line"></span>
@@ -173,10 +169,9 @@
         </div>
         <div class="players">
           <div class="home">
-            <div class="player" style="top: 47%; left: 0%" id="1:1">
-              <h2 style="display: flex; justify-content: center; font: 4em sans-serif; "  >GK</h2>
+            <div class="player" style="top: 47%; left: 0%" id="1:1">GK
+            <span>GK</span>
             </div>
-
             <div class="player" style="top: 23%; left: 11%" id="2:1">LB</div>
             <div class="player" style="top: 37%; left: 11%"  id="2:2">CB</div>
             <div class="player" style="top: 47%; left: 11%"  id="2:5">CB</div>
@@ -219,7 +214,7 @@
           </div>
         </div>
       </div>
-      <div class="info">
+      <div class="info" id="stats" >
         <!--Lineup-->
         <div class="lineup">
           <div class="home">
@@ -273,7 +268,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const links = document.querySelectorAll(".sidebar ul li a");
-
+      console.log(links);
       links.forEach((link) => {
         link.addEventListener("click", smoothScroll);
       });
@@ -293,4 +288,14 @@
       }
     });
   </script>
+
+<!-- Go to index.html with home button-->
+<script>
+  document.getElementById("home").addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the default behavior of the link
+
+    // Load the new HTML file
+    window.location.href = "index.html";
+  });
+</script>
 </html>

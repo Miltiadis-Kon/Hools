@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 const getUserByID = async (req, res, next) => {
   // get a user by id
   const userID = req.params.userID; // get the user id from the request params
-  let user;
+  let _user;
   try {
-    user = await user.findById(userID); // find the user in the database
+    _user =await user.findOne({ email: userID }); // find the user in the database
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not find a user.",
@@ -17,59 +17,50 @@ const getUserByID = async (req, res, next) => {
     );
     return next(error);
   }
-  if (!user) {
+  if (!_user) {
     const error = new HttpError(
       "Could not find a user for the provided id.",
       404
     );
     return next(error);
   }
-  res.json({ user: user.toObject({ getters: true }) });
+ return res.status(200).json({ user: _user }); // return the user to the client
 };
 
 const checkUsername = async (req, res, next) => {
   const username = req.params.username; // get the user id from the request params
-  let user;
-  try {
-    user = await user.findOne({ name: username }); // find the user in the database
-  } catch (err) {
+  try{
+  let founduser = await user.findOne({ name: username }); // find the user in the database
+  if (founduser) {
+    return res.status(200).json({answer :'false'});
+  } else {
+   return res.status(200).json({answer :'true'});
+  }
+  }catch(err){
     const error = new HttpError(
       "Something went wrong, could not find a user.",
       500
     );
     return next(error);
   }
-  if (!user) {
-    const error = new HttpError(
-      "Could not find a user for the provided name.",
-      404
-    );
-    return next(error);
-  }
-  res.json({ user: user.toObject({ getters: true }) });
 };
 
 const checkEmail = async (req, res, next) => {
   const email = req.params.email; // get the user id from the request params
-  let user;
-  try {
-    user =
-      await user.findOne({ email: email }); // find the user in the database
-  } catch (err) {
+  try{
+  let founduser = await user.findOne({ email: email }); // find the user in the database
+  if (founduser) {
+   return res.status(200).json({answer :'false'});
+  } else {
+  return  res.status(200).json({answer :'true'});
+  }
+  }catch(err){
     const error = new HttpError(
       "Something went wrong, could not find a user.",
       500
     );
     return next(error);
   }
-  if (!user) {
-    const error = new HttpError(
-      "Could not find a user for the provided email.",
-      404
-    );
-    return next(error);
-  }
-  res.json({ user: user.toObject({ getters: true }) });
 };
 
 
@@ -92,53 +83,29 @@ const getUsers = async (req, res, next) => {
     );
     return next(error);
   }
-  res.json({ users }); // return the user to the client
+ return res.status(200).json({ users: users }); // return the users to the client
 };
 
 const createUser = async (req, res, next) => {
-  // create a new user
-  const {
-    name,
-    email,
-    password,
-    isAdmin,
-  } = req.body; // get the data from the request body
+  // create a user
+  const { name, email, password, isAdmin,userID } = req.body; // get the user data from the request body
   const createdUser = new user({
-    // create a new user object
     name,
     email,
     password,
     isAdmin,
-  });
+    userID,
+    clubs: [],
+    tickets: [],
+  }); // create a new user object
   try {
-    await createdUser.save(); // save the new user to the database
+    console.log(createdUser);
+    await createdUser.save();
   } catch (err) {
-    const error = new HttpError("Creating user failed, please try again.", 500);
+    const error = new HttpError("Creating user failed, please try again."+err, 500);
     return next(error);
   }
-  res.status(201).json({ user: createdUser }); // return the new user to the client
-};
-
-const updateUser = async (req, res, next) => {
-  const userID = req.params.userID; // get the user id from the request params
-  //delete the user from the database
-  try {
-    await user.findByIdAndUpdate(userID, {
-      name: "test",
-      email: "test",
-      password: "test",
-      clubs: "test",
-      tickets: "test",
-      notifications: "test",
-      settings: "test",
-      preferences: "test",
-      isAdmin: "test",
-    });
-  } catch (err) {
-    const error = new HttpError("Could not update user.", 500);
-    return next(error);
-  }
-  res.status(200).json({ message: "User updated successfully" });
+ return  res.status(201).json({ user: createdUser });
 };
 
 const deleteUser = async (req, res, next) => {
@@ -150,7 +117,7 @@ const deleteUser = async (req, res, next) => {
     const error = new HttpError("Could not delete user.", 500);
     return next(error);
   }
-  res.status(200).json({ message: "User deleted successfully" });
+  return res.status(200).json({ message: "User deleted successfully" });
 };
 
 //TODO: Test this
@@ -160,29 +127,54 @@ const addFavoriteClub = async (req, res, next) => {
   //add the club to the user
   try {
     //Find user
-    const user = await user.findById(userID);
+    const _user = await user.findOne({ userID: userID });
+    console.log(_user);
     //Check if club is already in user
-    if (user.clubs.includes(clubID)) {
-      //Remove club from user
-      user.clubs.pull(clubID);
+    if (_user.clubs.includes(clubID)) {
+      return res.status(200).json({ message: "Club already in user" });
     }
     //Add club to user
     else {
-      user.clubs.push(clubID);
+      _user.clubs.push(clubID);
+      await _user.save();
+      return   res.status(200).json({ message: "Club added to user successfully" });
     }
   } catch (err) {
-    const error = new HttpError("Could not add club to user.", 500);
+    const error = new HttpError("Could not add club to user.\n"+err, 500);
     return next(error);
   }
-  res.status(200).json({ message: "Club added to user successfully" });
+};
+
+const removeFavoriteClub = async (req, res, next) => {
+  const userID = req.params.userID; // get the user id from the request params
+  const clubID = req.params.clubID; // get the club id from the request params
+  //remove the club from the user
+  try {
+    //Find user
+    const _user = await user.findOne({ userID: userID });
+    //Check if club is already in user
+    if (!_user.clubs.includes(clubID)) {
+      return res.status(200).json({ message: "Club not in user" });
+    }
+    //Remove club from user
+    else {
+      _user.clubs.pull(clubID);
+      await _user.save();
+      return res.status(200).json({ message: "Club removed from user successfully" });
+    }
+  } catch (err) {
+    const error = new HttpError("Could not remove club from user.", 500);
+    return next(error);
+  }
 };
 
 exports.getUserByID = getUserByID;
 exports.getUsers = getUsers;
 exports.createUser = createUser;
-exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.addFavoriteClub = addFavoriteClub;
+exports.removeFavoriteClub = removeFavoriteClub;
 exports.checkUsername = checkUsername;
 exports.checkEmail = checkEmail;
+
 

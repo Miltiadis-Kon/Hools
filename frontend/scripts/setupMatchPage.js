@@ -1,5 +1,7 @@
+
+
 const model = "https://hools.onrender.com";
-//const model = "http://localhost:10000";
+//const model = "http://localhost:5000";
 
 
 const fetchMatchFromAPI = async () => {
@@ -19,6 +21,7 @@ const displayMatch = async () => {
     const result = await fetchMatchFromAPI(); // get the match from the API
     const match_info = result._m[0]; // extract the match information from the result
     console.log(match_info);
+
     // Set match date
     //2024-05-15T17:00:00+00:00
     const date = new Date(match_info.date);
@@ -35,10 +38,29 @@ const displayMatch = async () => {
 
     // Set teams
     const homeTeam = document.querySelector(".match-card .club-info [home]");
+    homeTeam.addEventListener('click', function() {
+        window.location.href = `team.html?club=${match_info.home_team.id}`;
+    });
+    homeTeam.addEventListener('mouseover', function() {
+        homeTeam.querySelector("h2").style.color = "var(--accent)";
+    });
+    homeTeam.addEventListener('mouseout', function() {
+        homeTeam.querySelector("h2").style.color = "var(--text)";
+    });
+
     homeTeam.querySelector("img").src = match_info.home_team.logo;
     homeTeam.querySelector("h2").innerHTML = match_info.home_team.name;
 
     const awayTeam = document.querySelector(".match-card .club-info [away]");
+    awayTeam.addEventListener('click', function() {
+        window.location.href = `team.html?club=${match_info.away_team.id}`;
+    });
+    awayTeam.addEventListener('mouseover', function() {
+        awayTeam.querySelector("h2").style.color = "var(--secondary)";
+    });
+    awayTeam.addEventListener('mouseout', function() {
+        awayTeam.querySelector("h2").style.color = "var(--text)";
+    });
     awayTeam.querySelector("img").src = match_info.away_team.logo;
     awayTeam.querySelector("h2").innerHTML = match_info.away_team.name;
 
@@ -53,8 +75,13 @@ const displayMatch = async () => {
     {
         match_info.home_scorers.forEach(scorer => {
             const scorerDiv = document.createElement('p');
-            scorerDiv.innerHTML = scorer.name;
-            homeScorers.appendChild(scorerDiv);
+            if (scorer.time.extra == null) {
+                scorer.time.extra = "'";
+            }
+            else {
+                scorer.time.extra = "+ " +scorer.time.extra + "'";
+            }
+            scorerDiv.innerHTML = scorer.player.name + " " + scorer.time.elapsed+" "+scorer.time.extra;            homeScorers.appendChild(scorerDiv);
         });
     }
     // away scorers
@@ -66,16 +93,37 @@ const displayMatch = async () => {
         match_info.away_scorers.forEach(scorer => {
             console.log(scorer.name);
             const scorerDiv = document.createElement('p');
-            scorerDiv.innerHTML = scorer.name;
+            if (scorer.time.extra == null) {
+                scorer.time.extra = "'";
+            }
+            else {
+                scorer.time.extra = scorer.time.extra + "'";
+            }
+            scorerDiv.innerHTML = scorer.player.name + " " + scorer.time.elapsed+" "+scorer.time.extra;
             awayScorers.appendChild(scorerDiv);
         });
     }
+
+    const _homeCall = await fetch(model+`/clubs/${match_info.home_team.id}`);
+    const _awayCall = await fetch(model+`/clubs/${ match_info.away_team.id}`);
+
+    const home = await _homeCall.json();
+    const away = await _awayCall.json();
+
+
+    const home_players_coach = home._club[0].coach;
+    const away_players_coach = away._club[0].coach;
+
+    console.log(home_players_coach);
+    console.log(away_players_coach);
 
     //home players
     const homeInfo = document.querySelector(".info .lineup .home .general");
     homeInfo.querySelector("h1").innerHTML = match_info.home_team.name;
     //TODO: Add coach
-    homeInfo.querySelector("h3").src = match_info.home_team.name;
+            // Get players of each club
+
+    homeInfo.querySelector("h3").textContent = home_players_coach.name;
 
     const homePlayers = document.querySelector(".info .lineup .home .players-container");
     // Assuming match_info.home_team.players is an array of player objects
@@ -115,7 +163,7 @@ const displayMatch = async () => {
 //away players
 const awayInfo = document.querySelector(".info .lineup .away .general");
 awayInfo.querySelector("h1").innerHTML = match_info.away_team.name;
-awayInfo.querySelector("h3").src = match_info.away_team.name;
+awayInfo.querySelector("h3").textContent = away_players_coach.name;
 const awayPlayers = document.querySelector(".info .lineup .away .players-container");
 match_info.away_lineup.forEach(player => {
 // Create a new div for the player card
@@ -159,7 +207,7 @@ const stats = document.querySelector(".info .stats");
 const statTypes = [...new Set([...match_info.home_statistics.map(stat => stat.type), ...match_info.away_statistics.map(stat => stat.type)])];
 
 // List of stat types to remove
-const removeTypes = ['expected_goals', 'Shots insidebox','Shots outsidebox','Shots off Goal','Goalkeeper Saves','Fouls','Blocked Shots','Passes accurate','Passes %',''];
+const removeTypes = ['expected_goals', 'Shots insidebox','Shots outsidebox','Shots off Goal','Goalkeeper Saves','Fouls','Blocked Shots','Passes accurate','Passes %','goals_prevented'];
 
 // Filter out the types you want to remove
 const filteredStatTypes = statTypes.filter(statType => !removeTypes.includes(statType));
@@ -241,49 +289,74 @@ const setFootballfield = async () => {
     const match_info = result._m[0]; // extract the match information from the result
     console.log(match_info);
 
-
+        // Get players of each club
+        const _homeCall = await fetch(model+`/clubs/${match_info.home_team.id}`);
+        const _awayCall = await fetch(model+`/clubs/${ match_info.away_team.id}`);
+    
+        const home = await _homeCall.json();
+        const away = await _awayCall.json();
+    
+        const home_players_allData = home._club[0].players;
+        const away_players_allData = away._club[0].players;
+    
     const homePlayers = document.querySelector(".containerFF .players .home");
     const awayPlayers = document.querySelector(".containerFF .players .away");
 
     const home_formation = match_info.home_lineup;
 
-    console.log(match_info.home_formation[0]);
 
     home_formation.forEach(player => {
         const playerGrid = player.player.grid;
-        const playerNumber = player.player.number;
+        const playerNumber =player.player.name;
+        let playerPhoto = './images/player.png';
+        //match player of home formation with player of home_players_addData
+        home_players_allData.forEach(playerData => {
+            if (playerData.player.id === player.player.id) {
+                playerPhoto = playerData.player.photo;
+            }
+        });
+
         Array.from(homePlayers.children).forEach(child => {
           const childId = child.id;
           if (playerGrid === childId) {
             child.textContent="";
             child.style.visibility = 'visible';
             const playerNumberH2 = document.createElement('h2');
-            playerNumberH2.style.font = "3.5em sans-serif"
             playerNumberH2.textContent = playerNumber;
+            playerNumberH2.style.textShadow = "0 0 5px var(--bg)";
             child.appendChild(playerNumberH2);
+            child.style.backgroundImage = `url(${playerPhoto})`;
+            child.style.backgroundSize = "contain";
           }
         });
       });
 
     const away_formation = match_info.away_lineup;
-      console.log(match_info.away_formation[0]);
     away_formation.forEach(player => {
         const playerGrid = player.player.grid;
-        const playerNumber = player.player.number;
+        const playerNumber =player.player.name;
+        let playerPhoto = './images/player.png';
+        //match player of home formation with player of home_players_addData
+        away_players_allData.forEach(playerData => {
+            if (playerData.player.id === player.player.id) {
+                playerPhoto = playerData.player.photo;
+            }
+        });
       
         Array.from(awayPlayers.children).forEach(child => {
-          const childId = child.id;
-      
-          if (playerGrid === childId) {
-            child.textContent="";
-            child.style.visibility = 'visible';
-            const playerNumberH2 = document.createElement('h2');
-            playerNumberH2.style.font = "3.5em sans-serif"
-            playerNumberH2.textContent = playerNumber;
-            child.appendChild(playerNumberH2);
-          }
+            const childId = child.id;
+            if (playerGrid === childId) {
+              child.textContent="";
+              child.style.visibility = 'visible';
+              const playerNumberH2 = document.createElement('h2');
+              playerNumberH2.textContent = playerNumber;
+              playerNumberH2.style.textShadow = "0 0 5px var(--bg)";
+              child.appendChild(playerNumberH2);
+              child.style.backgroundImage = `url(${playerPhoto})`;
+              child.style.backgroundSize = "contain";
+            }
+          });
         });
-      });
 }
 
 displayMatch();

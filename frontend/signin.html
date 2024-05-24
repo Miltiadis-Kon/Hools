@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="styles/login.css">
     <script src = "scripts/login.js" defer></script>
+    <script src = "scripts/setCookie.js" defer></script>
     <title>Welcome to Hools!</title>
 </head>
 
@@ -29,7 +30,17 @@
             <form>
                 <h1>Sign In</h1>
                 <input type="email" placeholder="Email">
+                <div class="warning" style="display:none;" id="wrong_mail" >
+                    <i class="fa fa-exclamation-triangle rotate"></i>
+                    &nbsp; &nbsp;
+                    <span>Wrong email friend, you already forgot it; &#128517; </span>
+                  </div>
                 <input type="password" placeholder="Password">
+                <div class="warning" style="display:none;" id="wrong_pass" >
+                    <i class="fa fa-exclamation-triangle rotate"></i>
+                    &nbsp; &nbsp;
+                    <span>Oups !Wrong password! &#128552; </span>
+                  </div>
                 <a href="#">Forget Your Password?</a>
                 <button id="sign-in btn" >Sign In</button>
             </form>

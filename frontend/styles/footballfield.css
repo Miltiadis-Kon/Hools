@@ -182,3 +182,11 @@
   display: flex;
   visibility: hidden;
 }
+
+.player h2
+{
+  font-size: small;
+  text-align: center;
+  flex-wrap: wrap;
+  transform: translateY(40px);
+}

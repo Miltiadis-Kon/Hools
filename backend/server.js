@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 const clubRouter = require("./routes/club-routes");
 const footballAPIRouter = require("./routes/footballAPI-routes");
 const userRouter = require("./routes/user-routes");
-const playerRouter = require("./routes/player-routes");
 const matchRouter = require("./routes/match-routes");
 const cors = require("cors");
 
@@ -28,10 +27,6 @@ app.use("/footballAPI", (req, res, next) => {
 
 app.use("/users", (req, res, next) => {
   userRouter(req, res, next);
-});
-
-app.use("/players", (req, res, next) => {
-  playerRouter(req, res, next);
 });
 
 app.use("/matches", (req, res, next) => {
@@ -72,8 +67,8 @@ mongoose
   .connect(process.env.MONGO_CLUSTER_URL)
   .then(() => {
     console.log("Connected to database");
-    app.listen(10000, () => {
-      console.log("Server running on port 10000");
+    app.listen(process.env.PORT, () => {
+      console.log("Server running on port " + process.env.PORT);
     });
   })
   .catch(() => {
