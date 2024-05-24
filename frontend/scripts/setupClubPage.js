@@ -167,4 +167,19 @@ const createStandingsCard = async (clubId) => {
   }
 };
 
+const getPlayers = async () => {
+    // -----HOW TO GET THE PLAYERS -------
+    //LOG MATCH INFO 
+    const response = await fetch(model+`/matches/match/${nextMatch.fixture.id}`);
+    const data = await response.json();
+    const match_data = data._m[0];
+
+    // GET PLAYERS and subs
+    let players = [];
+    //Home lineup contains the starting 11 players and home substitutes contains the substitutes
+     players = players.concat(match_data.home_lineup, match_data.home_substitutes);
+    console.log("PLAYERS core plus substitutes: ",players);
+    // -------------------------------------
+};
+
 displayClub();
