@@ -39,9 +39,29 @@ const displayClub = async () => {
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");
   homeTeam.querySelector("img").src = nextMatch.teams.home.logo;
   homeTeam.querySelector("h3").innerHTML = nextMatch.teams.home.name;
+  homeTeam.addEventListener("click", () => {
+    window.location.href = `team.html?club=${nextMatch.teams.home.id}`;
+  });
+  homeTeam.addEventListener("mouseover", () => {
+    homeTeam.style.cursor = "pointer";
+    homeTeam.querySelector("h3").style.color = "var(--accent)";
+  });
+  homeTeam.addEventListener("mouseout", () => {
+    homeTeam.querySelector("h3").style.color = "var(--text)";
+  });
   const awayTeam = document.querySelector(".upcoming-match .clubs .away");
   awayTeam.querySelector("img").src = nextMatch.teams.away.logo;
   awayTeam.querySelector("h3").innerHTML = nextMatch.teams.away.name;
+  awayTeam.addEventListener("click", () => {
+    window.location.href = `team.html?club=${nextMatch.teams.away.id}`;
+  });
+  awayTeam.addEventListener("mouseover", () => {
+    awayTeam.style.cursor = "pointer";
+    awayTeam.querySelector("h3").style.color = "var(--secondary)";
+  });
+  awayTeam.addEventListener("mouseout", () => {
+    awayTeam.querySelector("h3").style.color = "var(--text)";
+  });
   // Set match date
   //2024-05-15T17:00:00+00:00
   const date = new Date(nextMatch.fixture.date);
