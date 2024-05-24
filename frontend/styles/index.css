@@ -15,6 +15,7 @@
     /* define general settings */
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }
 
 .body {
@@ -125,11 +126,5 @@
 
 
 
-@media only screen and (max-width: 600px) {
-    .body {
-    transform: scale(0.58);
-    transform-origin: top left;
-}
 
 
-}

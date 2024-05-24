@@ -27,6 +27,11 @@
     margin-bottom: 3%;
 }
 
+/*for each child of .standingsTable*/
+.standingsTable .standingsCards {
+    border: black solid 3px;
+}
+
 .standingsTable .standingsCards:nth-child(1) {
     background-color: var(--tritery);
 }
@@ -45,7 +50,8 @@
     flex-direction: row;
     justify-content: space-between;
     border-radius: 10px;
-    align-items: center;
+    align-items: center;  
+
 }
 
 .standingsCards img {
