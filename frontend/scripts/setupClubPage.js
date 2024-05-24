@@ -175,6 +175,7 @@ const getPlayers = async () => {
     const club_info = result._club[0]; // extract the club information from the result
     console.log("GENERAL CLUB INFO",club_info);
 
+    let nextMatch = club_info.last_match;
 
     //LOG MATCH INFO 
     const response = await fetch(model+`/matches/match/${nextMatch.fixture.id}`);
