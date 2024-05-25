@@ -1,0 +1,158 @@
+
+
+
+.logo img {
+    width: 50px;
+    height: 50px;
+
+}
+
+.menu-icon {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.sidebar {
+    width: 80px;
+    height: 100%;
+    background-color: var(--primary);
+    position: fixed;
+    transition: all .3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+
+}
+
+.sidebar.active~.main-content {
+    left: 250px;
+    width: calc(100% + 250px);
+    transition: all .3s ease-in-out;
+}
+
+.sidebar.active {
+    width: 250px;
+    align-items: start;
+    margin-right: 4rem;
+    padding: 0;
+}
+
+.sidebar #btn {
+    position: absolute;
+    color: var(--accent);
+    top: 1rem;
+    left: 50%;
+    line-height: 50px;
+    font-size: 1.2rem;
+    transform: translateX(-50%);
+    cursor: pointer;
+
+}
+.sidebar.active #btn {
+    left: 90%;
+}
+
+.sidebar .top .logo {
+    opacity: 0;
+}
+
+.sidebar.active .top .logo {
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.sidebar ul {
+    list-style-position: inside;
+    list-style: none;
+    margin-top: 30px;
+    padding: 0;
+}
+
+.sidebar.active ul {
+    padding: 0;
+
+
+}
+
+.sidebar ul li {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin: 3rem 0.8rem 0.8rem 0.8rem;
+    margin-left: 0;
+    line-height: 50px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 0.8rem;
+    color: var(--text);
+    line-height: 50px;
+    vertical-align: middle;
+
+}
+
+.sidebar ul li img:hover {
+    transform: scale(1.3);
+}
+
+.sidebar.active ul li img:hover {
+    transform: scale(1.1);
+}
+
+.sidebar.active ul li a:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary);
+}
+
+.sidebar.active ul li:hover .side-text {
+    margin: 0 1.2rem;
+
+}
+
+.sidebar ul li img {
+    min-width: 30px;
+    text-align: center;
+    height: 40px;
+    border-radius: 12px !important;
+    vertical-align: middle;
+}
+
+.sidebar .side-text {
+    opacity: 0;
+    vertical-align: middle;
+}
+
+.sidebar.active .side-text {
+    opacity: 1;
+    margin: 0 1rem;
+}
+
+.sidebar.active ul li {
+    margin-left: 15px;
+}
+
+.sidebar ul li:last-child {
+    margin-left: 12px;
+}
+
+.sidebar.active ul li:last-child {
+    margin-left: 10px;
+}
+
+
+.sidebar.active ul li:nth-child(1) {
+    margin-left: 10px;
+}
+
+.sidebar.active ul li:nth-child(2) {
+    margin-left: 15px;
+}
+
+
