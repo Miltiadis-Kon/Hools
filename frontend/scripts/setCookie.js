@@ -137,6 +137,11 @@ document.getElementById("avatarimg").addEventListener("click", () => {
     }
     else settings.style.display = "none";
     settings.addEventListener("click", () => {
+        // Delete cookies
+ setCookie("userID", "", -1);
+ setCookie("email", "", -1);
+ setCookie("avatar", "", -1);
+ setCookie("username", "", -1);
         window.location.href = "/frontend/signin.html";
     });
 });
