@@ -73,13 +73,20 @@ const displayMatch = async () => {
     {
         match_info.home_scorers.forEach(scorer => {
             const scorerDiv = document.createElement('p');
+            if(typeof scorer.time != 'undefined'){
             if (scorer.time.extra == null) {
                 scorer.time.extra = "'";
             }
             else {
                 scorer.time.extra = "+ " +scorer.time.extra + "'";
             }
-            scorerDiv.innerHTML = scorer.player.name + " " + scorer.time.elapsed+" "+scorer.time.extra;            homeScorers.appendChild(scorerDiv);
+            scorerDiv.innerHTML = scorer.player.name + " " + scorer.time.elapsed+" "+scorer.time.extra;            
+            homeScorers.appendChild(scorerDiv);
+        }
+        else {
+            scorerDiv.innerHTML = scorer.name;            
+            homeScorers.appendChild(scorerDiv);
+        }
         });
     }
     // away scorers
@@ -91,6 +98,7 @@ const displayMatch = async () => {
         match_info.away_scorers.forEach(scorer => {
             console.log(scorer.name);
             const scorerDiv = document.createElement('p');
+            if ( typeof scorer.time != 'undefined'){
             if (scorer.time.extra == null) {
                 scorer.time.extra = "'";
             }
@@ -99,6 +107,12 @@ const displayMatch = async () => {
             }
             scorerDiv.innerHTML = scorer.player.name + " " + scorer.time.elapsed+" "+scorer.time.extra;
             awayScorers.appendChild(scorerDiv);
+        }
+        else
+        {
+            scorerDiv.innerHTML = scorer.name;
+            awayScorers.appendChild(scorerDiv);     
+        }
         });
     }
 

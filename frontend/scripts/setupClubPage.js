@@ -40,7 +40,7 @@ const displayClub = async () => {
     }
     // -----HOW TO GET THE PLAYERS -------
     //LOG MATCH INFO 
-    const response = await fetch(model+`/matches/match/${nextMatch.fixture.id}`);
+    const response = await fetch(model+`/matches/match/${club_info.last_match.fixture.id}`);
     const data = await response.json();
     const match_data = data._m[0];
 

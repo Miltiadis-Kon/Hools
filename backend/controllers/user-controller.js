@@ -7,10 +7,6 @@ const mongoose = require("mongoose");
 const getUserByID = async (req, res, next) => {
   // get a user by id
   const userID = req.params.userID; // get the user id from the request params
-  if( isNaN(parseInt(userID)) ){
-    const error = new HttpError("Invalid club ID or user ID.", 400);
-    return next(error);
-  }
   let _user;
   try {
     _user =await user.findOne({ email: userID }); // find the user in the database
@@ -114,10 +110,6 @@ const createUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   const userID = req.params.userID; // get the user id from the request params
-  if(isNaN(parseInt(userID)) ){
-    const error = new HttpError("Invalid club ID or user ID.", 400);
-    return next(error);
-  }
   //delete the user from the database
   try {
     await user.findByIdAndRemove(userID);
@@ -133,7 +125,7 @@ const addFavoriteClub = async (req, res, next) => {
   const userID = req.params.userID; // get the user id from the request params
   const clubID = req.params.clubID; // get the club id from the request params
   //add the club to the user
-  if(isNaN(parseInt(clubID)) || isNaN(parseInt(userID)) ){
+  if(isNaN(parseInt(clubID))){
     const error = new HttpError("Invalid club ID or user ID.", 400);
     return next(error);
   }
@@ -160,7 +152,7 @@ const addFavoriteClub = async (req, res, next) => {
 const removeFavoriteClub = async (req, res, next) => {
   const userID = req.params.userID; // get the user id from the request params
   const clubID = req.params.clubID; // get the club id from the request params
-  if(isNaN(parseInt(clubID)) || isNaN(parseInt(userID)) ){
+  if(isNaN(parseInt(clubID))){
     const error = new HttpError("Invalid club ID or user ID.", 400);
     return next(error);
   }
