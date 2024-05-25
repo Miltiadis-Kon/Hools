@@ -7,61 +7,13 @@ body {
   font-weight: 400;
 }
 
-.carousel {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  height: 250px;
-  gap: 10px;
-}
 
-.carousel .player-info {
-  text-shadow: black 2px 2px 2px;
-  color: white;
-  align-self: flex-end;
-  background-color: black;
-}
-
-.carousel > div {
-  flex: 0 0 150px;
-  border-radius: 0.5rem;
-  transition: 0.5s ease-in-out;
-  cursor: pointer;
-  box-shadow: 1px 5px 15px #1e0e3e;
-  overflow: hidden;
-}
-
-.carousel > div:nth-of-type(1) {
-  background: url("/frontend/images/fotis.png") no-repeat 50% / cover;
-}
-
-.carousel > div:nth-of-type(2) {
-  background: url("/frontend/images/bakasetas.jfif") no-repeat 50% / cover;
-}
-
-.carousel > div:nth-of-type(3) {
-  background: url("https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
-}
-
-.carousel > div:nth-of-type(4) {
-  background: url("https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
-}
-
-.carousel > div:hover {
-  flex: 0 0 200px;
-  box-shadow: 1px 3px 15px var(--accent);
-}
-
-.carousel > div:hover .content {
-  opacity: 1;
-  visibility: visible;
-}
 
 .players {
   display: flex;
   flex-direction: row;
   align-items: center;
-  
+ padding: 30px 0;
   height: 100%;
 }
 
@@ -84,12 +36,133 @@ body {
   cursor: pointer;
 }
 
-button:hover {
-  transform: scale(1.1);
+.buttons button:hover {
+  transition: all 0.2s ease-in-out;
   box-shadow: 1px 3px 15px var(--secondary);
 }
 
 
-/*
 
-*/
+  /* carousel*/
+
+  
+
+  .carousel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s ease-in;
+    
+    
+  }
+  
+  .item-list {
+  max-width: 920px;
+  padding: 20px 10px;
+  height: 300px;
+  display: flex;
+  gap: 20px;
+  scroll-behavior: smooth;
+  transition: all 0.25s ease-in;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+  border: var(--secondary) 1px solid;
+    border-radius: 20px;
+
+  }
+  
+  .item-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  
+  
+  .next-btn,
+  .prev-btn {
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: var(--primary);
+  }
+  .next-btn:hover,
+  .prev-btn:hover{
+    scale: 1.1;
+  }
+  .item {
+    scroll-snap-align: center;
+  }
+
+  .carousel .button{
+    border: none;
+    cursor: pointer;
+    background: none;
+    transition: all .3s ease-in-out;
+    padding: 0;
+    margin: 0;
+}
+
+.prev-btn img,
+.next-btn img {
+  width: 50px; 
+  
+  padding: 10px;
+  margin: 0;
+}
+
+.item-list img{
+  border-radius:20px ;
+  border: gold 1px solid;
+  width: 198px;
+  height: 275px;
+}
+
+
+
+
+/* NEW */
+
+.player-container {
+  position: relative;
+  width: 50%;
+}
+
+.player-container .image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.player-container:hover  {
+  opacity: 0.3;
+  transition: .5s ease;
+ 
+}
+
+.player-container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}

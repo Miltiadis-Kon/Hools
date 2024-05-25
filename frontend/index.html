@@ -24,7 +24,7 @@
   <!--------------------------------------------------------------->
   <!--Linking the js files-->
   <script src="scripts/setCookie.js" defer></script>
-  
+
   <!-- TODO: ADD Redirect logic (if !logged in log in) -->
 </head>
 
@@ -87,16 +87,13 @@
       </div>
       <div class="avatar">
         <a href="https://www.ticketmaster.gr/" target="_blank">
-          <img src="./images/plane-tickets.png" alt="plane-tickets" width="30px" height="30px" style="margin-left: 30px;" />
+          <img src="./images/plane-tickets.png" alt="plane-tickets" width="30px" height="30px"
+            style="margin-left: 30px;" />
         </a>
-          <a>
-          <h2 style="margin: 0px 20px;"  >Sign In!</h2>
+        <a>
+          <h2 style="margin: 0px 20px;">Sign In!</h2>
         </a>
-        <img src="./images/user.png" alt="avatar" width="40px" height="40px" id="avatarimg">
-        <div class="user-settings">
-          <h3>Log out!</h3>
-      </div>
-      </img>
+        <img src="./images/user.png" alt="avatar" width="40px" height="40px" id="avatarimg" />
       </div>
     </div>
     <!--Main Content-->
@@ -163,8 +160,8 @@
           </div>
           <div class="generalclubinfo">
             <a href="" style="text-decoration: none; color: var(--text); " class="generalclubinfo">
-            <img src="./images/1200px-Aris_Thessaloniki_F.C._logo.svg.png" alt="aris" />
-            <h3 style="font-size: medium; text-decoration: none; ">Aris</h3>
+              <img src="./images/1200px-Aris_Thessaloniki_F.C._logo.svg.png" alt="aris" />
+              <h3 style="font-size: medium; text-decoration: none; ">Aris</h3>
             </a>
           </div>
           <div class="points">
@@ -195,26 +192,38 @@
       <div class="title">
         <h1>Clubs</h1>
       </div>
-      <div class="clubContainer" club-home-container>
+
+      <div class="clubContainer" >
+        <button id="prev-btn" class="prev-btn">
+          <img src="./images/left.png" alt="arrow-left"  />
+        </button>
 
         <script src="./scripts/getClubs.js" defer></script>
-        <template club-home-template>
-          <div class="card">
-            <div class="card-border-top">
+        <div id="item-list" class="item-list" club-home-container>
+         
+          <template club-home-template>
+            <div class="card">
+              <div class="card-border-top">
+              </div>
+              <div class="img" club-image>
+                <a href="" target="_blank">
+                  <img src="#" alt="" />
+                </a>
+              </div>
+              <span club-name> </span>
+              <button class="buttonImg" id="favoriteClub">
+                <img src="./images/e-commerce.png" alt="heart" />
+                <img class="img2" src="./images/e-commerce2.png" alt="heart" id="imgHeart" />
+              </button>
             </div>
-            <div class="img" club-image>
-              <a href="" target="_blank">
-                <img src="#" alt="" />
-              </a>
-            </div>
-            <span club-name> </span>
-            <button class="buttonImg" id="favoriteClub">
-              <img src="./images/e-commerce.png" alt="heart" />
-              <img class="img2" src="./images/e-commerce2.png" alt="heart" id="imgHeart" />
-            </button>
-          </div>
-        </template>
+          </template>
+
+        </div>
+        <button id="next-btn" class="next-btn">
+          <img src="./images/right.png" alt="arrow-right"  />
+        </button>
       </div>
+
     </div>
   </div>
 </body>
@@ -264,5 +273,24 @@
   });
 </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const prev = document.getElementById('prev-btn');
+    const next = document.getElementById('next-btn');
+    const list = document.getElementById('item-list');
+
+    const itemWidth = 190; // Corrected to match .item min-width in CSS
+    const padding = 48;    // Corrected to match .item-list gap in CSS
+
+    prev.addEventListener('click', () => {
+      list.scrollLeft -= itemWidth + padding;
+    });
+
+    next.addEventListener('click', () => {
+      list.scrollLeft += itemWidth + padding;
+    });
+  });
+
+</script>
 
 </html>
