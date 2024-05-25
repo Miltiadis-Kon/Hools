@@ -192,3 +192,8 @@ const getPlayers = async () => {
 };
 
 displayClub();
+
+
+document.querySelector(".btn-reserve").addEventListener("click", () => {
+  window.open( "https://www.ticketmaster.gr/");
+});
