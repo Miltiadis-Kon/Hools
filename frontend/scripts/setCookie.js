@@ -101,10 +101,10 @@ const changeAvatarLayout = () => {
 };
 
 // Delete cookies
- setCookie("username", "", -1);
- setCookie("userID", "", -1);
- setCookie("email", "", -1);
- setCookie("avatar", "", -1);
+ // setCookie("userID", "", -1);
+ // setCookie("email", "", -1);
+ // setCookie("avatar", "", -1);
+ // setCookie("username", "", -1);
 
 //Set cookies
 // setCookie("username", "John Doe", 7);

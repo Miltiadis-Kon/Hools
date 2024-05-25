@@ -36,8 +36,16 @@ const displayMatch = async () => {
 
     // Set teams
     const homeTeam = document.querySelector(".match-card .club-info [home]");
+    homeTeam.style.cursor = 'pointer';
     homeTeam.addEventListener('click', function() {
-        window.location.href = `team.html?club=${match_info.home_team.id}`;
+        //in new window
+        window.open(`team.html?club=${match_info.home_team.id}`, '_blank');
+
+        // in the same window
+        //window.location.href = `team.html?club=${match_info.home_team.id}`;
+        
+        
+
     });
     homeTeam.addEventListener('mouseover', function() {
         homeTeam.querySelector("h2").style.color = "var(--accent)";
@@ -50,8 +58,13 @@ const displayMatch = async () => {
     homeTeam.querySelector("h2").innerHTML = match_info.home_team.name;
 
     const awayTeam = document.querySelector(".match-card .club-info [away]");
+    awayTeam.style.cursor = 'pointer';
     awayTeam.addEventListener('click', function() {
-        window.location.href = `team.html?club=${match_info.away_team.id}`;
+         //in new window
+        window.open(`team.html?club=${match_info.home_team.id}`, '_blank');
+        
+        // in the same window
+        //window.location.href = `team.html?club=${match_info.home_team.id}`;
     });
     awayTeam.addEventListener('mouseover', function() {
         awayTeam.querySelector("h2").style.color = "var(--secondary)";
