@@ -5,7 +5,7 @@ const HttpError = require("../models/http-errors");
 //Search club by Id.
 const getclubByID = async (req, res, next) => {
   const clubID = req.params.clubID;
-  if (isNaN(parseInt(club_id))) {
+  if (isNaN(parseInt(clubID))) {
     const error = new HttpError("Invalid club ID.", 400);
     return next(error);
   }

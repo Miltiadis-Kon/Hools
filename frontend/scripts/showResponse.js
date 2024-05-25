@@ -31,10 +31,12 @@ const getNextAndPreviousMatches = async () => {
   if (!clubData) {
     throw new Error("No data found");
   }
-  console.log(clubData);
   //get matches for each club
   clubData.clubs.forEach(async (club) => {
     const clubID = club.footballAPI_id;
+    if(isNaN(parseInt(clubID)) ){
+      throw new Error(`Invalid club ID!`);
+    }
     console.log(clubID);
     const nextMatchRequest = await fetch(
       model + `/footballAPI/next_match/197/${clubID}`
@@ -62,6 +64,9 @@ const getNextAndPreviousMatches = async () => {
 };
 
 const getclubByID = async (clubID) => {
+  if(isNaN(parseInt(clubID)) ){
+    throw new Error(`Invalid club ID!`);
+  }
   const response = await fetch(model + `/clubs/${clubID}`);
   const data = await response.json();
   if (!response.ok) {
@@ -79,6 +84,9 @@ const getclubByID = async (clubID) => {
 };
 
 const getPlayersandCoach = async () => {
+  if(isNaN(parseInt(clubID)) ){
+    throw new Error(`Invalid club ID!`);
+  }
   const response = await fetch(model + `/footballAPI/players/${clubID}`);
   const data = await response.json();
   if (!response.ok) {
