@@ -4,6 +4,10 @@ const clubModel = require("../models/club");
 
 const getPlayersandCoachfromAPI = async (req, res, next) => {
   const club_id = req.params.club_id;
+  if (isNaN(parseInt(club_id))) {
+    const error = new HttpError("Invalid club ID.", 400);
+    return next(error);
+  }
   var players = [];
   var coach = {};
 

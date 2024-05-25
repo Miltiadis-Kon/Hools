@@ -5,6 +5,10 @@ const HttpError = require("../models/http-errors");
 //Search club by Id.
 const getclubByID = async (req, res, next) => {
   const clubID = req.params.clubID;
+  if (isNaN(parseInt(club_id))) {
+    const error = new HttpError("Invalid club ID.", 400);
+    return next(error);
+  }
   let _club;
   try {
     _club = await club.find({footballAPI_id:clubID});

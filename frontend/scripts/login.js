@@ -1,7 +1,3 @@
-//const model = "http://localhost:5000";
-const model = "https://hools.onrender.com";
-
-
 const container = document.getElementById("container");
 const registerBtn = document.getElementById("register");
 const loginBtn = document.getElementById("login");
@@ -10,6 +6,18 @@ const signinBtn = document.getElementById("sign-in btn");
 const signupBtn = document.getElementById("sign-up btn");
 const signin_form = document.querySelector(".sign-in");
 const signup_form = document.querySelector(".sign-up");
+
+const randomAvatarImages = [
+  "https://api.dicebear.com/8.x/personas/svg?seed=Bella",
+  "https://api.dicebear.com/8.x/personas/svg?seed=Felix",
+  "https://api.dicebear.com/8.x/personas/svg?seed=Jasper",
+  "https://api.dicebear.com/8.x/personas/svg?seed=Bubba",
+  "https://api.dicebear.com/8.x/personas/svg?seed=Gizmo",
+  "https://api.dicebear.com/8.x/personas/svg?seed=Abby"
+  ]
+
+  if(typeof model === 'undefined')  model = "https://hools.onrender.com";
+
 
 registerBtn.addEventListener("click", () => {
   container.classList.add("active");
@@ -79,6 +87,7 @@ const signupUser = async (username, email, password, isAdmin) => {
     setCookie("username", username, 7);
     setCookie("userID", id, 7);
     setCookie("email", email, 7);
+    setCookie("avatar", randomAvatarImages[Math.floor(Math.random() * randomAvatarImages.length)], 7);
     window.location.href = "/frontend/";
   }
 }
@@ -114,6 +123,7 @@ const  loginUser = async (username, password) => {
   setCookie("username", "", -1);
   setCookie("userID", "", -1);
   setCookie("email", "", -1);
+  setCookie("avatar", "", -1);
   //check if user exists
   const response = await fetch(model+`/users/getuser/${username}`);
   const data = await response.json();
@@ -136,6 +146,7 @@ const  loginUser = async (username, password) => {
       setCookie("username", username, 7);
       setCookie("userID", data.user.userID, 7);
       setCookie("email", data.user.email, 7);
+      setCookie("avatar", randomAvatarImages[Math.floor(Math.random() * randomAvatarImages.length)], 7);
       window.location.href = "/frontend/";
   }
 

@@ -4,8 +4,13 @@ const standingsModel = require("../models/standings");
 const HttpError = require("../models/http-errors");
 const clubModel = require("../models/club");
 
+
 const getMatchfromAPI = async (req, res, next) => {
     const match_id = req.params.match_id;
+    if (isNaN(parseInt(match_id))) {
+      const error = new HttpError("Invalid club ID.", 400);
+      return next(error);
+    }s
     //GET MATCH
     const options = {
       method: "GET",
@@ -80,6 +85,10 @@ const getMatchfromAPI = async (req, res, next) => {
   
   const getMatch = (match_id) => {
     //GET MATCH
+    if (isNaN(parseInt(match_id))) {
+      const error = new HttpError("Invalid club ID.", 400);
+      return next(error);
+    }
     const options = {
       method: "GET",
       url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
@@ -169,7 +178,7 @@ const getMatchfromAPI = async (req, res, next) => {
               if (err) {
                 return console.error(err);
               } else {
-                console.log(`Added match: ${_m} to MongoDB successfully.`);
+                console.log(`Added match: ${_m.footballAPI_id} to MongoDB successfully.`);
               }
             });
           } else 
@@ -291,12 +300,14 @@ const getMatchfromAPI = async (req, res, next) => {
 
   const getNextMatchfromAPI = async (req, res, next) => {
     const club_id = req.params.club_id;
-    const league_id = 197;
-    
+    if (isNaN(parseInt(club_id))) {
+      const error = new HttpError("Invalid club ID.", 400);
+      return next(error);
+    }
     const options = {
       method: "GET",
       url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-      qs: { next: "1", league: league_id, team: club_id, season: "2023" },
+      qs: { next: "1", team: club_id },
       headers: {
         "X-RapidAPI-Key": process.env.RAPID_API_KEY,
         "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -424,12 +435,14 @@ async function appendStandingstoMongo(league, data, season) {
 
 const getLastMatchfromAPI = async (req, res, next) => {
     const club_id = req.params.club_id;
-    const league_id = 197;
-    
+    if (isNaN(parseInt(club_id))) {
+      const error = new HttpError("Invalid club ID.", 400);
+      return next(error);
+    }
     const options = {
       method: "GET",
       url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-      qs: { last: "1", league: league_id, team: club_id, season: "2023" },
+      qs: { last: "1", team: club_id },
       headers: {
         "X-RapidAPI-Key": process.env.RAPID_API_KEY,
         "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
@@ -518,5 +531,50 @@ const getLastMatchfromAPI = async (req, res, next) => {
       this.losses = losses;
       this.goaldiff = goaldiff;
       this.form = form;
+    }
+  }
+
+
+  class Match {
+    constructor(
+      footballAPI_id,
+      date,
+      time,
+      referee,
+      venue,
+      match_status,
+      score,
+      home_team,
+      home_scorers,
+      home_statistics,
+      home_formation,
+      home_lineup,
+      home_substitutes,
+      away_team,
+      away_scorers,
+      away_statistics,
+      away_formation,
+      away_lineup,
+      away_substitutes
+    ) {
+      this.footballAPI_id = footballAPI_id;
+      this.home_team = home_team;
+      this.away_team = away_team;
+      this.score = score;
+      this.date = date;
+      this.time = time;
+      this.venue = venue;
+      this.home_statistics = home_statistics;
+      this.away_statistics = away_statistics;
+      this.home_scorers = home_scorers;
+      this.away_scorers = away_scorers;
+      this.home_lineup = home_lineup;
+      this.away_lineup = away_lineup;
+      this.home_substitutes = home_substitutes;
+      this.away_substitutes = away_substitutes;
+      this.home_formation = home_formation;
+      this.away_formation = away_formation;
+      this.match_status = match_status;
+      this.referee = referee;
     }
   }

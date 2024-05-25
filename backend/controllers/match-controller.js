@@ -23,6 +23,10 @@ const getstandings = async (req, res, next) => {
 
 const get_match = async (req, res, next) => {
     const match_id = req.params.match_id;
+    if (isNaN(parseInt(match_id))) {
+        const error = new HttpError("Invalid club ID.", 400);
+        return next(error);
+      }
     let _m;
     try
     {

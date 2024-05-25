@@ -1,5 +1,6 @@
-const model = "https://hools.onrender.com";
-//const model = "http://localhost:5000";
+
+if(typeof model === 'undefined')  model = "https://hools.onrender.com";
+
 
 const fetchClubfromAPI = async () => {
   // Get the URL parameters

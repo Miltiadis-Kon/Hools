@@ -22,6 +22,45 @@ const getClubs = async () => {
   renderJson({ data: data });
 };
 
+const getNextAndPreviousMatches = async () => {
+  const clubRequest = await fetch(model + "/clubs");
+  const clubData = await clubRequest.json();
+  if (!clubRequest.ok) {
+    throw new Error(`HTTP error! status: ${clubRequest.status}`);
+  }
+  if (!clubData) {
+    throw new Error("No data found");
+  }
+  console.log(clubData);
+  //get matches for each club
+  clubData.clubs.forEach(async (club) => {
+    const clubID = club.footballAPI_id;
+    console.log(clubID);
+    const nextMatchRequest = await fetch(
+      model + `/footballAPI/next_match/197/${clubID}`
+    );
+    const nextMatchData = await nextMatchRequest.json();
+    if (!nextMatchRequest.ok) {
+      throw new Error(`HTTP error! status: ${nextMatchRequest.status}`);
+    }
+    if (!nextMatchData) {
+      throw new Error("No data found");
+    }
+    console.log(nextMatchData);
+    const lastMatchRequest = await fetch(
+      model + `/footballAPI/last_match/197/${clubID}`
+    );
+    const lastMatchData = await lastMatchRequest.json();
+    if (!lastMatchRequest.ok) {
+      throw new Error(`HTTP error! status: ${lastMatchRequest.status}`);
+    }
+    if (!lastMatchData) {
+      throw new Error("No data found");
+    }
+    console.log(lastMatchData);
+  });
+};
+
 const getclubByID = async (clubID) => {
   const response = await fetch(model + `/clubs/${clubID}`);
   const data = await response.json();
@@ -298,6 +337,9 @@ function renderJson({ data, depth = 0 } = {}) {
   }
 }
 
+
+
+
 //Assign functions to buttons
 document.getElementById("getClubs").addEventListener("click", getClubs);
 document.getElementById("getClubByID").addEventListener("click", () => {
@@ -332,6 +374,10 @@ document.getElementById("getnextmatch").addEventListener("click", () => {
 
 document.getElementById("getstandings").addEventListener("click", () => {
   call("/footballAPI/standings/197/2023");
+});
+
+document.getElementById("getNPMatches").addEventListener("click", () => {
+  getNextAndPreviousMatches();
 });
 
 changeDisplayedAPISettings();

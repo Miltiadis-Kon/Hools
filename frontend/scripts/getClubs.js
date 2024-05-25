@@ -54,25 +54,12 @@ const getTeams = async () => {
         throw new Error("No data found");
       }
       favClubs = data.user.clubs;
-
-
       //If club is in favorites, add a red heart
       if (favClubs.includes(team.footballAPI_id)) {
         clubHome
           .querySelector("#favoriteClub")
           .querySelector("#imgHeart")
           .classList.add("active");
-
-        //Display fovourite clubs on the page
-        const headerView = document.querySelector(".avatar");
-        const ref = document.createElement("a");
-        ref.href = `team.html?club=${team.footballAPI_id}`;
-        const favIcon = document.createElement("img");
-        favIcon.src = team.logo;
-        favIcon.alt = team.name;
-        favIcon.style = "width: 30px; height: 30px; margin: 5px;";
-        ref.appendChild(favIcon);
-        headerView.insertBefore(ref, headerView.firstChild);
       }
     }
     clubHome

@@ -16,6 +16,8 @@
   <link href="styles/players.css" rel="stylesheet" />
 
   <script src="./scripts/setupClubPage.js" defer></script>
+  <script src="scripts/setCookie.js" defer></script>
+
   <!--
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -91,11 +93,12 @@
         <input placeholder="Search" type="search" class="input" search-input>
       </div>
       <div class="avatar">
-        <div id="user-clubs">
-          <img src="./images/bell.png" alt="bell" width="30px" height="30px" />
-          <img src="./images/plane-tickets.png" alt="plane-tickets" width="30px" height="30px" />
-        </div>
-        <img src="./images/user.png" alt="avatar" width="40px" height="40px" />
+        <a href="https://www.ticketmaster.gr/" target="_blank" >
+          <img src="./images/plane-tickets.png" alt="plane-tickets" width="30px" height="30px" style="margin-left: 30px;" />
+        </a>        <a  >
+          <h2 style="margin: 0px 20px;"  >Sign In!</h2>
+        </a>
+        <img src="./images/user.png" alt="avatar" width="40px" height="40px" id="avatarimg"  />
       </div>
     </div>
     <!--Main Content-->
