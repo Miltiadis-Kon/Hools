@@ -48,6 +48,7 @@ const getTeams = async () => {
       const response = await fetch(model + `/users/getuser/${userID}`);
       const data = await response.json();
       if (!response.ok) {
+        club_home_container.appendChild(clubHome);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       if (!data) {

@@ -128,3 +128,15 @@ if (isLoggedInGlobal) {
     h2.textContent = "Sign In";
     secondChild.appendChild(h2);
 }
+
+//Show user settings
+document.getElementById("avatarimg").addEventListener("click", () => {
+    const settings= document.querySelector(".user-settings");
+    if (settings.style.display === "none") {
+        settings.style.display = "flex";
+    }
+    else settings.style.display = "none";
+    settings.addEventListener("click", () => {
+        window.location.href = "/frontend/signin.html";
+    });
+});
