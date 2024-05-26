@@ -29,13 +29,10 @@ const getTeams = async () => {
     throw new Error("No data found");
   }
   //Loop through the data and display it on the page
-  let i = 0;
   data.clubs.map(async (team) => {
     if (isNaN(parseInt(team.footballAPI_id))) {
       throw new Error("Invalid data");
     } 
-    if (i > 3) return;
-    i++;
     const clubHome = club_home_template.content.cloneNode(true);
     clubHome.querySelector("[club-name]").textContent = team.name;
     var img = clubHome.querySelector("[club-image] img");
@@ -130,10 +127,10 @@ const getTeams = async () => {
 const showFavoriteClubs = async () => {
   const userID = getCookie("email");
   const response = await fetch(model + `/users/getuser/${userID}`);
-  const data = await response.json();
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
+  const data = await response.json();
   if (!data) {
     throw new Error("No data found");
   }
