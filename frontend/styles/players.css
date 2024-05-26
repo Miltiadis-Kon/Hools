@@ -150,18 +150,14 @@ body {
   text-align: center;
 }
 
-.player-container:hover  {
-  opacity: 0.3;
-  transition: .5s ease;
- 
-}
+
 
 .player-container:hover .middle {
   opacity: 1;
 }
 
 .text {
-  background-color: #04AA6D;
+  background-color: var(--secondary);
   color: white;
   font-size: 16px;
   padding: 16px 32px;
