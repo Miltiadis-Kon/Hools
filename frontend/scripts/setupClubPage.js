@@ -1,6 +1,5 @@
 
-const model = "https://localhost:5000";
-if(typeof model === 'undefined')  model = "https://hools.onrender.com";
+if(typeof model === 'undefined')  model = "http://hools.onrender.com";
 
 
 const fetchClubfromAPI = async () => {
@@ -39,19 +38,6 @@ const displayClub = async () => {
         document.querySelector(".clubs .score h1").textContent = ""+nextMatch.goals.home + " - " + nextMatch.goals.away+"     ";
         document.querySelector(".btn-reserve").style.display = "none";
     }
-    // -----HOW TO GET THE PLAYERS -------
-    //LOG MATCH INFO 
-    const response = await fetch(model+`/matches/match/${club_info.last_match.fixture.id}`);
-    const data = await response.json();
-    const match_data = data._m[0];
-
-    // GET PLAYERS and subs
-    let players = [];
-    //Home lineup contains the starting 11 players and home substitutes contains the substitutes
-     players = players.concat(match_data.home_lineup, match_data.home_substitutes);
-    console.log("PLAYERS core plus substitutes: ",players);
-    // -------------------------------------
-
   const homeTeam = document.querySelector(".upcoming-match .clubs .home");
   homeTeam.querySelector("img").src = nextMatch.teams.home.logo;
   homeTeam.querySelector("h3").innerHTML = nextMatch.teams.home.name;
@@ -175,24 +161,79 @@ const getPlayers = async () => {
 
     const result = await fetchClubfromAPI(); // get the club from the API
     const club_info = result._club[0]; // extract the club information from the result
-    console.log("GENERAL CLUB INFO",club_info);
-
     let nextMatch = club_info.last_match;
-
-    //LOG MATCH INFO 
+    if(nextMatch == null || nextMatch == undefined)
+    {
+        nextMatch = club_info.next_match;
+    }
+    //Find the correct team position
+    let team = nextMatch.teams.home.id == club_info.footballAPI_id ? "home" : "away";
+      //LOG MATCH INFO 
     const response = await fetch(model+`/matches/match/${nextMatch.fixture.id}`);
     const data = await response.json();
     const match_data = data._m[0];
-
     // GET PLAYERS and subs
     let players = [];
     //Home lineup contains the starting 11 players and home substitutes contains the substitutes
+    if(team == "home")
      players = players.concat(match_data.home_lineup, match_data.home_substitutes);
+    else
+      players = players.concat(match_data.away_lineup, match_data.away_substitutes);
+
+
+    //Match the players with the club's db players to get images and names
+    const clubPlayers = club_info.players;
+
+    console.log(clubPlayers);
+
+    players.forEach((player) => {
+      let clubPlayer = clubPlayers.find((clubPlayer) => clubPlayer.player.id == player.player.id);
+      if(clubPlayer != null)
+      {
+        console.log("Found player with id: ",player.player.name)
+        player.player.image = clubPlayer.player.photo;
+      }
+      else {
+        console.log("Cant find player with id: ",player.player.name)
+        player.player.image = "./images/player.png";
+      }
+    });
+
     console.log("PLAYERS core plus substitutes: ",players);
+
+
+    //Render the players
+    const itemList = document.querySelector(".item-list");
+    players.forEach((player) => {
+      // Create the elements
+      const playerContainer = document.createElement('div');
+      const img = document.createElement('img');
+      const middleDiv = document.createElement('div');
+      const textDiv = document.createElement('div');
+    
+      // Set the attributes and content
+      playerContainer.className = 'player-container';
+      img.src = player.player.image; // You might want to replace this with player's image
+      middleDiv.className = 'middle';
+      textDiv.className = 'text';
+      textDiv.textContent = player.player.name; // You might want to replace this with player's name
+    
+      // Append the elements to create the structure
+      middleDiv.appendChild(textDiv);
+      playerContainer.appendChild(img);
+      playerContainer.appendChild(middleDiv);
+    
+      // Append the player container to the item list
+      itemList.appendChild(playerContainer);
+    });
     // -------------------------------------
 };
 
+
+
+
 displayClub();
+getPlayers();
 
 
 document.querySelector(".btn-reserve").addEventListener("click", () => {
