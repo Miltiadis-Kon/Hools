@@ -210,17 +210,72 @@
         
       </div>
       <div class="carousel">
-        <div>
-          <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 3% 10%;  align-items: center; ">
-            <img src="./images/Flag_of_Greece.png" alt="country"
-              style="border-radius: 50%; width: 30px; height: 30px; " />
-            <h3>11 </h3>
+        <button id="prev-btn" class="prev-btn">
+          <img src="./images/left.png" alt="arrow-left"  />
+        </button>
+
+        <div id="item-list" class="item-list" >
+
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
           </div>
-          <div class="player-info">
-            <h2>Fotis Ioanidis</h2>
-            <span>Striker</span>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
           </div>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
+          </div>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
+          </div>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
+          </div>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
+          </div>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
+          </div>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
+          </div>
+          <div class="player-container">
+            <img src="./images/fotis.png">
+            <div class="middle">
+              <div class="text">Pavlos kalyvas</div>
+            </div>
+          </div>
+
         </div>
+
+        <button id="next-btn" class="next-btn">
+          <img src="./images/right.png" alt="arrow-right"  />
+        </button>
       </div>
     </div>
 
@@ -287,6 +342,24 @@
     window.location.href = "index.html";
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const prev = document.getElementById('prev-btn');
+    const next = document.getElementById('next-btn');
+    const list = document.getElementById('item-list');
 
+    const itemWidth = 190; // Corrected to match .item min-width in CSS
+    const padding = 30;    // Corrected to match .item-list gap in CSS
+
+    prev.addEventListener('click', () => {
+      list.scrollLeft -= itemWidth + padding;
+    });
+
+    next.addEventListener('click', () => {
+      list.scrollLeft += itemWidth + padding;
+    });
+  });
+
+</script>
 
 </html>
