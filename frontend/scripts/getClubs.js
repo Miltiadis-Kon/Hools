@@ -8,7 +8,6 @@ search_input.addEventListener("input", (e) => {
   const search = e.target.value.toLowerCase();
   const clubs = club_home_container.querySelectorAll("[club-name]");
   clubs.forEach((club) => {
-    console.log(club);
     const clubName = club.textContent.toLowerCase();
     if (clubName.includes(search)) {
       club.parentElement.style.display = "block";
@@ -32,7 +31,10 @@ const getTeams = async () => {
   //Loop through the data and display it on the page
   let i = 0;
   data.clubs.map(async (team) => {
-    if (i > 7) return;
+    if (isNaN(parseInt(team.footballAPI_id))) {
+      throw new Error("Invalid data");
+    } 
+    if (i > 3) return;
     i++;
     const clubHome = club_home_template.content.cloneNode(true);
     clubHome.querySelector("[club-name]").textContent = team.name;
@@ -49,6 +51,7 @@ const getTeams = async () => {
       const response = await fetch(model + `/users/getuser/${userID}`);
       const data = await response.json();
       if (!response.ok) {
+        club_home_container.appendChild(clubHome);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       if (!data) {
