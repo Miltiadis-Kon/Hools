@@ -1,5 +1,5 @@
 
-if(typeof model === 'undefined')  model = "http://hools.onrender.com";
+if(typeof model === 'undefined')  model = "https://hools.onrender.com";
 
 
 const fetchClubfromAPI = async () => {
