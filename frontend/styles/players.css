@@ -58,8 +58,8 @@ body {
   }
   
   .item-list {
-  max-width: 920px;
-  padding: 20px 10px;
+  max-width: 880px;
+  padding: 10px 10px 20px 10px;
   height: 300px;
   display: flex;
   gap: 20px;
@@ -165,4 +165,5 @@ body {
   color: white;
   font-size: 16px;
   padding: 16px 32px;
+  cursor: pointer;
 }
