@@ -96,7 +96,7 @@ const changeAvatarLayout = () => {
         document.querySelector('.avatar a h2').textContent = "Sign In";
         document.querySelector('.avatar a').style = "text-decoration: none;"
         document.querySelector('.avatar a h2').style = "color: var(--text);"
-        document.querySelector('.avatar a').href = "/frontend/signin.html";
+        document.querySelector('.avatar a').href = "/signin.html";
     }
 };
 

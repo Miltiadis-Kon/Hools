@@ -88,7 +88,7 @@ const signupUser = async (username, email, password, isAdmin) => {
     setCookie("userID", id, 7);
     setCookie("email", email, 7);
     setCookie("avatar", randomAvatarImages[Math.floor(Math.random() * randomAvatarImages.length)], 7);
-    window.location.href = "/frontend/";
+    window.location.href = "/";
   }
 }
 
