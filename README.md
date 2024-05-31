@@ -15,7 +15,7 @@ node server.js
 or 
 ```
 cd ./backend 
-node run
+npm start
 ```
 Backed is seperated into three folders
 1. Controllers
@@ -31,4 +31,8 @@ To run the front end interface execute the following
 npm install -g lite-server
 cd .\frontend
 lite-server
+```
+or 
+```
+cd ./frontend 
 ```
