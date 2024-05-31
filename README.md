@@ -1,6 +1,10 @@
 # Hools
 A Match Day tracking website developed using the MERN stack model.
 
+## NOTE
+keys for the Football-API  & the mongoDb database are obviously not added on github. In case they are needed please CONTACT US 
+mail : up1070518@ac.upatras.gr
+
 ## Backend
 To run the backend simply execute the following commands
 ```
